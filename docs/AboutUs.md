@@ -1,11 +1,8 @@
----
 layout: page
 title: About Us
 ---
 
 We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
-
-You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 ## Project team
 
@@ -15,7 +12,8 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 
 [[github](https://github.com/Raylong268)]
 
-* Role: TBC
+* Role: Team Lead
+* Responsibilities: Model
 
 ### Devon Sebastian Koswara
 
@@ -24,7 +22,7 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/spiritsk8)]
 
 * Role: Programmer
-* Responsibilities: UI
+* Responsibilities: UI, Code quality
 
 ### Darren Lee
 
@@ -33,24 +31,22 @@ You can reach us at the email `seer[at]comp.nus.edu.sg`
 [[github](http://github.com/darrenlhs)]
 
 * Role: Developer
-* Responsibilities: TBC
+* Responsibilities: Testing, Deliverables and deadlines
 
 ### Sarina Ke
 
 <img src="images/sarinake.png" width="200px">
 
 [[github](http://github.com/sarinake)]
-[[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: Dev Ops + Threading
+* Responsibilities: Storage, Integration
 
-### Yujia
+### Yujia Wang
 
-<img src="images/yujiawang-0.png" width="200px">
+<img src="images/yujiawang-0.png.jpg" width="200px">
 
 [[github](http://github.com/yujiawang-0)]
-[[portfolio](team/johndoe.md)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Documentation, Scheduling and tracking
