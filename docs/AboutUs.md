@@ -1,57 +1,52 @@
----
 layout: page
 title: About Us
 ---
 
 We are a team based in the [School of Computing, National University of Singapore](https://www.comp.nus.edu.sg).
 
-You can reach us at the email `seer[at]comp.nus.edu.sg`
-
 ## Project team
 
-### John Doe
+### Tan Jun Shane
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/raylong268.png" width="200px">
 
 [[github](https://github.com/Raylong268)]
 
-* Role: Project Advisor
-
-### Jane Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
 * Role: Team Lead
-* Responsibilities: UI
+* Responsibilities: Model
 
-### Johnny Doe
+### Devon Sebastian Koswara
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/spiritsk8.png" width="200px">
 
-[[github](http://github.com/johndoe)] [[portfolio](team/johndoe.md)]
+[[github](http://github.com/spiritsk8)]
 
-* Role: Developer
-* Responsibilities: Data
+* Role: Programmer
+* Responsibilities: UI, Code quality
 
-### Jean Doe
+### Darren Lee
 
-<img src="images/johndoe.png" width="200px">
+<img src="images/darrenlhs.png" width="200px">
 
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
-
-* Role: Developer
-* Responsibilities: Dev Ops + Threading
-
-### James Doe
-
-<img src="images/johndoe.png" width="200px">
-
-[[github](http://github.com/johndoe)]
-[[portfolio](team/johndoe.md)]
+[[github](http://github.com/darrenlhs)]
 
 * Role: Developer
-* Responsibilities: UI
+* Responsibilities: Testing, Deliverables and deadlines
+
+### Sarina Ke
+
+<img src="images/sarinake.png" width="200px">
+
+[[github](http://github.com/sarinake)]
+
+* Role: Developer
+* Responsibilities: Storage, Integration
+
+### Yujia Wang
+
+<img src="images/yujiawang-0.png.jpg" width="200px">
+
+[[github](http://github.com/yujiawang-0)]
+
+* Role: Developer
+* Responsibilities: Documentation, Scheduling and tracking
