@@ -315,7 +315,7 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1.  User requests to list persons.
-2.  InternLInk shows a list of persons.
+2.  InternLink shows a list of persons.
 3.  User requests to delete a specific person in the list.
 4.  InternLink deletes the person.
 
