@@ -289,14 +289,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | filter contacts by one or multiple tags | find contacts that fall under specific categories             |
 | `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
 | `* *`    | user                                       | star/favourite contacts I access regularly | find high-priority connections quickly                     |
-| `* *`    | student who cannot remember exact details  | search using flexible keyword matching| still find the correct contact even with without remembering fully |
+| `* *`    | student who cannot remember exact details  | search using flexible keyword matching | still find the correct contact even with without remembering fully|
+| `* *`    | student is waiting for a recruiter's reply | mark a contact for follow-up by a specific date | remember to check in                                  |
+| `* *`    | student who tends to procrastinate follow-ups | see overdue follow-up contacts | remember to check in with my contact                                |
+| `* *`    | user                                       | schedule meetings with a contact | remember to meet with my contact                                     |
+| `* *`    | user                                       | edit meeting with a contact   | keep meeting details up to date                                         |
+| `* *`    | user                                       | mark meetings as completed   | keep meeting details up to date                                          |
+| `* *`    | user                                       | delete meetings with a contact   | keep meeting details up to date                                      |
+| `* *`    | student who forgets details of conversations | add interaction notes with a timestamp   | recall what was discussed previously                       |
+| `* *`    | student                                    | delete interaction notes       | remove this interaction from the log                                   |
+| `* *`    | student                                    | edit interaction notes         | update the interaction log with correct information                    |
+| `* *`    | student preparing for a follow-up email    | review past interaction log    | reference earlier conversations accurately                           |
 | `* *`    | user                                       | delete contacts en masse       | remove irrelevant contacts quickly                                     |
 | `* *`    | user who meets people regularly            | sort based on the last met date| see how long it has been since they contacted this person              |
 | `* *`    | student managing many applications         | see a list of contacts that have not had interaction in the past X days   | maintain active communication |
-| `*`      | user with many persons in the address book | sort persons lexicographically | locate a person easily                                                 |
-| `*`      | user wants to keep track of my internship finding progress | see a timeline of my intership application | know when to follow up, and what next that I need to do |
+| `*`      | user with many persons in the address book | sort contacts lexicographically | locate a person easily                                                 |
 | `*`      | user who makes many typos                  | go to my last command quickly  | quickly edit the command                                               |
 | `*`      | user                                       | undo multiple commands         | easily reverse my actions                                              |
+| `*`      | user                                       | see the history of changes made in that session  | know what changes I made                             |
 
 *{More to be added}*
 
@@ -348,11 +358,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS
 * **Contact**: A person stored in the addressbook, typically a recruiter, company representative, or professional connection whom the student met during networking or career events.
-* **Private contact detail**: A contact detail that is not meant to be shared with others
 * **Tag**: A label assigned to a contact to categorize or organize them. Examples: ```Google```, ```SWE```, ```CareerFair2026```, ```Referral```. A contact may contain multiple tags.
 * **Multi-tagging**: The ability to assign multiple tags to a single contact so that the contact can be categorized under multiple attributes such as company, role, or networking event.
 * **Interaction Log**: A timestamped record of communication or interaction between the student and a contact. Examples include: interview, email, phone call, referral, career fair conversation
-* **Interaction Entry**: A single record inside the interaction log, containing: interaction type, timestamp, optional notes
+* **Interaction Notes**: A single record inside the interaction log, containing: interaction type, timestamp, optional notes
+* **Meeting**: An upcoming event / meeting with a contact
 
 --------------------------------------------------------------------------------------------------------------------
 
