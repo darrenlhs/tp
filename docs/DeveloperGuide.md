@@ -370,11 +370,11 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
-* 3a. Duplicate detected. User confirms.
+* 3a. Duplicate detected. User confirms editing.
 
     Use case resumes at step 4.
 
-* 3b. Duplicate detected. User cancels.
+* 3b. Duplicate detected. User cancels due to duplicate warning.
 
     Use case ends.
 
