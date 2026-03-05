@@ -281,8 +281,32 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 | `* * *`  | user                                       | add a new person               |                                                                        |
 | `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
 | `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
+| `* * *`  | user                                       | list all the people            | browse my full directory                                               |
+| `* * *`  | user                                       | edit a contact information easily | keep my records accurate                                            |
+| `* * *`  | user                                       | add a new tag to one or more people | categorise contacts in different ways                             |
+| `* * *`  | user                                       | delete a new tag to one or more people | keep tags up to date                                           |
+| `* * *`  | user                                       | edit a new tag to one or more people | keep tags up to date                                             |
+| `* * *`  | user                                       | filter contacts by one or multiple tags | find contacts that fall under specific categories             |
 | `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `*`      | user with many persons in the address book | sort persons by name           | locate a person easily                                                 |
+| `* *`    | user                                       | star/favourite contacts I access regularly | find high-priority connections quickly                     |
+| `* *`    | student who cannot remember exact details  | search using flexible keyword matching | still find the correct contact even with without remembering fully|
+| `* *`    | student is waiting for a recruiter's reply | mark a contact for follow-up by a specific date | remember to check in                                  |
+| `* *`    | student who tends to procrastinate follow-ups | see overdue follow-up contacts | remember to check in with my contact                                |
+| `* *`    | user                                       | schedule meetings with a contact | remember to meet with my contact                                     |
+| `* *`    | user                                       | edit meeting with a contact   | keep meeting details up to date                                         |
+| `* *`    | user                                       | mark meetings as completed   | keep meeting details up to date                                          |
+| `* *`    | user                                       | delete meetings with a contact   | keep meeting details up to date                                      |
+| `* *`    | student who forgets details of conversations | add interaction notes with a timestamp   | recall what was discussed previously                       |
+| `* *`    | student                                    | delete interaction notes       | remove this interaction from the log                                   |
+| `* *`    | student                                    | edit interaction notes         | update the interaction log with correct information                    |
+| `* *`    | student preparing for a follow-up email    | review past interaction log    | reference earlier conversations accurately                           |
+| `* *`    | user                                       | delete contacts en masse       | remove irrelevant contacts quickly                                     |
+| `* *`    | user who meets people regularly            | sort based on the last met date| see how long it has been since they contacted this person              |
+| `* *`    | student managing many applications         | see a list of contacts that have not had interaction in the past X days   | maintain active communication |
+| `*`      | user with many persons in the address book | sort contacts lexicographically | locate a person easily                                                 |
+| `*`      | user who makes many typos                  | go to my last command quickly  | quickly edit the command                                               |
+| `*`      | user                                       | undo multiple commands         | easily reverse my actions                                              |
+| `*`      | user                                       | see the history of changes made in that session  | know what changes I made                             |
 
 *{More to be added}*
 
@@ -535,12 +559,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
 2.  The system should return results for a search command within 1 second for an address book containing up to 1000 contacts.
 3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
+4.  Search and filtering operations (including multi-tag filtering) should complete within 1 second for up to 100 contacts.
+5.  The system should load the application within 2 seconds with 1000 contacts.
+6. Each contact should be able to support up to 20 tags.
+7. The application should automatically save changes after every successful command.
+8. The application should prevent data corruption even if the program closes unexpectedly.
+9. The application should try to recover all non-corrupted lines in the event of a data corruption.
+10. All contacts and interaction logs should be persistently stored between sessions.
 
 
 ### Glossary
 
-* **Mainstream OS**: Windows, Linux, Unix, MacOS
-* **Private contact detail**: A contact detail that is not meant to be shared with others
+* **Mainstream OS**: Windows, Linux, Unix, MacOS.
+* **Contact**: A person stored in the addressbook, typically a recruiter, company representative, or professional connection whom the student met during networking or career events.
+* **Tag**: A label assigned to a contact to categorize or organize them. Examples: ```Google```, ```SWE```, ```CareerFair2026```, ```Referral```. A contact may contain multiple tags.
+* **Multi-tagging**: The ability to assign multiple tags to a single contact so that the contact can be categorized under multiple attributes such as company, role, or networking event.
+* **Interaction Log**: A timestamped record of communication or interaction between the student and a contact. Examples include: interview, email, phone call, referral, career fair conversation.
+* **Interaction Notes**: A single record inside the interaction log, containing: interaction type, timestamp, optional notes.
+* **Meeting**: An upcoming event / meeting with a contact.
 
 --------------------------------------------------------------------------------------------------------------------
 
