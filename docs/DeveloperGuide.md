@@ -486,6 +486,26 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case ends.
 
+**Use case: UC9 - Log interaction notes with a contact**
+
+**MSS**
+
+1. User requests to log an interaction with a contact.
+2. User enters interaction notes.
+3. InternLink records the note with a timestamp.
+4. InternLink stores it in the contact’s interaction history.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. No contacts match the request.
+
+    * 1a1. InternLink displays an error message.
+
+      Use case ends.
+
+
 
 ### Non-Functional Requirements
 
