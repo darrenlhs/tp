@@ -335,6 +335,24 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
       Use case resumes at step 2.
 
+**Use case: UC3 - List contacts**
+
+**MSS**
+
+1. User requests to list contacts.
+2. InternLink retrieves all contacts from the address book.
+3. InternLink displays the contacts sorted alphabetically or by most recently added.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. Address book is empty.
+
+    * 2a1. InternLink displays an empty list message.
+
+        Use case ends.
+
 ### Non-Functional Requirements
 
 1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
