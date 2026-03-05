@@ -295,20 +295,18 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 **MSS**
 
 1. User requests to add a new contact with name, phone number, and email.
-2. InternLink checks whether the contact may already exist.
-3. InternLink shows a duplicate warning if a potential duplicate is detected.
-4. User confirms adding the contact.
-5. InternLink saves the contact.
+2. InternLink checks whether the contact already exists.
+3. InternLink saves the contact.
 
    Use case ends.
 
 **Extensions**
 
-* 2a. No duplicate is detected.
+* 2a. Duplicate detected. User confirms adding.
 
-  Use case resumes at step 5.
+  Use case resumes at step 3.
 
-* 3a. User cancels adding due to duplicate warning.
+* 2b. Duplicate detected. User cancels due to duplicate warning.
 
   Use case ends.
 
