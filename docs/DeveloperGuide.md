@@ -263,12 +263,18 @@ _{Explain here how the data archiving feature will be implemented}_
 **Target user profile**:
 
 * has a need to manage a significant number of contacts
+* need to log interactions with contacts
 * prefer desktop apps over other types
 * can type fast
 * prefers typing to mouse interactions
 * is reasonably comfortable using CLI apps
 
-**Value proposition**: manage contacts faster than a typical mouse/GUI driven app
+**Value proposition**: manage contacts and log interactions with contacts faster than a typical mouse/GUI driven app
+
+**Not in our scope**:
+* InternLink does not send emails or messages to the contacts
+* InternLink cannot automatically sync with LinkedIn or other platforms
+* Internlink cannot manage the internship application
 
 
 ### User stories
