@@ -312,16 +312,36 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 ### Use cases
 
-(For all use cases below, the **System** is the `AddressBook` and the **Actor** is the `user`, unless specified otherwise)
+(For all use cases below, the **System** is the `InternLink` and the **Actor** is the `user`, unless specified otherwise)
 
-**Use case: Delete a person**
+**Use case: UC1 - Add a contact**
 
 **MSS**
 
-1.  User requests to list persons
-2.  AddressBook shows a list of persons
-3.  User requests to delete a specific person in the list
-4.  AddressBook deletes the person
+1. User requests to add a new contact with name, phone number, and email.
+2. InternLink checks whether the contact already exists.
+3. InternLink saves the contact.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. Duplicate detected. User confirms adding.
+
+  Use case resumes at step 3.
+
+* 2b. Duplicate detected. User cancels due to duplicate warning.
+
+  Use case ends.
+
+**Use case: UC2 - Delete a contact**
+
+**MSS**
+
+1.  User requests to list persons.
+2.  InternLink shows a list of persons.
+3.  User requests to delete a specific person in the list.
+4.  InternLink deletes the person.
 
     Use case ends.
 
@@ -333,26 +353,211 @@ Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unli
 
 * 3a. The given index is invalid.
 
-    * 3a1. AddressBook shows an error message.
+    * 3a1. InternLink notifies the user of the error.
 
       Use case resumes at step 2.
 
-*{More to be added}*
+**Use case: UC3 - List contacts**
+
+**MSS**
+
+1. User requests to list contacts.
+2. InternLink retrieves all contacts from the contacts list.
+3. InternLink displays the contacts sorted alphabetically.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. Address book is empty.
+
+    * 2a1. InternLink notifies the user of the error.
+
+        Use case ends.
+
+**Use case: UC4 - Edit contact details**
+
+**MSS**
+
+1. User requests to edit a specific contact.
+2. User provides updated information (e.g. phone/email/company/role).
+3. InternLink checks if the new information is a potential duplicate of existing contact.
+4. InternLink updates the contact record.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. No contacts match the request.
+
+    * 1a1. InternLink notifies the user of the error.
+
+      Use case ends.
+
+* 3a. Duplicate detected. User confirms editing.
+
+    Use case resumes at step 4.
+
+* 3b. Duplicate detected. User cancels due to duplicate warning.
+
+    Use case ends.
+
+**Use case: UC5 - Search contacts**
+
+**MSS**
+
+1. User requests to search with keywords (name, email, tag, etc.).
+2. InternLink scans all contacts for matches.
+3. InternLink lists all matching contacts.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. No contacts match the query.
+
+    * 1a1. InternLink notifies the user of the error.
+
+      Use case ends.
+
+**Use case: UC6 - Manage tags**
+
+**MSS**
+
+1. User requests to create, edit, or delete a tag.
+2. InternLink validates the tag name.
+3. InternLink updates the tag list.
+4. InternLink updates affected contacts if necessary.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. Tag already exists when creating a new tag.
+
+    * 2a1. InternLink notifies the user of the error.
+
+        Use case ends.
+
+* 2b. Tag does not exist when editing/deleting.
+
+    * 2b1. InternLink notifies the user of the error.
+
+    Use case ends.
+
+**Use case: UC7 - Assign tags to contacts**
+
+**MSS**
+
+1. User requests to assign one or more tags to a contact or group of contacts.
+2. InternLink adds the tags to the specified contacts.
+3. InternLink updates the contacts.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. At least one of the specified contacts exist, but some do not.
+
+    * 1a1. InternLink skips the contacts that are not found.
+
+    * 1a2. InternLink notifies the user of the contacts that were not found.
+
+      Use case resumes at step 2.
+
+* 1b. None of the specified contacts exist.
+
+    * 1b1. InternLink notifies the user of the error.
+
+      Use case ends.
+
+* 1c. One or more tags do not exist.
+
+    * 1c1. InternLink creates the missing tags.
+
+      Use case resumes at step 2.
+
+**Use case: UC8 - Star contacts**
+
+**MSS**
+
+1. User requests to star (favorite) a contact.
+2. InternLink verifies if the contact exists.
+3. InternLink stars the contact.
+4. InternLink will show starred contacts at the top of the contacts list.
+
+   Use case ends.
+
+**Extensions**
+
+* 2a. The specified contact does not exist.
+
+    * 2a1. InternLink notifies the user of the error.
+
+      Use case ends.
+
+* 2b. The specified contact is already starred.
+
+    * 2a1. InternLink notifies the user that the contact is already starred.
+
+      Use case ends.
+
+**Use case: UC9 - Log interaction notes with a contact**
+
+**MSS**
+
+1. User requests to log an interaction with a contact.
+2. User enters interaction notes.
+3. InternLink records the note with a timestamp.
+4. InternLink stores it in the contact’s interaction history.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. No contacts match the request.
+
+    * 1a1. InternLink notifies the user of the error.
+
+      Use case ends.
+
+**Use case: UC10 - Undo previous commands**
+
+**MSS**
+
+1. User requests to view change history.
+2. InternLink displays a list of changes made in the current session.
+3. User selects a past change to revert to.
+4. InternLink restores the contacts list state to that point.
+
+   Use case ends.
+
+**Extensions**
+
+* 1a. No history exists. 
+
+    * 1a1. InternLink notifies the user that no previous commands have been entered.
+
+        Use case ends.
+
+* 3a. Selected history entry is invalid.
+
+    * 3a1. InternLink notifies the user of the error.
+
+        Use case resumes at step 2.
 
 ### Non-Functional Requirements
 
-1.  Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
-2.  Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
-3.  A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse.
-4.  Search and filtering operations (including multi-tag filtering) should complete within 1 second for up to 100 contacts.
-5.  The system should load the application within 2 seconds with 1000 contacts.
+1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
+2. Should be able to hold up to 1000 contacts without a noticeable sluggishness in performance for typical usage.
+3. A user with above average typing speed for regular English text (i.e. not code, not system admin commands) should be able to accomplish most of the tasks faster using commands than using the mouse. 
+4. Search and filtering operations (including multi-tag filtering) should complete within 1 second for up to 100 contacts.
+5. The system should load the application within 2 seconds with 1000 contacts.
 6. Each contact should be able to support up to 20 tags.
 7. The application should automatically save changes after every successful command.
 8. The application should prevent data corruption even if the program closes unexpectedly.
 9. The application should try to recover all non-corrupted lines in the event of a data corruption.
 10. All contacts and interaction logs should be persistently stored between sessions.
-
-*{More to be added}*
 
 ### Glossary
 
