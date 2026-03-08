@@ -126,14 +126,6 @@ public class CollectionUtilTest {
     }
 
     /**
-     * Asserts that {@code CollectionUtil#requireAnyNonNull(Object...)} throw {@code NullPointerException}
-     * if {@code objects} or all elements of {@code objects} is null.
-     */
-    private void assertRequireAnyNonNullThrows(Object... objects) {
-        assertThrows(NullPointerException.class, () -> requireAnyNonNull(objects));
-    }
-
-    /**
      * Asserts that {@code CollectionUtil#requireAllNonNull(Collection<?>)} throw {@code NullPointerException}
      * if {@code collection} or any element of {@code collection} is null.
      */
@@ -141,15 +133,23 @@ public class CollectionUtilTest {
         assertThrows(NullPointerException.class, () -> requireAllNonNull(collection));
     }
 
+    /**
+     * Asserts that {@code CollectionUtil#requireAnyNonNull(Object...)} throw {@code NullPointerException}
+     * if {@code objects} or all elements of {@code objects} is null.
+     */
+    private void assertRequireAnyNonNullThrows(Object... objects) {
+        assertThrows(NullPointerException.class, () -> requireAnyNonNull(objects));
+    }
+
     private void assertRequireAllNonNullNoThrow(Object... objects) {
         requireAllNonNull(objects);
     }
 
-    private void assertRequireAnyNonNullNoThrow(Object... objects) {
-        requireAnyNonNull(objects);
-    }
-
     private void assertRequireAllNonNullNoThrow(Collection<?> collection) {
         requireAllNonNull(collection);
+    }
+
+    private void assertRequireAnyNonNullNoThrow(Object... objects) {
+        requireAnyNonNull(objects);
     }
 }
