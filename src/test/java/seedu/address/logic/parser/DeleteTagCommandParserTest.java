@@ -30,13 +30,25 @@ public class DeleteTagCommandParserTest {
         targetIndices.add(INDEX_FIRST_PERSON);
         Person personToDeleteFrom = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Set<Tag> tags = personToDeleteFrom.getTags();
-        assertParseSuccess(parser, "1", new DeleteTagCommand(targetIndices, tags));
+        String userInput = INDEX_FIRST_PERSON.toString();
+        for (Tag tag : tags) {
+            userInput += " / " + tag;
+        }
+        assertParseSuccess(parser, userInput, new DeleteTagCommand(targetIndices, tags));
     }
 
     @Test
     public void parse_invalidArgs_throwsParseException() {
+        Person personToDeleteFrom = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
+        Set<Tag> tags = personToDeleteFrom.getTags();
+        String userInput = "";
+        for (Tag tag : tags) {
+            userInput += " / " + tag;
+        }
+
+        userInput += INDEX_FIRST_PERSON.toString();
         assertParseFailure(parser,
-                "a",
+                "deletetag ",
                 "Error: Format is invalid.\n" + DeleteTagCommand.MESSAGE_FORMAT);
     }
 }
