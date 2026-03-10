@@ -6,6 +6,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -28,13 +29,10 @@ public class DeleteTagCommandParserTest {
     public void parse_validArgs_returnsDeleteTagCommand() {
         List<Index> targetIndices = new ArrayList<>();
         targetIndices.add(INDEX_FIRST_PERSON);
-        Person personToDeleteFrom = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
-        Set<Tag> tags = personToDeleteFrom.getTags();
-        String userInput = "1 ";
-        for (Tag tag : tags) {
-            userInput += " / " + tag;
-        }
-        assertParseSuccess(parser, userInput, new DeleteTagCommand(targetIndices, tags));
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag("friend"));
+
+        assertParseSuccess(parser, "1 / friend", new DeleteTagCommand(targetIndices, tags));
     }
 
     @Test
