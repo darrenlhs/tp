@@ -111,7 +111,7 @@ public class DeleteTagCommand extends Command {
 
         Boolean result = true;
 
-        for (int i = 0; i <= targetIndices.size(); i++) {
+        for (int i = 0; i < targetIndices.size(); i++) {
             result = result && targetIndices.get(i).equals(otherDeleteTagCommand.targetIndices.get(i));
         }
         return result;
