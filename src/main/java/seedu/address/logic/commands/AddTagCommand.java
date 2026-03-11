@@ -5,6 +5,7 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG_SEPARATOR;
 import static seedu.address.model.Model.PREDICATE_SHOW_ALL_PERSONS;
 
+import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -37,22 +38,22 @@ public class AddTagCommand extends Command {
     public static final String MESSAGE_NO_TAGS = "At least one tag must be provided.";
 
     private final Index index;
-    private final Set<Tag> tagSet;
+    private final Collection<Tag> tags;
 
     /**
      * @param index of the person in the filtered person list to add tags to
-     * @param tagSet the set of tags to be added
+     * @param tags the collection of tags to be added
      */
-    public AddTagCommand(Index index, Set<Tag> tagSet) {
-        requireAllNonNull(index, tagSet);
+    public AddTagCommand(Index index, Collection<Tag> tags) {
+        requireAllNonNull(index, tags);
 
         this.index = index;
-        this.tagSet = tagSet;
+        this.tags = tags;
     }
 
     @Override
     public CommandResult execute(Model model) throws CommandException {
-        if (tagSet.isEmpty()) {
+        if (tags.isEmpty()) {
             throw new CommandException(MESSAGE_NO_TAGS);
         }
 
@@ -65,7 +66,7 @@ public class AddTagCommand extends Command {
         }
 
         Person personToEdit = lastShownList.get(index.getZeroBased());
-        Person editedPerson = createPersonWithAddedTags(personToEdit, tagSet);
+        Person editedPerson = createPersonWithAddedTags(personToEdit, tags);
 
         model.setPerson(personToEdit, editedPerson);
         model.updateFilteredPersonList(PREDICATE_SHOW_ALL_PERSONS);
@@ -74,13 +75,13 @@ public class AddTagCommand extends Command {
 
     /**
      * Creates and returns a {@code Person} with the details of {@code personToEdit}
-     * with additional tags from {@code tagSet}.
+     * with additional tags from {@code tags}.
      */
-    private static Person createPersonWithAddedTags(Person personToEdit, Set<Tag> tagSet) {
+    private static Person createPersonWithAddedTags(Person personToEdit, Collection<Tag> tags) {
         assert personToEdit != null;
 
         Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());
-        updatedTags.addAll(tagSet);
+        updatedTags.addAll(tags);
 
         return new Person(
                 personToEdit.getName(),
@@ -102,14 +103,14 @@ public class AddTagCommand extends Command {
         }
 
         AddTagCommand otherAddTagCommand = (AddTagCommand) other;
-        return index.equals(otherAddTagCommand.index) && tagSet.equals(otherAddTagCommand.tagSet);
+        return index.equals(otherAddTagCommand.index) && tags.equals(otherAddTagCommand.tags);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
                 .add("index", index)
-                .add("tags", tagSet)
+                .add("tags", tags)
                 .toString();
     }
 }
