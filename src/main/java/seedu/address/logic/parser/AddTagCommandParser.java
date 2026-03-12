@@ -44,10 +44,6 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
 
     private Set<Index> parseIndicesForAddTag(String indicesString) throws ParseException {
         String[] indices = indicesString.split(PREFIX_COMMA.toString());
-        // No indices specified
-        if (indices.length == 0) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
-        }
 
         Set<Index> indexSet = new HashSet<>();
         try {
