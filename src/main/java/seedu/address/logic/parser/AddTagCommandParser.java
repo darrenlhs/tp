@@ -28,21 +28,9 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
      */
     public AddTagCommand parse(String args) throws ParseException {
         requireNonNull(args);
-        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ADD_TAG_SEPARATOR, PREFIX_COMMA);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_ADD_TAG_SEPARATOR);
 
-        Set<Index> indices = new HashSet<>();
-
-        try {
-            // Parse preamble (contains first index)
-            indices.add(ParserUtil.parseIndex(argMultimap.getPreamble()));
-
-            // Parse items in PREFIX_COMMA (contains the other indices, if specified)
-            for (String index : argMultimap.getAllValues(PREFIX_COMMA)) {
-                indices.add(ParserUtil.parseIndex(index));
-            }
-        } catch (ParseException pe) {
-            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE), pe);
-        }
+        Set<Index> indices = parseIndicesForAddTag(argMultimap.getPreamble());
 
         Set<Tag> tags = new HashSet<>();
         parseTagsForAddTag(argMultimap.getAllValues(PREFIX_ADD_TAG_SEPARATOR)).ifPresent(tags::addAll);
@@ -52,6 +40,25 @@ public class AddTagCommandParser implements Parser<AddTagCommand> {
         }
 
         return new AddTagCommand(indices, tags);
+    }
+
+    private Set<Index> parseIndicesForAddTag(String indicesString) throws ParseException {
+        String[] indices = indicesString.split(PREFIX_COMMA.toString());
+        // No indices specified
+        if (indices.length == 0) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE));
+        }
+
+        Set<Index> indexSet = new HashSet<>();
+        try {
+            for (String index : indices) {
+                indexSet.add(ParserUtil.parseIndex(index));
+            }
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddTagCommand.MESSAGE_USAGE), pe);
+        }
+
+        return indexSet;
     }
 
     /**
