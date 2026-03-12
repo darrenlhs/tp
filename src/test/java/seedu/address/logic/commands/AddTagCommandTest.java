@@ -41,7 +41,10 @@ public class AddTagCommandTest {
 
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
+    private final static Index INDEX_FIRST_PERSON_COPY = Index.fromOneBased(1);
+
     private final static Tag NEW_TAG1 = new Tag("NewTag1");
+    private final static Tag NEW_TAG1_COPY = new Tag("NewTag1");
     private final static Tag NEW_TAG2 = new Tag("NewTag2");
     private final static Tag NEW_TAG3 = new Tag("NewTag3");
 
@@ -194,11 +197,17 @@ public class AddTagCommandTest {
         tagsToAdd.add(NEW_TAG1);
         final AddTagCommand standardCommand = new AddTagCommand(INDEX_FIRST_PERSON, tagsToAdd);
 
-        // same values -> returns true
+        // Dofferent tag instances but same values -> returns true
         Set<Tag> tagsToAddWithSameValues = new HashSet<>();
-        tagsToAddWithSameValues.add(NEW_TAG1);
+        tagsToAddWithSameValues.add(NEW_TAG1_COPY);
         AddTagCommand commandWithSameValues = new AddTagCommand(INDEX_FIRST_PERSON, tagsToAddWithSameValues);
         assertEquals(standardCommand, commandWithSameValues);
+
+        // Different index instances but same values -> returns true
+        Set<Index> indicesWithSameValues = new HashSet<>();
+        indicesWithSameValues.add(INDEX_FIRST_PERSON_COPY);
+        AddTagCommand commandWithSetOfSameValue = new AddTagCommand(indicesWithSameValues, tagsToAddWithSameValues);
+        assertEquals(standardCommand, commandWithSetOfSameValue);
 
         // same object -> returns true
         assertEquals(standardCommand, standardCommand);
