@@ -19,6 +19,7 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_PHONE_BOB;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_FRIEND;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_TAG_SEPARATOR;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMA;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_TAG;
@@ -65,14 +66,17 @@ public class AddTagCommandParserTest {
 
     @Test
     public void parse_missingParts_failure() {
+        // no index and no field specified
+        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
+
+        // only add tag separator written
+        assertParseFailure(parser, PREFIX_ADD_TAG_SEPARATOR.toString(), MESSAGE_INVALID_FORMAT);
+
         // no index specified
         assertParseFailure(parser, VALID_TAG_DESC_ONE, MESSAGE_INVALID_FORMAT);
 
         // no tags specified
         assertParseFailure(parser, "1", AddTagCommand.MESSAGE_NO_TAGS);
-
-        // no index and no field specified
-        assertParseFailure(parser, "", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
@@ -117,85 +121,33 @@ public class AddTagCommandParserTest {
     }
 
     @Test
-    public void parse_someFieldsSpecified_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + EMAIL_DESC_AMY;
+    public void parse_oneIndexMultipleTags_success() {
+        Index targetIndex = INDEX_SECOND_PERSON;
 
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_BOB)
-                .withEmail(VALID_EMAIL_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag(VALID_TAG_ONE));
+        tags.add(new Tag(VALID_TAG_TWO));
+        AddTagCommand expectedCommand = new AddTagCommand(targetIndex, tags);
 
+        String userInput = targetIndex.getOneBased() + VALID_TAG_DESC_ONE + VALID_TAG_DESC_TWO;
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
     @Test
-    public void parse_oneFieldSpecified_success() {
-        // name
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + NAME_DESC_AMY;
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withName(VALID_NAME_AMY).build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+    public void parse_multipleIndicesMultipleTags_success() {
+        Set<Index> indices = new HashSet<>();
+        indices.add(INDEX_FIRST_PERSON);
+        indices.add(INDEX_SECOND_PERSON);
 
-        // phone
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withPhone(VALID_PHONE_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag(VALID_TAG_ONE));
+        tags.add(new Tag(VALID_TAG_TWO));
+        AddTagCommand expectedCommand = new AddTagCommand(indices, tags);
 
-        // email
-        userInput = targetIndex.getOneBased() + EMAIL_DESC_AMY;
-        descriptor = new EditPersonDescriptorBuilder().withEmail(VALID_EMAIL_AMY).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-
-        // tags
-        userInput = targetIndex.getOneBased() + TAG_DESC_FRIEND;
-        descriptor = new EditPersonDescriptorBuilder().withTags(VALID_TAG_FRIEND).build();
-        expectedCommand = new EditCommand(targetIndex, descriptor);
-        assertParseSuccess(parser, userInput, expectedCommand);
-    }
-
-    @Test
-    public void parse_multipleRepeatedFields_failure() {
-        // More extensive testing of duplicate parameter detections is done in
-        // AddCommandParserTest#parse_repeatedNonTagValue_failure()
-
-        // valid followed by invalid
-        Index targetIndex = INDEX_FIRST_PERSON;
-        String userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + PHONE_DESC_BOB;
-
-        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
-
-        // invalid followed by valid
-        userInput = targetIndex.getOneBased() + PHONE_DESC_BOB + INVALID_PHONE_DESC;
-
-        assertParseFailure(parser, userInput, Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE));
-
-        // mulltiple valid fields repeated
-        userInput = targetIndex.getOneBased() + PHONE_DESC_AMY + EMAIL_DESC_AMY
-                + TAG_DESC_FRIEND + PHONE_DESC_AMY + EMAIL_DESC_AMY + TAG_DESC_FRIEND
-                + PHONE_DESC_BOB + EMAIL_DESC_BOB + TAG_DESC_HUSBAND;
-
-        assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL));
-
-        // multiple invalid values
-        userInput = targetIndex.getOneBased() + INVALID_PHONE_DESC + INVALID_EMAIL_DESC
-                + INVALID_PHONE_DESC + INVALID_EMAIL_DESC;
-
-        assertParseFailure(parser, userInput,
-                Messages.getErrorMessageForDuplicatePrefixes(PREFIX_PHONE, PREFIX_EMAIL));
-    }
-
-    @Test
-    public void parse_resetTags_success() {
-        Index targetIndex = INDEX_THIRD_PERSON;
-        String userInput = targetIndex.getOneBased() + EMPTY_TAG;
-
-        EditPersonDescriptor descriptor = new EditPersonDescriptorBuilder().withTags().build();
-        EditCommand expectedCommand = new EditCommand(targetIndex, descriptor);
-
+        String userInput =
+                INDEX_FIRST_PERSON.getOneBased() + PREFIX_COMMA.toString() + INDEX_SECOND_PERSON.getOneBased()
+                + VALID_TAG_DESC_ONE + VALID_TAG_DESC_TWO;
+        System.out.println(userInput);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 }
