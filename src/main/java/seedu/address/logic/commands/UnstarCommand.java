@@ -27,7 +27,7 @@ public class UnstarCommand extends Command {
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_STAR_PERSON_SUCCESS = "Unstarred Person: %1$s";
+    public static final String MESSAGE_UNSTAR_PERSON_SUCCESS = "Unstarred Person: %1$s";
 
     private final Index targetIndex;
 
@@ -57,7 +57,7 @@ public class UnstarCommand extends Command {
 
         model.setPerson(personToUnstar, unstarredPerson);
 
-        return new CommandResult(String.format(MESSAGE_STAR_PERSON_SUCCESS, Messages.format(unstarredPerson)));
+        return new CommandResult(String.format(MESSAGE_UNSTAR_PERSON_SUCCESS, Messages.format(unstarredPerson)));
 
     }
 
