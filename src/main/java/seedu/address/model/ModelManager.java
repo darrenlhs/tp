@@ -7,14 +7,11 @@ import java.nio.file.Path;
 import java.util.function.Predicate;
 import java.util.logging.Logger;
 
-import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.collections.transformation.FilteredList;
-import javafx.collections.transformation.SortedList;
 import seedu.address.commons.core.GuiSettings;
 import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.person.Person;
-import seedu.address.model.person.PersonComparator;
 
 /**
  * Represents the in-memory model of the address book data.
@@ -26,8 +23,6 @@ public class ModelManager implements Model {
     private final UserPrefs userPrefs;
     private final FilteredList<Person> filteredPersons;
 
-    // sortedPersons is filteredPersons but starred persons are placed at the front of the list
-    private final SortedList<Person> sortedPersons;
 
     /**
      * Initializes a ModelManager with the given addressBook and userPrefs.
@@ -40,8 +35,6 @@ public class ModelManager implements Model {
         this.addressBook = new AddressBook(addressBook);
         this.userPrefs = new UserPrefs(userPrefs);
         filteredPersons = new FilteredList<>(this.addressBook.getPersonList());
-        sortedPersons = new SortedList<>(filteredPersons);
-        sortedPersons.setComparator(PersonComparator.STAR_FIRST_ALPHABETICAL);
     }
 
     public ModelManager() {
@@ -127,7 +120,7 @@ public class ModelManager implements Model {
      */
     @Override
     public ObservableList<Person> getFilteredPersonList() {
-        return sortedPersons;
+        return filteredPersons;
     }
 
     @Override
