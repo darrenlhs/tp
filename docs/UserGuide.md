@@ -137,7 +137,7 @@ Format: `star INDEX`
 * Stars the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* This command is functionally the same as `addtag INDEX, [INDICES..] / STAR`,
+* This command is functionally the same as `addtag INDEX, [INDICES...] / STAR`,
     where addtag can star more people simultaneously
 
 Examples:
@@ -153,7 +153,7 @@ Format: `unstar INDEX`
 * Unstars the person at the specified `INDEX`.
 * The index refers to the index number shown in the displayed person list.
 * The index **must be a positive integer** 1, 2, 3, …​
-* This command is functionally the same as `deletetag INDEX, [INDICES..] / STAR`,
+* This command is functionally the same as `deletetag INDEX, [INDICES...] / STAR`,
     where deletetag can unstar more people simultaneously
 
 Examples:
