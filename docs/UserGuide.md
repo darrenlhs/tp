@@ -145,11 +145,12 @@ Examples:
 ### Deleting a tag/multiple tags from a person/multiple people
 Deletes one or more tags from one or more people in the address book
 
-Format: `deletetag INDEX, ... / TAG [/ TAG]`
+Format: `deletetag INDEX, [INDICES...] / TAG [/ TAG]`
 
 * Deletes the specified `TAG`(s) from the specified `INDEX`(s).
 * The indices refers to the index numbers shown in the displayed person list (1-indexed).
 * The indices **must all be positive integers** (1, 2, 3, ...), and be referring to a valid index in the address book.
+* All indices must be separated from each other by a comma.
 * At least one of the `TAG`s must be already tagged on one of the specified contacts, otherwise the command will fail. 
 
 Examples:
