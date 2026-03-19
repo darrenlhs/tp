@@ -28,7 +28,8 @@ AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized fo
 
    * `list` : Lists all contacts.
 
-   * `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named `John Doe` to the Address Book.
+   * `add n/John Doe p/98765432 e/johnd@example.com` : Adds a contact named John Doe to the Address Book, 
+      with phone number `98765432` and email `johnd@example.com`.
 
    * `delete 3` : Deletes the 3rd contact shown in the current list.
 
