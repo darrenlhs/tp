@@ -35,14 +35,14 @@ public class AddMeetingCommand extends Command {
 
     private final List<Index> indices;
     private final String description;
-    private final String date;
+    private final LocalDate date;
 
     /**
      * @param indices Indexes of persons to add the meeting to
      * @param description Description of the meeting
      * @param date Date of the meeting (YYYY-MM-DD)
      */
-    public AddMeetingCommand(Set<Index> indices, String description, String date) {
+    public AddMeetingCommand(Set<Index> indices, String description, LocalDate date) {
         requireNonNull(indices);
         requireNonNull(description);
         requireNonNull(date);
@@ -71,16 +71,8 @@ public class AddMeetingCommand extends Command {
 
             Person personToEdit = lastShownList.get(index.getZeroBased());
 
-            // Parse the date string to LocalDate
-            LocalDate meetingDate;
-            try {
-                meetingDate = LocalDate.parse(date);
-            } catch (Exception e) {
-                throw new CommandException(MESSAGE_INVALID_DATE_FORMAT);
-            }
-
             // Create the meeting
-            Meeting meeting = new Meeting(description, meetingDate);
+            Meeting meeting = new Meeting(description, date);
 
             // Add meeting to person
             Person updatedPerson = personToEdit;
