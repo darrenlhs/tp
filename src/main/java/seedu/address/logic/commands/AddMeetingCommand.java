@@ -5,7 +5,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMA;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Set;
 

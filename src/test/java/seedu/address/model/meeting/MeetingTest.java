@@ -3,11 +3,11 @@ package seedu.address.model.meeting;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
 import static seedu.address.logic.commands.CommandTestUtil.INVALID_DESCRIPTION;
-import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_PROJECT;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TEAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_20260325;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_DATE_20260401;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_PROJECT;
+import static seedu.address.logic.commands.CommandTestUtil.VALID_DESCRIPTION_TEAM;
+import static seedu.address.testutil.Assert.assertThrows;
 
 import java.time.LocalDate;
 
