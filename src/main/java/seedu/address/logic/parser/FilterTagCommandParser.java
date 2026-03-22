@@ -24,8 +24,13 @@ public class FilterTagCommandParser implements Parser<FilterTagCommand> {
 
         // args = "/ cs / backend"
 
-        // tagStrings = [ " cs ", " backend" ]
+        // tagStrings = [ "", " cs ", " backend" ]
         String[] tagArr = args.split("/");
+
+        if (!tagArr[0].trim().isEmpty()) {
+            // invalid format as there should be nothing before the first slash
+            throw new ParseException("Error: Format is invalid.\n" + FilterTagCommand.MESSAGE_FORMAT);
+        }
 
         try {
             // parse tags

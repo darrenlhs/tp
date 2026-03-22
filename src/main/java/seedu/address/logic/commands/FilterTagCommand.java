@@ -2,9 +2,7 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
-import java.util.Collections;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
@@ -33,7 +31,9 @@ public class FilterTagCommand extends Command {
                     + " / friends";
 
     public static final String MESSAGE_FILTER_TAG_SUCCESS = "Filtered contact list by tags: %1$s";
-    public static final String MESSAGE_NO_TAGS = "At least one tag must be provided.";
+    public static final String MESSAGE_NO_TAGS = "Error: At least one tag must be provided." + "\n" + MESSAGE_FORMAT;
+    public static final String MESSAGE_NO_VALID_TAG =
+            "Error: None of the tags given belong to any contact in the list.";
 
     private final Set<Tag> tags;
 
@@ -53,26 +53,10 @@ public class FilterTagCommand extends Command {
         }
 
         requireNonNull(model);
-        List<Person> lastShownList = model.getFilteredPersonList();
 
         String tagList = tags.stream()
                 .map(tag -> tag.tagName)
                 .collect(Collectors.joining(", "));
-
-        Boolean hasAtLeastOneValidTag = false;
-
-        for (Person person : lastShownList) {
-            // checks whether at least one of given tags exist for at least one contact in the list
-            if (!Collections.disjoint(person.getTags(), tags)) {
-                hasAtLeastOneValidTag = true;
-            }
-        }
-
-        if (!hasAtLeastOneValidTag) {
-            throw new CommandException(
-                    "Error: None of the specified tags exist in any of the contacts in the current list.");
-        }
-
 
         Predicate<Person> hasAnyTag = person -> {
             for (Tag tag : tags) {
@@ -83,15 +67,15 @@ public class FilterTagCommand extends Command {
             return false;
         };
 
-        model.updateFilteredPersonList(hasAnyTag);
-
         boolean doesAnyTagMatch = model.getFilteredPersonList()
                 .stream()
                 .anyMatch(hasAnyTag);
 
         if (!doesAnyTagMatch) {
-            throw new CommandException("Error: None of the tags given belong to any contact in the list.");
+            throw new CommandException(MESSAGE_NO_VALID_TAG);
         }
+
+        model.updateFilteredPersonList(hasAnyTag);
 
         return new CommandResult(String.format(MESSAGE_FILTER_TAG_SUCCESS, tagList));
     }
