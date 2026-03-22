@@ -7,26 +7,14 @@ import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.Arrays;
-import java.util.HashSet;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddTagCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.StarCommand;
-import seedu.address.logic.commands.UnstarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -116,6 +104,34 @@ public class AddressBookParserTest {
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("NewTag"));
         AddTagCommand expectedCommand = new AddTagCommand(INDEX_FIRST_PERSON, tags);
+
+        assertEquals(expectedCommand, command);
+    }
+
+    @Test
+    public void parseCommand_deleteTag() throws Exception {
+        DeleteTagCommand command = (DeleteTagCommand) parser.parseCommand(DeleteTagCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " /NewTag");
+
+        Set<Tag> tags = new HashSet<>();
+        List<Index> targetIndices = new ArrayList<>();
+        targetIndices.add(INDEX_FIRST_PERSON);
+        tags.add(new Tag("NewTag"));
+        DeleteTagCommand expectedCommand = new DeleteTagCommand(targetIndices, tags);
+
+        assertEquals(expectedCommand, command);
+    }
+
+    @Test
+    public void parseCommand_editTag() throws Exception {
+        EditTagCommand command = (EditTagCommand) parser.parseCommand(EditTagCommand.COMMAND_WORD + " "
+                + INDEX_FIRST_PERSON.getOneBased() + " o/OldTag" + " n/NewTag");
+
+        List<Index> targetIndices = new ArrayList<>();
+        targetIndices.add(INDEX_FIRST_PERSON);
+        Tag old_tag = new Tag("OldTag");
+        Tag new_tag = new Tag("NewTag");
+        EditTagCommand expectedCommand = new EditTagCommand(targetIndices, old_tag, new_tag);
 
         assertEquals(expectedCommand, command);
     }

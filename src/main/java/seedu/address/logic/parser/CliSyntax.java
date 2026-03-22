@@ -12,5 +12,7 @@ public class CliSyntax {
     public static final Prefix PREFIX_TAG = new Prefix("t/");
     public static final Prefix PREFIX_ADD_TAG_SEPARATOR = new Prefix("/");
     public static final Prefix PREFIX_COMMA = new Prefix(",");
+    public static final Prefix PREFIX_OLDTAG = new Prefix("o/");
+    public static final Prefix PREFIX_NEWTAG = new Prefix("n/");
 
 }
