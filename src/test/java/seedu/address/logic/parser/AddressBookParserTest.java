@@ -23,21 +23,8 @@ import java.util.stream.Collectors;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.AddCommand;
-import seedu.address.logic.commands.AddMeetingCommand;
-import seedu.address.logic.commands.AddTagCommand;
-import seedu.address.logic.commands.ClearCommand;
-import seedu.address.logic.commands.DeleteCommand;
-import seedu.address.logic.commands.DeleteTagCommand;
-import seedu.address.logic.commands.EditCommand;
+import seedu.address.logic.commands.*;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
-import seedu.address.logic.commands.EditTagCommand;
-import seedu.address.logic.commands.ExitCommand;
-import seedu.address.logic.commands.FindCommand;
-import seedu.address.logic.commands.HelpCommand;
-import seedu.address.logic.commands.ListCommand;
-import seedu.address.logic.commands.StarCommand;
-import seedu.address.logic.commands.UnstarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
 import seedu.address.model.person.NameContainsKeywordsPredicate;
 import seedu.address.model.person.Person;
@@ -166,6 +153,18 @@ public class AddressBookParserTest {
         Tag old_tag = new Tag("OldTag");
         Tag new_tag = new Tag("NewTag");
         EditTagCommand expectedCommand = new EditTagCommand(targetIndices, old_tag, new_tag);
+
+        assertEquals(expectedCommand, command);
+    }
+
+    @Test
+    public void parseCommand_filterTag() throws Exception {
+        FilterTagCommand command = (FilterTagCommand) parser.parseCommand(FilterTagCommand.COMMAND_WORD
+                + " / NewTag");
+
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag("NewTag"));
+        FilterTagCommand expectedCommand = new FilterTagCommand(tags);
 
         assertEquals(expectedCommand, command);
     }
