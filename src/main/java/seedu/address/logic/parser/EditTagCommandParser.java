@@ -58,7 +58,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
      * {@code ArgumentMultimap}.
      */
     private static boolean isPrefixPresent(ArgumentMultimap argumentMultimap, Prefix prefix) {
-        return argumentMultimap.getValue(prefix).isEmpty();
+        return !argumentMultimap.getValue(prefix).isEmpty();
     }
 
 }

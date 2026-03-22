@@ -26,7 +26,7 @@ public class EditTagCommand extends Command {
             + "identified by the index number(s) used in the displayed person list, or globally.\n";
 
     public static final String MESSAGE_FORMAT =
-            "(Format: edittag [INDICES or 'all'] o/ OLDTAG n/ NEWTAG] ...)\n"
+            "(Format: edittag [INDICES or 'all'] o/ OLDTAG n/ NEWTAG)\n"
                     + "Example: "
                     + COMMAND_WORD
                     + " 1, 2, 3"
