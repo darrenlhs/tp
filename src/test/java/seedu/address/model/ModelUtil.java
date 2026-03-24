@@ -14,7 +14,7 @@ public class ModelUtil {
 
     /**
      * Compares two models to see if they are similar in persons,
-     * ignoring the ID that is randomly generated
+     * ignoring the IDs (which are normally randomly generated)
      */
     public static void assertModelPersonsEqual(Model expected, Model actual) {
         List<Person> expectedList = expected.getAddressBook().getPersonList();

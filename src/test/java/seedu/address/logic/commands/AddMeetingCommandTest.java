@@ -3,7 +3,7 @@ package seedu.address.logic.commands;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandFailure;
 import static seedu.address.logic.commands.CommandTestUtil.assertCommandSuccess;
-import static seedu.address.logic.commands.MeetingUtil.addMeetingToPerson;
+import static seedu.address.logic.commands.MeetingUtil.createPersonWithMeetingAdded;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
@@ -13,7 +13,9 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
+import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -21,6 +23,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 
 public class AddMeetingCommandTest {
@@ -47,8 +50,14 @@ public class AddMeetingCommandTest {
         // Original target person
         Person targetPerson = model.getFilteredPersonList().get(indices.iterator().next().getZeroBased());
 
+        // Collect participant IDs for the meeting
+        List<UUID> participantIds = List.of(targetPerson.getId());
+
+        // Meeting with validated IDs
+        Meeting meeting = new Meeting(VALID_DESCRIPTION_PROJECT, VALID_DATE_20260325);
+
         // Create edited person with the meeting added
-        Person editedPerson = addMeetingToPerson(targetPerson, VALID_DESCRIPTION_PROJECT, VALID_DATE_20260325);
+        Person editedPerson = createPersonWithMeetingAdded(targetPerson, meeting);
 
         String expectedMessage = String.format(AddMeetingCommand.MESSAGE_ADD_MEETING_SUCCESS,
                 targetPerson.getName().fullName);
@@ -62,24 +71,32 @@ public class AddMeetingCommandTest {
 
     @Test
     public void execute_multipleIndices_success() throws Exception {
-        // Command for multiple indices
         AddMeetingCommand command = new AddMeetingCommand(VALID_INDICES_MULTIPLE,
                 VALID_DESCRIPTION_TEAM, VALID_DATE_20260401);
 
-        // Build expected message with the names of the people
+        // Collect participant IDs from all target persons
+        List<UUID> participantIds = List.of(
+                ALICE.getId(),
+                BENSON.getId(),
+                CARL.getId()
+        );
+
+        // Meeting with validated IDs
+        Meeting meeting = new Meeting(VALID_DESCRIPTION_TEAM, VALID_DATE_20260401);
+
+        // Build expected model by adding the meeting to each person
+        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
+        expectedModel.setPerson(ALICE, createPersonWithMeetingAdded(ALICE, meeting));
+        expectedModel.setPerson(BENSON, createPersonWithMeetingAdded(BENSON, meeting));
+        expectedModel.setPerson(CARL, createPersonWithMeetingAdded(CARL, meeting));
+
+        // Expected message with names
         String expectedMessage = String.format(AddMeetingCommand.MESSAGE_ADD_MEETING_SUCCESS,
                 String.join(", ",
                         ALICE.getName().fullName,
                         BENSON.getName().fullName,
                         CARL.getName().fullName));
 
-        // Build expected model by creating edited copies with the meeting added
-        Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
-        expectedModel.setPerson(ALICE, addMeetingToPerson(ALICE, VALID_DESCRIPTION_TEAM, VALID_DATE_20260401));
-        expectedModel.setPerson(BENSON, addMeetingToPerson(BENSON, VALID_DESCRIPTION_TEAM, VALID_DATE_20260401));
-        expectedModel.setPerson(CARL, addMeetingToPerson(CARL, VALID_DESCRIPTION_TEAM, VALID_DATE_20260401));
-
-        // Assert that the command behaves correctly
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
     }
 

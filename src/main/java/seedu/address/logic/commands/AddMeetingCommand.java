@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.MeetingUtil.createPersonWithMeetingAdded;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMA;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -76,7 +76,7 @@ public class AddMeetingCommand extends Command {
             }
 
             Person personToEdit = lastShownList.get(index.getZeroBased());
-            Person updatedPerson = addMeetingToPerson(personToEdit, meeting);
+            Person updatedPerson = createPersonWithMeetingAdded(personToEdit, meeting);
 
             // Update model
             model.setPerson(personToEdit, updatedPerson);
@@ -85,29 +85,6 @@ public class AddMeetingCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, String.join(", ", updatedPersonNames)));
-    }
-
-    /**
-     * Creates and returns a {@code Person} with the meeting {@code meeting}
-     */
-    private static Person addMeetingToPerson(Person person, Meeting meeting) {
-        assert person != null && meeting != null;
-
-        // Copy existing meetings
-        Set<Meeting> updatedMeetings = new HashSet<>(person.getMeetings());
-
-        // Add the new meeting
-        updatedMeetings.add(meeting);
-
-        // Return a new Person with updated meetings
-        return new Person(
-                person.getId(),
-                person.getName(),
-                person.getPhone(),
-                person.getEmail(),
-                person.getTags(),
-                updatedMeetings
-        );
     }
 
     @Override
