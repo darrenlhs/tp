@@ -13,6 +13,13 @@ public class PersonMatchesKeywordsPredicate implements Predicate<Person> {
     private final List<String> phoneKeywords;
     private final List<String> emailKeywords;
 
+    /**
+     * Constructor for PersonMatchesKeywordsPredicate class
+     * @param globalKeywords
+     * @param nameKeywords substring to match for Person names
+     * @param phoneKeywords substring to match for Person phone numbers
+     * @param emailKeywords substring to match for Person emails
+     */
     public PersonMatchesKeywordsPredicate(List<String> globalKeywords,
             List<String> nameKeywords,
             List<String> phoneKeywords,

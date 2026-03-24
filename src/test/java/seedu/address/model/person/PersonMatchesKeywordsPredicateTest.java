@@ -66,7 +66,7 @@ public class PersonMatchesKeywordsPredicateTest {
     }
 
     @Test
-    public void test_globalKeywords_matchesAnyField_returnsTrue() {
+    public void test_globalKeywordsMatchesAnyField_returnsTrue() {
         PersonMatchesKeywordsPredicate predicate =
                 new PersonMatchesKeywordsPredicate(
                         List.of("alice"), // global
