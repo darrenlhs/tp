@@ -31,7 +31,7 @@ public class FilterTagCommand extends Command {
                     + " / friends";
 
     public static final String MESSAGE_FILTER_TAG_SUCCESS = "Filtered contact list by tags: %1$s";
-    public static final String MESSAGE_NO_TAGS = "Error: At least one tag must be provided." + "\n" + MESSAGE_FORMAT;
+    public static final String MESSAGE_NO_TAGS = "At least one tag must be provided." + "\n" + MESSAGE_FORMAT;
     public static final String MESSAGE_NO_VALID_TAG =
             "Error: None of the tags given belong to any contact in the list.";
 
@@ -95,12 +95,8 @@ public class FilterTagCommand extends Command {
 
         Boolean isEqual = true;
 
-        for (int i = 0; i < tags.size(); i++) {
-            if (!isEqual) {
-                break;
-            }
-            isEqual = isEqual && tags.equals(otherFilterTagCommand.tags);
-        }
+        isEqual = isEqual && tags.equals(otherFilterTagCommand.tags);
+
         return isEqual;
     }
 

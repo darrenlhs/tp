@@ -19,7 +19,7 @@ public class FilterTagCommandParserTest {
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("friend"));
 
-        assertParseSuccess(parser, "/ friend", new FilterTagCommand(tags));
+        assertParseSuccess(parser, " / friend", new FilterTagCommand(tags));
     }
 
     @Test
@@ -27,5 +27,19 @@ public class FilterTagCommandParserTest {
         assertParseFailure(parser,
                 "1, 2, 3 / test",
                 "Error: Format is invalid.\n" + FilterTagCommand.MESSAGE_FORMAT);
+    }
+
+    @Test
+    public void parse_invalidArgsSlash_throwsParseException() {
+        assertParseFailure(parser,
+                "/",
+                FilterTagCommand.MESSAGE_NO_TAGS);
+    }
+
+    @Test
+    public void parse_invalidArgsNoSlash_throwsParseException() {
+        assertParseFailure(parser,
+                "friend",
+                FilterTagCommand.MESSAGE_NO_TAGS);
     }
 }

@@ -149,7 +149,7 @@ public class AddressBookParserTest {
                 + INDEX_FIRST_PERSON.getOneBased() + " /NewTag");
 
         Set<Tag> tags = new HashSet<>();
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         tags.add(new Tag("NewTag"));
         DeleteTagCommand expectedCommand = new DeleteTagCommand(targetIndices, tags);

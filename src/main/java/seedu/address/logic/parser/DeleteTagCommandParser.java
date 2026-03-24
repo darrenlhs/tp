@@ -1,7 +1,12 @@
 package seedu.address.logic.parser;
 
-import java.util.ArrayList;
-import java.util.List;
+import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_SEPARATOR;
+
+import java.util.Collection;
+import java.util.Collections;
+import java.util.HashSet;
+import java.util.Optional;
 import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
@@ -20,46 +25,34 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
      * @throws ParseException if the user input does not conform the expected format
      */
     public DeleteTagCommand parse(String args) throws ParseException {
-        // the following explanatory comments use an example command: "deletetag 1, 2, 3 / cs / backend"
+        requireNonNull(args);
+        ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SEPARATOR);
 
-        // args = "1, 2, 3 / cs / backend"
+        Set<Index> indices = ParserUtil.parseIndices(argMultimap.getPreamble(), DeleteTagCommand.MESSAGE_USAGE);
 
-        // indicesAndTags = args.split(' / ') = [ "1, 2, 3", "cs", "backend" ]
-        String[] indicesAndTags = args.split("/");
+        Set<Tag> tags = new HashSet<>();
+        parseTagsForDeleteTag(argMultimap.getAllValues(PREFIX_SEPARATOR)).ifPresent(tags::addAll);
 
-        // indicesStrings = indicesAndTags[0].split(',') = [ "1", " 2", " 3" ]
-        String[] indicesStrings = indicesAndTags[0].split(",");
-
-        if (indicesAndTags.length < 2) {
-            // this means that either indices or tags are fully missing
-            throw new ParseException("Error: Missing one or more required fields. \n"
-                    + "Format: deletetag INDEX, ... / TAG [/ TAG]");
+        if (tags.isEmpty()) {
+            throw new ParseException(DeleteTagCommand.MESSAGE_NO_TAGS);
         }
 
-        try {
-            // parse indices
-            List<Index> indices = new ArrayList<>();
-
-            for (String indexStr : indicesStrings) {
-                if (indexStr.trim().isEmpty()) {
-                    continue;
-                }
-                indices.add(ParserUtil.parseIndex(indexStr)); // trimming is handled inside parseIndex
-            }
-
-            // parse tags
-            List<String> tagStrings = new ArrayList<>();
-            for (int i = 1; i < indicesAndTags.length; i++) {
-                // each element from indicesAndTags[1] onwards represents an individual tag string
-                tagStrings.add(indicesAndTags[i].trim());
-            }
-
-            Set<Tag> tags = ParserUtil.parseTags(tagStrings);
-
-            return new DeleteTagCommand(indices, tags);
-
-        } catch (ParseException pe) {
-            throw new ParseException("Error: Format is invalid.\n" + DeleteTagCommand.MESSAGE_FORMAT, pe);
-        }
+        return new DeleteTagCommand(indices, tags);
     }
+
+/**
+ * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+ * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+ * {@code Set<Tag>} containing zero tags.
+ * This code is recycled from AddTagCommandParser and renamed to fit the context of DeleteTagCommandParser.
+ */
+private Optional<Set<Tag>> parseTagsForDeleteTag(Collection<String> tags) throws ParseException {
+    assert tags != null;
+
+    if (tags.isEmpty()) {
+        return Optional.empty();
+    }
+    Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+    return Optional.of(ParserUtil.parseTags(tagSet));
+}
 }
