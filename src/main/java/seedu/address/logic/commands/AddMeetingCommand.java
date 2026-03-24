@@ -73,8 +73,8 @@ public class AddMeetingCommand extends Command {
                 throw new CommandException(MESSAGE_INVALID_PERSON_INDEX);
             }
 
-            Person person = lastShownList.get(index.getZeroBased());
-            participantIds.add(person.getId());
+            Person personToAdd = lastShownList.get(index.getZeroBased());
+            participantIds.add(personToAdd.getId());
         }
 
         Meeting meeting = new Meeting(description, date, participantIds);
