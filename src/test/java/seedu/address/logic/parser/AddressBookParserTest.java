@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.AddMeetingCommandParserTest.INPUT_INDEX
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -162,7 +161,7 @@ public class AddressBookParserTest {
         EditTagCommand command = (EditTagCommand) parser.parseCommand(EditTagCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " o/OldTag" + " n/NewTag");
 
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         Tag oldTag = new Tag("OldTag");
         Tag newTag = new Tag("NewTag");

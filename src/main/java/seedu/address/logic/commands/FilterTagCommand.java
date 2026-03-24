@@ -93,19 +93,13 @@ public class FilterTagCommand extends Command {
 
         FilterTagCommand otherFilterTagCommand = (FilterTagCommand) other;
 
-        Boolean isEqual = true;
-
-        isEqual = isEqual && tags.equals(otherFilterTagCommand.tags);
-
-        return isEqual;
+        return tags.equals(otherFilterTagCommand.tags);
     }
 
     @Override
     public String toString() {
-        ToStringBuilder stringBuilder = new ToStringBuilder(this);
-
-        stringBuilder.add("tags", tags);
-
-        return stringBuilder.toString();
+        return new ToStringBuilder(this)
+                .add("tags", tags)
+                .toString();
     }
 }

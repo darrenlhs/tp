@@ -10,7 +10,6 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -32,7 +31,7 @@ public class EditTagCommandTest {
     public void execute_oldTagInvalid_failure() {
         Tag oldTag = new Tag("lllllllllllllllllll");
         Tag newTag = new Tag("test");
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         EditTagCommand editTagCommand = new EditTagCommand(targetIndices, oldTag, newTag);
 
@@ -41,7 +40,7 @@ public class EditTagCommandTest {
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         Index outOfBoundIndex = fromOneBased(model.getFilteredPersonList().size() + 1);
         targetIndices.add(outOfBoundIndex);
         Tag oldTag = new Tag("hi");
@@ -54,7 +53,7 @@ public class EditTagCommandTest {
 
     @Test
     public void execute_validParamsGlobal_success() {
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         List<Person> lastShownList = model.getFilteredPersonList();
         for (int i = 0; i < lastShownList.size(); i++) {
             targetIndices.add(fromOneBased(i + 1));
@@ -96,7 +95,7 @@ public class EditTagCommandTest {
 
     @Test
     public void execute_validParamsIndices_success() {
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(fromOneBased(1));
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Set<Tag> initialTags = new HashSet<>(personToEdit.getTags());
@@ -135,8 +134,8 @@ public class EditTagCommandTest {
 
     @Test
     public void equals() {
-        List<Index> targetIndices1 = new ArrayList<>();
-        List<Index> targetIndices2 = new ArrayList<>();
+        Set<Index> targetIndices1 = new HashSet<>();
+        Set<Index> targetIndices2 = new HashSet<>();
         Tag oldTag = new Tag("hi");
         Tag newTag = new Tag("by");
         targetIndices1.add(INDEX_FIRST_PERSON);
@@ -164,12 +163,16 @@ public class EditTagCommandTest {
     @Test
     public void toStringMethod() {
         Index targetIndex = fromOneBased(1);
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(targetIndex);
         Tag oldTag = new Tag("hi");
         Tag newTag = new Tag("bye");
         EditTagCommand editTagCommand = new EditTagCommand(targetIndices, oldTag, newTag);
-        String expected = EditTagCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        String expected = EditTagCommand.class.getCanonicalName()
+                + "{targetIndices=" + targetIndices
+                + ", oldTag=" + oldTag
+                + ", newTag=" + newTag
+                + "}";
         assertEquals(expected, editTagCommand.toString());
     }
 }

@@ -31,7 +31,9 @@ public class Tag {
      * Returns true if a given string is a valid tag name.
      */
     public static boolean isValidTagName(String test) {
-        return test.matches(VALIDATION_REGEX) && !test.trim().isEmpty();
+        Boolean matchesRegex = test.matches(VALIDATION_REGEX);
+        Boolean isEmpty = test.trim().isEmpty();
+        return matchesRegex && !isEmpty;
     }
 
     @Override

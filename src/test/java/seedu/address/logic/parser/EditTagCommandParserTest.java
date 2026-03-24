@@ -6,8 +6,8 @@ import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSucces
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
@@ -24,7 +24,7 @@ public class EditTagCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsEditTagCommand() {
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         Tag oldTag = new Tag("friend");
         Tag newTag = new Tag("closefriend");
