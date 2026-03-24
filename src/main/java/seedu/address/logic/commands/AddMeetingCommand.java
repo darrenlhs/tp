@@ -1,11 +1,11 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.MeetingUtil.createPersonWithMeetingAdded;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMA;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
@@ -39,6 +39,8 @@ public class AddMeetingCommand extends Command {
     private final LocalDate date;
 
     /**
+     * Creates an AddMeetingCommand to add the specified {@code Meeting}
+     *
      * @param indices Indexes of persons to add the meeting to
      * @param description Description of the meeting
      * @param date Date of the meeting (YYYY-MM-DD)
@@ -63,6 +65,9 @@ public class AddMeetingCommand extends Command {
 
         List<String> updatedPersonNames = new ArrayList<>();
 
+        // Create the meeting
+        Meeting meeting = new Meeting(description, date);
+
         // Loop through each index and add the meeting
         for (Index index : indices) {
 
@@ -71,22 +76,7 @@ public class AddMeetingCommand extends Command {
             }
 
             Person personToEdit = lastShownList.get(index.getZeroBased());
-
-            // Create the meeting
-            Meeting meeting = new Meeting(description, date);
-            Set<Meeting> copiedMeetings = new HashSet<>(personToEdit.getMeetings());
-
-            // Now you can safely add a new meeting
-            copiedMeetings.add(meeting);
-
-            // Add meeting to person
-            Person updatedPerson = new Person(
-                    personToEdit.getName(),
-                    personToEdit.getPhone(),
-                    personToEdit.getEmail(),
-                    personToEdit.getTags(),
-                    copiedMeetings
-            );
+            Person updatedPerson = createPersonWithMeetingAdded(personToEdit, meeting);
 
             // Update model
             model.setPerson(personToEdit, updatedPerson);
