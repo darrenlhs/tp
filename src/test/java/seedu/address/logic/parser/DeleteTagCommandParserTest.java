@@ -1,13 +1,12 @@
 package seedu.address.logic.parser;
 
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -27,7 +26,7 @@ public class DeleteTagCommandParserTest {
 
     @Test
     public void parse_validArgs_returnsDeleteTagCommand() {
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("friend"));
@@ -40,6 +39,7 @@ public class DeleteTagCommandParserTest {
         Person personToDeleteFrom = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Set<Tag> tags = personToDeleteFrom.getTags();
         String userInput = "";
+        // swaps the parameter order around (tags, then indices)
         for (Tag tag : tags) {
             userInput += " / " + tag;
         }
@@ -47,6 +47,6 @@ public class DeleteTagCommandParserTest {
         userInput += " 1 ";
         assertParseFailure(parser,
                 userInput,
-                "Error: Format is invalid.\n" + DeleteTagCommand.MESSAGE_FORMAT);
+                String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
     }
 }

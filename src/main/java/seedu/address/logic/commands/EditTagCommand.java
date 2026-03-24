@@ -26,7 +26,7 @@ public class EditTagCommand extends Command {
             + "identified by the index number(s) used in the displayed person list, or globally.\n";
 
     public static final String MESSAGE_FORMAT =
-            "(Format: edittag [INDICES or 'all'] o/ OLDTAG n/ NEWTAG)\n"
+            "(Format: edittag [INDICES or 'all'] o/ OLDTAG n/ NEWTAG] ...)\n"
                     + "Example: "
                     + COMMAND_WORD
                     + " 1, 2, 3"
@@ -44,7 +44,7 @@ public class EditTagCommand extends Command {
 
     private Tag oldTag;
     private Tag newTag;
-    private final List<Index> targetIndices;
+    private final Set<Index> targetIndices;
 
     /**
      * Acts as the constructor for EditTagCommand.
@@ -53,8 +53,8 @@ public class EditTagCommand extends Command {
      * @param oldTag The existing tag to be changed from the specified persons.
      * @param newTag The tag that the old tag is to be changed to. Can be an existing tag that is not the old tag.
      */
-    public EditTagCommand(List<Index> targetIndices, Tag oldTag, Tag newTag) {
-        this.targetIndices = new ArrayList<>(targetIndices);
+    public EditTagCommand(Set<Index> targetIndices, Tag oldTag, Tag newTag) {
+        this.targetIndices = new HashSet<>(targetIndices);
         this.oldTag = oldTag;
         this.newTag = newTag;
     }
@@ -66,7 +66,7 @@ public class EditTagCommand extends Command {
 
         boolean isOldTagValid = false;
 
-        List<Index> resolvedIndices = new ArrayList<>(); // targetIndices is final, so extra safety to not modify it
+        Set<Index> resolvedIndices = new HashSet<>(); // targetIndices is final, so extra safety to not modify it
 
         if (targetIndices.isEmpty()) {
             // global edit, add all valid indices to resolvedIndices
@@ -74,12 +74,12 @@ public class EditTagCommand extends Command {
                 resolvedIndices.add(Index.fromOneBased(i + 1));
             }
         } else {
-            resolvedIndices = new ArrayList<>(targetIndices);
+            resolvedIndices = new HashSet<>(targetIndices);
         }
 
         // First checks if all indices are valid.
-        for (int j = 0; j < resolvedIndices.size(); j++) {
-            if (resolvedIndices.get(j).getZeroBased() >= lastShownList.size()) {
+        for (Index index : resolvedIndices) {
+            if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException("Error: " + Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
         }
@@ -161,24 +161,15 @@ public class EditTagCommand extends Command {
 
         EditTagCommand otherEditTagCommand = (EditTagCommand) other;
 
-        Boolean isEqual = true;
-
-        for (int i = 0; i < targetIndices.size(); i++) {
-            if (!isEqual) {
-                break;
-            }
-            isEqual = isEqual && targetIndices.get(i).equals(otherEditTagCommand.targetIndices.get(i));
-        }
-        return isEqual;
+        return targetIndices.equals(otherEditTagCommand.targetIndices);
     }
 
     @Override
     public String toString() {
-        ToStringBuilder stringBuilder = new ToStringBuilder(this);
-
-        for (int i = 0; i < targetIndices.size(); i++) {
-            stringBuilder.add("targetIndex", targetIndices.get(i));
-        }
-        return stringBuilder.toString();
+        return new ToStringBuilder(this)
+                .add("targetIndices", targetIndices)
+                .add("oldTag", oldTag)
+                .add("newTag", newTag)
+                .toString();
     }
 }

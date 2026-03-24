@@ -9,9 +9,7 @@ import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.util.ArrayList;
 import java.util.HashSet;
-import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
@@ -32,7 +30,7 @@ public class DeleteTagCommandTest {
     @Test
     public void execute_noTagsAdded_failure() {
         Set<Tag> emptyTagSet = new HashSet<>();
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(targetIndices, emptyTagSet);
 
@@ -41,7 +39,7 @@ public class DeleteTagCommandTest {
 
     @Test
     public void execute_invalidIndex_throwsCommandException() {
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         Index outOfBoundIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         targetIndices.add(outOfBoundIndex);
         Set<Tag> tags = new HashSet<>();
@@ -49,12 +47,12 @@ public class DeleteTagCommandTest {
 
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(targetIndices, tags);
 
-        assertCommandFailure(deleteTagCommand, model, "Error: " + Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        assertCommandFailure(deleteTagCommand, model, Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
 
     @Test
     public void execute_allInvalidTags_throwsCommandException() {
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         Set<Tag> tags = new HashSet<>();
         tags.add(new Tag("lllllllllllllllllllllllll"));
@@ -92,8 +90,8 @@ public class DeleteTagCommandTest {
 
     @Test
     public void equals() {
-        List<Index> targetIndices1 = new ArrayList<>();
-        List<Index> targetIndices2 = new ArrayList<>();
+        Set<Index> targetIndices1 = new HashSet<>();
+        Set<Index> targetIndices2 = new HashSet<>();
         Set<Tag> tags = new HashSet<>();
         targetIndices1.add(INDEX_FIRST_PERSON);
         targetIndices2.add(INDEX_SECOND_PERSON);
@@ -120,11 +118,12 @@ public class DeleteTagCommandTest {
     @Test
     public void toStringMethod() {
         Index targetIndex = Index.fromOneBased(1);
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(targetIndex);
         Set<Tag> tags = new HashSet<>();
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(targetIndices, tags);
-        String expected = DeleteTagCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
+        String expected = DeleteTagCommand.class.getCanonicalName()
+                + "{targetIndices=" + targetIndices + ", tags=" + tags + "}";
         assertEquals(expected, deleteTagCommand.toString());
     }
 }

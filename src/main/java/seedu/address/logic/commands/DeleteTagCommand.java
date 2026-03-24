@@ -37,8 +37,10 @@ public class DeleteTagCommand extends Command {
 
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Removed tags %1$s from specified persons";
     public static final String MESSAGE_NO_TAGS = "At least one tag must be provided.";
+    public static final String MESSAGE_NO_VALID_TAGS =
+            "Error: None of the specified tags exist in any of the specified contacts.";
 
-    private final List<Index> targetIndices;
+    private final Set<Index> targetIndices;
     private final Set<Tag> tags;
 
     /**
@@ -47,8 +49,8 @@ public class DeleteTagCommand extends Command {
      * @param targetIndices The target indices representing the persons to be edited.
      * @param tags The tags to be removed from the specified persons.
      */
-    public DeleteTagCommand(List<Index> targetIndices, Set<Tag> tags) {
-        this.targetIndices = new ArrayList<>(targetIndices);
+    public DeleteTagCommand(Set<Index> targetIndices, Set<Tag> tags) {
+        this.targetIndices = new HashSet<>(targetIndices);
         this.tags = new HashSet<>(tags);
     }
 
@@ -63,10 +65,10 @@ public class DeleteTagCommand extends Command {
 
         Boolean hasAtLeastOneValidTag = false;
 
-        // First checks if all indices are valid.
-        for (int j = 0; j < targetIndices.size(); j++) {
-            if (targetIndices.get(j).getZeroBased() >= lastShownList.size()) {
-                throw new CommandException("Error: " + Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        // First checks if all indices are valid. If at least 1 is invalid, cancel the operation.
+        for (Index index : targetIndices) {
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
         }
 
@@ -87,11 +89,10 @@ public class DeleteTagCommand extends Command {
         }
 
         if (!hasAtLeastOneValidTag) {
-            throw new CommandException(
-                    "Error: None of the specified tags exist in any of the specified contacts.");
+            throw new CommandException(MESSAGE_NO_VALID_TAGS);
         }
 
-        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tags.toString()));
+        return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tags));
     }
 
     /**
@@ -127,24 +128,14 @@ public class DeleteTagCommand extends Command {
 
         DeleteTagCommand otherDeleteTagCommand = (DeleteTagCommand) other;
 
-        Boolean isEqual = true;
-
-        for (int i = 0; i < targetIndices.size(); i++) {
-            if (!isEqual) {
-                break;
-            }
-            isEqual = isEqual && targetIndices.get(i).equals(otherDeleteTagCommand.targetIndices.get(i));
-        }
-        return isEqual;
+        return targetIndices.equals(otherDeleteTagCommand.targetIndices) && tags.equals(otherDeleteTagCommand.tags);
     }
 
     @Override
     public String toString() {
-        ToStringBuilder stringBuilder = new ToStringBuilder(this);
-
-        for (int i = 0; i < targetIndices.size(); i++) {
-            stringBuilder.add("targetIndex", targetIndices.get(i));
-        }
-        return stringBuilder.toString();
+        return new ToStringBuilder(this)
+                .add("targetIndices", targetIndices)
+                .add("tags", tags)
+                .toString();
     }
 }
