@@ -30,11 +30,11 @@ public class EditTagCommandTest {
 
     @Test
     public void execute_oldTagInvalid_failure() {
-        Tag old_tag = new Tag("lllllllllllllllllll");
-        Tag new_tag = new Tag("test");
+        Tag oldTag = new Tag("lllllllllllllllllll");
+        Tag newTag = new Tag("test");
         List<Index> targetIndices = new ArrayList<>();
         targetIndices.add(INDEX_FIRST_PERSON);
-        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, old_tag, new_tag);
+        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, oldTag, newTag);
 
         assertCommandFailure(editTagCommand, model, EditTagCommand.MESSAGE_OLDTAG_INVALID);
     }
@@ -44,10 +44,10 @@ public class EditTagCommandTest {
         List<Index> targetIndices = new ArrayList<>();
         Index outOfBoundIndex = fromOneBased(model.getFilteredPersonList().size() + 1);
         targetIndices.add(outOfBoundIndex);
-        Tag old_tag = new Tag("hi");
-        Tag new_tag = new Tag("bye");
+        Tag oldTag = new Tag("hi");
+        Tag newTag = new Tag("bye");
 
-        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, old_tag, new_tag);
+        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, oldTag, newTag);
 
         assertCommandFailure(editTagCommand, model, "Error: " + Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
     }
@@ -62,10 +62,10 @@ public class EditTagCommandTest {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Set<Tag> initialTags = new HashSet<>(personToEdit.getTags());
         Set<Tag> finalTags = new HashSet<>(personToEdit.getTags());
-        Tag old_tag = new Tag("hi");
-        Tag new_tag = new Tag("bye");
-        initialTags.add(old_tag);
-        finalTags.add(new_tag);
+        Tag oldTag = new Tag("hi");
+        Tag newTag = new Tag("bye");
+        initialTags.add(oldTag);
+        finalTags.add(newTag);
         Person personWithOldTag = new Person(
                 personToEdit.getName(),
                 personToEdit.getPhone(),
@@ -74,7 +74,7 @@ public class EditTagCommandTest {
                 personToEdit.getMeetings()
 
         );
-        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, old_tag, new_tag);
+        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, oldTag, newTag);
         model.setPerson(personToEdit, personWithOldTag);
 
         Person personWithNewTag = new Person(
@@ -86,7 +86,7 @@ public class EditTagCommandTest {
         );
 
         String expectedMessage = String.format(
-                EditTagCommand.MESSAGE_EDIT_TAG_SUCCESS_GLOBAL, old_tag, new_tag);
+                EditTagCommand.MESSAGE_EDIT_TAG_SUCCESS_GLOBAL, oldTag, newTag);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personWithOldTag, personWithNewTag);
@@ -101,10 +101,10 @@ public class EditTagCommandTest {
         Person personToEdit = model.getFilteredPersonList().get(INDEX_FIRST_PERSON.getZeroBased());
         Set<Tag> initialTags = new HashSet<>(personToEdit.getTags());
         Set<Tag> finalTags = new HashSet<>(personToEdit.getTags());
-        Tag old_tag = new Tag("hi");
-        Tag new_tag = new Tag("bye");
-        initialTags.add(old_tag);
-        finalTags.add(new_tag);
+        Tag oldTag = new Tag("hi");
+        Tag newTag = new Tag("bye");
+        initialTags.add(oldTag);
+        finalTags.add(newTag);
         Person personWithOldTag = new Person(
                 personToEdit.getName(),
                 personToEdit.getPhone(),
@@ -113,7 +113,7 @@ public class EditTagCommandTest {
                 personToEdit.getMeetings()
         );
 
-        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, old_tag, new_tag);
+        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, oldTag, newTag);
         model.setPerson(personToEdit, personWithOldTag);
 
         Person personWithNewTag = new Person(
@@ -125,7 +125,7 @@ public class EditTagCommandTest {
         );
 
         String expectedMessage = String.format(
-                EditTagCommand.MESSAGE_EDIT_TAG_SUCCESS_INDICES, old_tag, new_tag);
+                EditTagCommand.MESSAGE_EDIT_TAG_SUCCESS_INDICES, oldTag, newTag);
 
         ModelManager expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.setPerson(personWithOldTag, personWithNewTag);
@@ -137,18 +137,18 @@ public class EditTagCommandTest {
     public void equals() {
         List<Index> targetIndices1 = new ArrayList<>();
         List<Index> targetIndices2 = new ArrayList<>();
-        Tag old_tag = new Tag("hi");
-        Tag new_tag = new Tag("by");
+        Tag oldTag = new Tag("hi");
+        Tag newTag = new Tag("by");
         targetIndices1.add(INDEX_FIRST_PERSON);
         targetIndices2.add(INDEX_SECOND_PERSON);
-        EditTagCommand editTagFirstCommand = new EditTagCommand(targetIndices1, old_tag, new_tag);
-        EditTagCommand editTagSecondCommand = new EditTagCommand(targetIndices2, old_tag, new_tag);
+        EditTagCommand editTagFirstCommand = new EditTagCommand(targetIndices1, oldTag, newTag);
+        EditTagCommand editTagSecondCommand = new EditTagCommand(targetIndices2, oldTag, newTag);
 
         // same object -> returns true
         assertTrue(editTagFirstCommand.equals(editTagFirstCommand));
 
         // same values -> returns true
-        EditTagCommand editFirstCommandCopy = new EditTagCommand(targetIndices1, old_tag, new_tag);
+        EditTagCommand editFirstCommandCopy = new EditTagCommand(targetIndices1, oldTag, newTag);
         assertTrue(editTagFirstCommand.equals(editFirstCommandCopy));
 
         // different types -> returns false
@@ -166,9 +166,9 @@ public class EditTagCommandTest {
         Index targetIndex = fromOneBased(1);
         List<Index> targetIndices = new ArrayList<>();
         targetIndices.add(targetIndex);
-        Tag old_tag = new Tag("hi");
-        Tag new_tag = new Tag("bye");
-        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, old_tag, new_tag);
+        Tag oldTag = new Tag("hi");
+        Tag newTag = new Tag("bye");
+        EditTagCommand editTagCommand = new EditTagCommand(targetIndices, oldTag, newTag);
         String expected = EditTagCommand.class.getCanonicalName() + "{targetIndex=" + targetIndex + "}";
         assertEquals(expected, editTagCommand.toString());
     }

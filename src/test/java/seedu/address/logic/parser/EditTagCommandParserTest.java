@@ -26,11 +26,11 @@ public class EditTagCommandParserTest {
     public void parse_validArgs_returnsEditTagCommand() {
         List<Index> targetIndices = new ArrayList<>();
         targetIndices.add(INDEX_FIRST_PERSON);
-        Tag old_tag = new Tag("friend");
-        Tag new_tag = new Tag("closefriend");
+        Tag oldTag = new Tag("friend");
+        Tag newTag = new Tag("closefriend");
 
         assertParseSuccess(parser, "1 o/ friend n/ closefriend",
-                new EditTagCommand(targetIndices, old_tag, new_tag));
+                new EditTagCommand(targetIndices, oldTag, newTag));
     }
 
     @Test

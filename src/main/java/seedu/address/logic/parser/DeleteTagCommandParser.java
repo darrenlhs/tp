@@ -40,19 +40,19 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
         return new DeleteTagCommand(indices, tags);
     }
 
-/**
- * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
- * If {@code tags} contain only one element which is an empty string, it will be parsed into a
- * {@code Set<Tag>} containing zero tags.
- * This code is recycled from AddTagCommandParser and renamed to fit the context of DeleteTagCommandParser.
- */
-private Optional<Set<Tag>> parseTagsForDeleteTag(Collection<String> tags) throws ParseException {
-    assert tags != null;
+    /**
+     * Parses {@code Collection<String> tags} into a {@code Set<Tag>} if {@code tags} is non-empty.
+     * If {@code tags} contain only one element which is an empty string, it will be parsed into a
+     * {@code Set<Tag>} containing zero tags.
+     * This code is recycled from AddTagCommandParser and renamed to fit the context of DeleteTagCommandParser.
+     */
+    private Optional<Set<Tag>> parseTagsForDeleteTag(Collection<String> tags) throws ParseException {
+        assert tags != null;
 
-    if (tags.isEmpty()) {
-        return Optional.empty();
+        if (tags.isEmpty()) {
+            return Optional.empty();
+        }
+        Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
+        return Optional.of(ParserUtil.parseTags(tagSet));
     }
-    Collection<String> tagSet = tags.size() == 1 && tags.contains("") ? Collections.emptySet() : tags;
-    return Optional.of(ParserUtil.parseTags(tagSet));
-}
 }

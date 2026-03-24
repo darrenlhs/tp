@@ -164,9 +164,9 @@ public class AddressBookParserTest {
 
         List<Index> targetIndices = new ArrayList<>();
         targetIndices.add(INDEX_FIRST_PERSON);
-        Tag old_tag = new Tag("OldTag");
-        Tag new_tag = new Tag("NewTag");
-        EditTagCommand expectedCommand = new EditTagCommand(targetIndices, old_tag, new_tag);
+        Tag oldTag = new Tag("OldTag");
+        Tag newTag = new Tag("NewTag");
+        EditTagCommand expectedCommand = new EditTagCommand(targetIndices, oldTag, newTag);
 
         assertEquals(expectedCommand, command);
     }
