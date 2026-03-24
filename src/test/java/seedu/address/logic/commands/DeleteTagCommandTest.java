@@ -75,7 +75,7 @@ public class DeleteTagCommandTest {
 
         // Prepare DeleteTagCommand with the person's current tags
         DeleteTagCommand deleteTagCommand = new DeleteTagCommand(
-                List.of(INDEX_FIRST_PERSON),
+                Set.of(INDEX_FIRST_PERSON),
                 firstPerson.getTags()
         );
 
