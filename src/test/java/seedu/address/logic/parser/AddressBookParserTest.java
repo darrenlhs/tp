@@ -13,7 +13,6 @@ import static seedu.address.logic.parser.AddMeetingCommandParserTest.INPUT_INDEX
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
-import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
@@ -33,6 +32,7 @@ import seedu.address.logic.commands.EditCommand;
 import seedu.address.logic.commands.EditCommand.EditPersonDescriptor;
 import seedu.address.logic.commands.EditTagCommand;
 import seedu.address.logic.commands.ExitCommand;
+import seedu.address.logic.commands.FilterTagCommand;
 import seedu.address.logic.commands.FindCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
@@ -148,7 +148,7 @@ public class AddressBookParserTest {
                 + INDEX_FIRST_PERSON.getOneBased() + " /NewTag");
 
         Set<Tag> tags = new HashSet<>();
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         tags.add(new Tag("NewTag"));
         DeleteTagCommand expectedCommand = new DeleteTagCommand(targetIndices, tags);
@@ -161,11 +161,23 @@ public class AddressBookParserTest {
         EditTagCommand command = (EditTagCommand) parser.parseCommand(EditTagCommand.COMMAND_WORD + " "
                 + INDEX_FIRST_PERSON.getOneBased() + " o/OldTag" + " n/NewTag");
 
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
         targetIndices.add(INDEX_FIRST_PERSON);
         Tag oldTag = new Tag("OldTag");
         Tag newTag = new Tag("NewTag");
         EditTagCommand expectedCommand = new EditTagCommand(targetIndices, oldTag, newTag);
+
+        assertEquals(expectedCommand, command);
+    }
+
+    @Test
+    public void parseCommand_filterTag() throws Exception {
+        FilterTagCommand command = (FilterTagCommand) parser.parseCommand(FilterTagCommand.COMMAND_WORD
+                + " / NewTag");
+
+        Set<Tag> tags = new HashSet<>();
+        tags.add(new Tag("NewTag"));
+        FilterTagCommand expectedCommand = new FilterTagCommand(tags);
 
         assertEquals(expectedCommand, command);
     }
