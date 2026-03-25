@@ -1,5 +1,9 @@
 package seedu.address.ui;
 
+import java.util.HashSet;
+import java.util.Set;
+import java.util.logging.Logger;
+
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.ListCell;
@@ -9,10 +13,6 @@ import seedu.address.commons.core.LogsCenter;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
-
-import java.util.HashSet;
-import java.util.Set;
-import java.util.logging.Logger;
 
 /**
  * Panel containing the list of persons.

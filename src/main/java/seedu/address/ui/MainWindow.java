@@ -180,20 +180,20 @@ public class MainWindow extends UiPart<Stage> {
         contentPanelPlaceholder.getChildren().clear();
 
         switch (newContentScreen) {
-            case PERSON_LIST:
-                if (personListPanel == null) {
-                    personListPanel = new PersonListPanel(logic.getFilteredPersonList());
-                }
-                contentPanelPlaceholder.getChildren().add(personListPanel.getRoot());
-                screenSwitchButton.setText("Contacts");
-                break;
-            case MEETING_LIST:
-                meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), logic.getModel());
-                contentPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
-                screenSwitchButton.setText("Meetings");
-                break;
-            default:
-                // TODO: Throw exception, unknown screen name
+        case PERSON_LIST:
+            if (personListPanel == null) {
+                personListPanel = new PersonListPanel(logic.getFilteredPersonList());
+            }
+            contentPanelPlaceholder.getChildren().add(personListPanel.getRoot());
+            screenSwitchButton.setText("Contacts");
+            break;
+        case MEETING_LIST:
+            meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), logic.getModel());
+            contentPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
+            screenSwitchButton.setText("Meetings");
+            break;
+        default:
+            // TODO: Throw exception, unknown screen name
         }
     }
 
