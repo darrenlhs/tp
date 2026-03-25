@@ -188,9 +188,7 @@ public class MainWindow extends UiPart<Stage> {
                 screenSwitchButton.setText("Contacts");
                 break;
             case MEETING_LIST:
-                if (meetingListPanel == null) {
-                    meetingListPanel = new MeetingListPanel();
-                }
+                meetingListPanel = new MeetingListPanel(logic.getFilteredMeetingList(), logic.getModel());
                 contentPanelPlaceholder.getChildren().add(meetingListPanel.getRoot());
                 screenSwitchButton.setText("Meetings");
                 break;
