@@ -4,8 +4,8 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NEWTAG;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_OLDTAG;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashSet;
+import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditTagCommand;
@@ -39,7 +39,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         Tag newTag = ParserUtil.parseTag(argMultimap.getValue(PREFIX_NEWTAG).get());
 
         String[] indices = argMultimap.getPreamble().split(",");
-        List<Index> targetIndices = new ArrayList<>();
+        Set<Index> targetIndices = new HashSet<>();
 
         if (argMultimap.getPreamble().trim().equals("all")) {
             // global edit, do not add anything to targetIndices yet, EditTagCommand handles this

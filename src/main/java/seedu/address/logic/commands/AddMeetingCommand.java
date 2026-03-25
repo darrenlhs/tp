@@ -1,13 +1,14 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.MeetingUtil.createPersonWithMeetingAdded;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMA;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.UUID;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -24,11 +25,11 @@ public class AddMeetingCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting to the specified person(s) "
             + "by index.\n"
-            + "Parameters: i/INDEX (must be a positive integer) "
+            + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_COMMA + "INDEX]... "
             + "d/DESCRIPTION "
             + "dt/DATE (must be YYYY-MM-DD)\n"
-            + "Example: " + COMMAND_WORD + " i/1,2 d/Project discussion dt/2026-03-25";
+            + "Example: " + COMMAND_WORD + " 1,2 d/Project discussion dt/2026-03-25";
 
     public static final String MESSAGE_ADD_MEETING_SUCCESS = "Added meeting to person(s): %1$s";
     public static final String MESSAGE_INVALID_PERSON_INDEX = "Invalid person index provided.";
@@ -39,6 +40,8 @@ public class AddMeetingCommand extends Command {
     private final LocalDate date;
 
     /**
+     * Creates an AddMeetingCommand to add the specified {@code Meeting}
+     *
      * @param indices Indexes of persons to add the meeting to
      * @param description Description of the meeting
      * @param date Date of the meeting (YYYY-MM-DD)
@@ -62,39 +65,32 @@ public class AddMeetingCommand extends Command {
         List<Person> lastShownList = model.getFilteredPersonList();
 
         List<String> updatedPersonNames = new ArrayList<>();
+        List<UUID> participantIds = new ArrayList<>();
 
-        // Loop through each index and add the meeting
+        // First pass: validate indices + collect IDs
         for (Index index : indices) {
-
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(MESSAGE_INVALID_PERSON_INDEX);
             }
 
+            Person personToAdd = lastShownList.get(index.getZeroBased());
+            participantIds.add(personToAdd.getId());
+        }
+
+        Meeting meeting = new Meeting(description, date, participantIds);
+
+        // Second pass: add meeting to each person
+        for (Index index : indices) {
             Person personToEdit = lastShownList.get(index.getZeroBased());
+            Person updatedPerson = createPersonWithMeetingAdded(personToEdit, meeting);
 
-            // Create the meeting
-            Meeting meeting = new Meeting(description, date);
-            Set<Meeting> copiedMeetings = new HashSet<>(personToEdit.getMeetings());
-
-            // Now you can safely add a new meeting
-            copiedMeetings.add(meeting);
-
-            // Add meeting to person
-            Person updatedPerson = new Person(
-                    personToEdit.getName(),
-                    personToEdit.getPhone(),
-                    personToEdit.getEmail(),
-                    personToEdit.getTags(),
-                    copiedMeetings
-            );
-
-            // Update model
             model.setPerson(personToEdit, updatedPerson);
-
             updatedPersonNames.add(personToEdit.getName().fullName);
         }
 
-        return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, String.join(", ", updatedPersonNames)));
+        return new CommandResult(
+                String.format(MESSAGE_ADD_MEETING_SUCCESS, String.join(", ", updatedPersonNames))
+        );
     }
 
     @Override
