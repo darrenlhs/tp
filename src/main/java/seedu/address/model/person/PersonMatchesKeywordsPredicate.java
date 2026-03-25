@@ -47,16 +47,16 @@ public class PersonMatchesKeywordsPredicate implements Predicate<Person> {
         }
 
         // Field-specific search
-        boolean matchName = nameKeywords.stream()
+        boolean doAnyKeywordsMatchName = nameKeywords.stream()
                 .anyMatch(k -> name.contains(k.toLowerCase()));
 
-        boolean matchPhone = phoneKeywords.stream()
+        boolean doAnyKeywordsMatchPhone = phoneKeywords.stream()
                 .anyMatch(k -> phone.contains(k.toLowerCase()));
 
-        boolean matchEmail = emailKeywords.stream()
+        boolean doAnyKeywordsMatchEmail = emailKeywords.stream()
                 .anyMatch(k -> email.contains(k.toLowerCase()));
 
-        return matchName || matchPhone || matchEmail;
+        return doAnyKeywordsMatchName || doAnyKeywordsMatchPhone || doAnyKeywordsMatchEmail;
     }
 
     @Override
