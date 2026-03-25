@@ -125,6 +125,17 @@ public class AddressBook implements ReadOnlyAddressBook {
         return persons.asUnmodifiableObservableList();
     }
 
+    public ObservableList<Meeting> getMeetingList() {
+        Set<Meeting> meetingSet = new HashSet<>();
+
+        persons.forEach(person -> meetingSet.addAll(person.getMeetings()));
+
+        ObservableList<Meeting> meetingList = FXCollections.observableArrayList();
+        meetingList.addAll(meetingSet);
+
+        return FXCollections.unmodifiableObservableList(meetingList);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
