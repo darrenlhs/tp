@@ -8,7 +8,6 @@ import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DESCRIPTI
 import static seedu.address.storage.JsonAdaptedPersonTest.VALID_MEETINGS;
 import static seedu.address.testutil.Assert.assertThrows;
 
-import java.util.List;
 import java.util.Set;
 
 import org.junit.jupiter.api.Test;
