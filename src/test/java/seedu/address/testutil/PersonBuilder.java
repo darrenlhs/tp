@@ -26,7 +26,6 @@ public class PersonBuilder {
     private Phone phone;
     private Email email;
     private Set<Tag> tags;
-    private Set<Meeting> meetings;
     private UUID id;
 
     /**
@@ -37,7 +36,6 @@ public class PersonBuilder {
         phone = new Phone(DEFAULT_PHONE);
         email = new Email(DEFAULT_EMAIL);
         tags = new HashSet<>();
-        meetings = new HashSet<>();
         id = DEFAULT_ID;
     }
 
@@ -49,7 +47,6 @@ public class PersonBuilder {
         phone = personToCopy.getPhone();
         email = personToCopy.getEmail();
         tags = new HashSet<>(personToCopy.getTags());
-        meetings = new HashSet<>(personToCopy.getMeetings());
         id = personToCopy.getId() != null ? personToCopy.getId() : null;
     }
 
@@ -110,9 +107,9 @@ public class PersonBuilder {
      */
     public Person build() {
         if (id == null) {
-            return new Person(name, phone, email, tags, meetings);
+            return new Person(name, phone, email, tags);
         } else {
-            return new Person(id, name, phone, email, tags, meetings);
+            return new Person(id, name, phone, email, tags);
         }
     }
 }
