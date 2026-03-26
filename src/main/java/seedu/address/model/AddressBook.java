@@ -105,6 +105,8 @@ public class AddressBook implements ReadOnlyAddressBook {
      * Replaces the given person {@code target} in the list with {@code editedPerson}.
      * {@code target} must exist in the address book.
      * The person identity of {@code editedPerson} must not be the same as another existing person in the address book.
+     * If the edited person is a participant of a meeting, then the changes will also be reflected in those
+     * meetings (i.e. if the ID of the person is changed).
      */
     public void setPerson(Person target, Person editedPerson) {
         requireNonNull(editedPerson);
@@ -123,8 +125,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Removes {@code key} from this {@code AddressBook}.
-     * {@code key} must exist in the address book.
+     * Removes {@code key} from this {@code AddressBook}. {@code key} must exist in the address book.
+     * If the deleted person is a participant of a meeting(s), then their ID will also be removed from those meetings.
      */
     public void removePerson(Person key) {
         // Removes references to this person from meetings
