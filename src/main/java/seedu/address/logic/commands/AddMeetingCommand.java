@@ -13,6 +13,7 @@ import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
+import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.person.Person;
 
 /**
@@ -32,7 +33,8 @@ public class AddMeetingCommand extends Command {
     public static final String MESSAGE_ADD_MEETING_SUCCESS = "Added meeting: %1$s";
     public static final String MESSAGE_INVALID_PERSON_INDEX = "Invalid person index provided.";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD.";
-    public static final String MESSAGE_MEETING_ALREADY_EXISTS = "This meeting already exists for %1$s";
+    public static final String MESSAGE_MEETING_ALREADY_EXISTS =
+            "A meeting with the same description and date already exists";
 
     private final Set<Index> indices;
     private final String description;
@@ -74,7 +76,11 @@ public class AddMeetingCommand extends Command {
         }
 
         Meeting meeting = new Meeting(description, date, participantIds);
-        model.addMeeting(meeting);
+        try {
+            model.addMeeting(meeting);
+        } catch (DuplicateMeetingException e) {
+            throw new CommandException(MESSAGE_MEETING_ALREADY_EXISTS);
+        }
         return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, meeting));
     }
 
