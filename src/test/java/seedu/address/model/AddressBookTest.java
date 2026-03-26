@@ -23,6 +23,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
+import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
@@ -118,6 +119,46 @@ public class AddressBookTest {
         UUID idToFind = firstPerson.getId();
 
         assertEquals(firstPerson, addressBook.getPerson(idToFind));
+    }
+
+    @Test
+    public void addMeeting_nonexistentUuid_fail() {
+        AddressBook newData = getTypicalAddressBook();
+        addressBook.resetData(newData);
+
+        Person firstPerson = addressBook.getPersonList().stream().findFirst().orElseThrow(PersonNotFoundException::new);
+
+        addressBook.removePerson(firstPerson);
+
+        Meeting meetingWithNonexistentPerson = new Meeting(
+                "Meetup",
+                LocalDate.of(2026, 7, 5),
+                Set.of(firstPerson.getId()));
+
+        assertThrows(PersonNotFoundException.class, () -> addressBook.addMeeting(meetingWithNonexistentPerson));
+    }
+
+    @Test
+    public void removePerson_partOfMeeting_participantIdRemoved() {
+        AddressBook newData = getTypicalAddressBook();
+        addressBook.resetData(newData);
+
+        Meeting firstMeeting =
+                addressBook.getMeetingList().stream().findFirst().orElseThrow(MeetingNotFoundException::new);
+        UUID firstParticipantId = firstMeeting.getParticipantsID().iterator().next();
+
+        addressBook.removePerson(addressBook.getPerson(firstParticipantId));
+
+        Set<UUID> newUuidSet = firstMeeting.getParticipantsID();
+        newUuidSet.remove(firstParticipantId);
+
+        Meeting editedMeeting = new Meeting(firstMeeting.getDescription(), firstMeeting.getDate(), newUuidSet);
+
+        for (Meeting m : addressBook.getMeetingList()) {
+            if (m.isSameMeeting(editedMeeting)) {
+                assertEquals(editedMeeting.getParticipantsID(), m.getParticipantsID());
+            }
+        }
     }
 
     @Test
