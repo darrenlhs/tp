@@ -2,12 +2,18 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
+import java.util.UUID;
 
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import seedu.address.commons.util.ToStringBuilder;
+import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -102,6 +108,15 @@ public class AddressBook implements ReadOnlyAddressBook {
         persons.remove(key);
     }
 
+    /** Returns the person with the given UUID. Throws {@code PersonNotFoundException} if not found. */
+    public Person getPerson(UUID uuid) throws PersonNotFoundException {
+        return persons.asUnmodifiableObservableList()
+                .stream()
+                .filter(person -> person.getId().equals(uuid))
+                .findFirst()
+                .orElseThrow(PersonNotFoundException::new);
+    }
+
     //// util methods
 
     @Override
@@ -114,6 +129,17 @@ public class AddressBook implements ReadOnlyAddressBook {
     @Override
     public ObservableList<Person> getPersonList() {
         return persons.asUnmodifiableObservableList();
+    }
+
+    public ObservableList<Meeting> getMeetingList() {
+        Set<Meeting> meetingSet = new HashSet<>();
+
+        persons.forEach(person -> meetingSet.addAll(person.getMeetings()));
+
+        ObservableList<Meeting> meetingList = FXCollections.observableArrayList();
+        meetingList.addAll(meetingSet);
+
+        return FXCollections.unmodifiableObservableList(meetingList);
     }
 
     @Override
