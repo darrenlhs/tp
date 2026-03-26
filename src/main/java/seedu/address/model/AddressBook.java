@@ -2,6 +2,7 @@ package seedu.address.model;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
 import java.util.Set;
@@ -221,7 +222,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /** Returns a copy of the given {@code meeting}
      * with the specified {@code id} removed from the set of participants UUID. */
-    private Meeting removeIdFromMeeting(Meeting meeting, UUID id) {
+    private static Meeting removeIdFromMeeting(Meeting meeting, UUID id) {
         Set<UUID> newUuidSet = meeting.getParticipantsID();
         newUuidSet.remove(id);
         return new Meeting(meeting.getDescription(), meeting.getDate(), newUuidSet);

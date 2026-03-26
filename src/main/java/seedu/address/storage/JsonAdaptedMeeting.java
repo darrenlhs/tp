@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.time.LocalDate;
-import java.util.List;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -22,7 +21,7 @@ class JsonAdaptedMeeting {
 
     private final String description;
     private final String date;
-    private final Set<String> personIds; // ✅ NEW FIELD
+    private final Set<String> personIds;
 
     /**
      * Constructs a {@code JsonAdaptedMeeting} with the given details.

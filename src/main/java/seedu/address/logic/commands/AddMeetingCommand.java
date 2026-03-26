@@ -19,7 +19,6 @@ import seedu.address.model.person.Person;
  * Adds a meeting to one or more persons in the address book.
  */
 public class AddMeetingCommand extends Command {
-
     public static final String COMMAND_WORD = "addmeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting to the specified person(s) "
@@ -33,6 +32,7 @@ public class AddMeetingCommand extends Command {
     public static final String MESSAGE_ADD_MEETING_SUCCESS = "Added meeting: %1$s";
     public static final String MESSAGE_INVALID_PERSON_INDEX = "Invalid person index provided.";
     public static final String MESSAGE_INVALID_DATE_FORMAT = "Invalid date format! Use YYYY-MM-DD.";
+    public static final String MESSAGE_MEETING_ALREADY_EXISTS = "This meeting already exists for %1$s";
 
     private final Set<Index> indices;
     private final String description;
