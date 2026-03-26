@@ -78,7 +78,7 @@ Format: `help`
 
 Adds a new person to the address book.
 
-**Requirements:**  
+**Requirements:**
 A person must have a `NAME` and at least one of the following:
 - `PHONE_NUMBER`
 - `EMAIL`
