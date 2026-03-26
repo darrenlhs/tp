@@ -13,6 +13,7 @@ import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
 import seedu.address.model.person.UniquePersonList;
+import seedu.address.model.person.exceptions.PersonNotFoundException;
 
 /**
  * Wraps all data at the address-book level
@@ -113,7 +114,7 @@ public class AddressBook implements ReadOnlyAddressBook {
                 .stream()
                 .filter(person -> person.getId().equals(uuid))
                 .findFirst()
-                .orElse(null);
+                .orElseThrow(PersonNotFoundException::new);
     }
 
     //// util methods
