@@ -132,24 +132,31 @@ Shows a list of all persons in the address book.
 Format: `list`
 
 
-### Locating persons by name: `find`
+### Locating persons globally: global `find`
 
-Finds persons whose names contain any of the given keywords.
+Global find can take in multiple parameters and will output all contacts that has any of the fields that fit the parameters
 
-Format: `find KEYWORD [MORE_KEYWORDS]`
+Format: `find <SEARCH SUBSTRING> [<OTHER SEARCH SUBSTRINGS>]...`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
-* Only the name is searched.
-* Only full words will be matched e.g. `Han` will not match `Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
 
 Examples:
-* `find John` returns `john` and `John Doe`
+* `find John` returns `john` and `John Doe` in all fields except tags (name, email, phone)
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
   ![result for 'find alex david'](images/findAlexDavidResult.png)
 
+### Locating persons by specific fields: field `find`
+
+Field find can take in multiple parameters of the same type and only search within that field. BUT, field find cannot be used with global find concurrently. 
+
+Format: `find [n/NAME] [p/PHONE] [e/EMAIL]...`
+
+Example: `find n/ david p/ 9927 e/ charlotte` 
+
+The above example will filter all contacts whose name contains `david` OR whose phone number contains `9927` OR whose email contains `charlotte`.
 
 ### Adding tags to one or more people : `addtag`
 Add one or more tags to one or more people in the address book
@@ -180,6 +187,34 @@ Format: `deletetag INDEX, [INDICES...] / TAG [/ TAG]`
 Examples:
 * `deletetag 5 / classmates` deletes the `classmates` tag from contact index 5.
 * `deletetag 1, 2, 3 / friends / cs` deletes the `friends` and `cs` tags from contact indices 1, 2 and 3.
+
+### Editing existing tags
+
+Rename existing tags across multiple contacts in batch
+
+Format: `edittag [INDICES OR 'all'] o/ OLDTAG n/ NEWTAG`
+
+* Using the `all` keyword instead of specific indices will do a global edit of the given `OLDTAG`, while inputting specific indices only edits them for the given contacts.
+* As long as one of the specified contacts has the given `OLDTAG`, the command will be valid. 
+* `edittag` operates on the current list, not the whole address book.
+* Indices are to be separated by commas.
+
+Examples: 
+* `edittag 1, 2, 3 o/ cs n/ computer science` edits the tag `cs` for contacts 1, 2 and 3, and changes it to `computer science`.
+* `edittag all o/ cs n/ computer science` edits the tag `cs` for all contacts in the current list, and changes it to `computer science`.
+
+### Filtering contacts by tags : `filtertag`
+
+Display only contacts with specific tags for easier management
+
+Format: `filtertag / TAG [/ TAG]...`
+
+* `filtertag` operates on the **entire address book** rather than the current filtered list. 
+* All contacts containing **at least one** of the given tags will be filtered.
+
+Examples: 
+* `filtertag / classmates` will filter all contacts that contain the `classmates` tag.
+* `filtertag / schoolB / schoolC` will filter all contacts that contain at least one of the `schoolB` or `schoolC` tags.
 
 
 ### Starring a person : `star`
@@ -213,6 +248,25 @@ Examples:
 * `list` followed by `unstar 2` unstars the 2nd person in the address book.
 * `find Betsy` followed by `unstar 1` unstars the 1st person in the results of the `find` command.
 
+### Adding a meeting : `addmeeting`
+
+Add meetings to one or multiple contacts at once
+
+Format: `addmeeting INDICES d/DESCRIPTION dt/DATE`
+
+* Dates must be in the YYYY-MM-DD format.
+
+Example: `addmeeting 1, 2 d/ Casual icebreaker dt/ 2026-03-26`
+
+### Delete a meeting : `deletemeeting`
+
+Remove meetings using indices 
+
+Format: `deletemeeting INDICES`
+
+* Regarding index order: Meetings are sorted by date by default to give chronological overview.
+
+Example: `deletemeeting 1`
 
 ### Clearing all entries : `clear`
 
