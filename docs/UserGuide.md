@@ -3,11 +3,33 @@ layout: page
 title: User Guide
 ---
 
-AddressBook Level 3 (AB3) is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, AB3 can get your contact management tasks done faster than traditional GUI apps.
+InternLink is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InternLink can get your contact management tasks done faster than traditional GUI apps.
 
-* Table of Contents
-  {:toc}
-
+## Table of Contents:
+* [Quick start](#quick-start)
+* [Features](#features)
+  * [Viewing help: (help)](#viewing-help--help)
+  * [Adding a person (add)](#adding-a-person-add)
+  * [Deleting a person (delete)](#deleting-a-person--delete)
+  * [Editing a person (`edit`)](#editing-a-person--edit)
+  * [Listing all persons (`list`)](#listing-all-persons--list)
+  * [Locating contacts globally (global `find`)](#locating-persons-globally-global-find)
+  * [Locating contacts by specific fields (field `find`)](#locating-persons-by-specific-fields-field-find)
+  * [Adding tags to one or more people (`addtag`)](#adding-tags-to-one-or-more-people--addtag)
+  * [Deleting tags from one or more people (`deletetag`)](#deleting-tags-from-one-or-more-people--deletetag)
+  * [Editing existing tags (`edittag`)](#editing-existing-tags--edittag)
+  * [Filtering contacts by tags (`filtertag`)](#filtering-contacts-by-tags--filtertag)
+  * [Starring a person (`star`)](#starring-a-person--star)
+  * [Unstarring a person (`unstar`)](#unstarring-a-person--unstar)
+  * [Adding a meeting (`addmeeting`)](#adding-a-meeting--addmeeting)
+  * [Deleting a meeting (`deletemeeting`)](#deleting-a-meeting--deletemeeting)
+  * [Clearing all entries (`clear`)](#clearing-all-entries--clear)
+  * [Exiting the program (`exit`)](#exiting-the-program--exit)
+  * [Saving the data](#saving-the-data)
+  * [Editing the data file](#editing-the-data-file)
+* [FAQ](#faq)
+* [Known issues](#known-issues)
+* [Command summary](#command-summary)
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -188,7 +210,7 @@ Examples:
 * `deletetag 5 / classmates` deletes the `classmates` tag from contact index 5.
 * `deletetag 1, 2, 3 / friends / cs` deletes the `friends` and `cs` tags from contact indices 1, 2 and 3.
 
-### Editing existing tags
+### Editing existing tags : `edittag`
 
 Rename existing tags across multiple contacts in batch
 
@@ -258,7 +280,7 @@ Format: `addmeeting INDICES d/DESCRIPTION dt/DATE`
 
 Example: `addmeeting 1, 2 d/ Casual icebreaker dt/ 2026-03-26`
 
-### Delete a meeting : `deletemeeting`
+### Deleting a meeting : `deletemeeting`
 
 Remove meetings using indices 
 
@@ -292,10 +314,6 @@ AddressBook data are saved automatically as a JSON file `[JAR file location]/dat
 If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
 Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 </div>
-
-### Archiving data files `[coming in v2.0]`
-
-_Details coming soon ..._
 
 --------------------------------------------------------------------------------------------------------------------
 
