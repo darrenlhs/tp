@@ -80,6 +80,13 @@ public class Meeting {
         return new HashSet<>(participantsID); // Returns a defensive copy of the set.
     }
 
+    /** Returns true if two meetings are the same.
+     * Two meetings are the same if their descriptions and date are equal. */
+    public boolean isSameMeeting(Meeting otherMeeting) {
+        return description.equals(otherMeeting.description)
+                && date.equals(otherMeeting.date);
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
