@@ -113,7 +113,6 @@ A person must have a `NAME` and at least one of the following:
 - `add n/John Doe e/johnd@example.com`
 - `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com t/friend t/criminal`
 
-
 ### Deleting a person : `delete`
 
 Deletes the specified person from the address book.
@@ -336,13 +335,19 @@ Furthermore, certain edits can cause the AddressBook to behave in unexpected way
 | Action          | Format, Examples                                                                                                                    |
 |-----------------|-------------------------------------------------------------------------------------------------------------------------------------|
 | **Help**        | `help`                                                                                                                              |
-| **Add**         | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com t/friend t/colleague` |
+| **Add**         | `add n/NAME [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]…​` <br> e.g., `add n/James Ho p/22224444 e/jamesho@example.com t/friend t/colleague`  |
 | **Delete**      | `delete INDEX`<br> e.g., `delete 3`                                                                                                 |
-| **Edit**        | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                     |
+| **Edit**        | `edit INDEX [n/NAME] [p/PHONE_NUMBER] [e/EMAIL] [t/TAG]…​`<br> e.g.,`edit 2 n/James Lee e/jameslee@example.com`                      |
 | **List**        | `list`                                                                                                                              |
-| **Find**        | `find KEYWORD [MORE_KEYWORDS]`<br> e.g., `find James Jake`                                                                          |
+| **Global Find** | `find <SEARCH SUBSTRING> [<OTHER SEARCH SUBSTRINGS>]...`<br> e.g., `find alex david`                                                |
+| **Field Find**  | `find [n/NAME] [p/PHONE] [e/EMAIL]...`<br> e.g., `find n/ david p/ 9927 e/ charlotte`                                               |
 | **Add tags**    | `addtag INDEX, [INDICES...] / TAG [/ TAG]`<br> e.g., `addtag 1, 2 / friends / cs`                                                   |
 | **Delete tags** | `deletetag INDEX, [INDICES...] / TAG [/ TAG]`<br> e.g., `deletetag 1, 2 / friends / cs`                                             |
+| **Edit tags**   | `edittag [INDICES OR 'all'] o/ OLDTAG n/ NEWTAG`<br> e.g., `edittag 1, 2, 3 o/ cs n/ computer science`                              |
+| **Filter tags** | `filtertag / TAG [/ TAG]...`<br> e.g., `filtertag / schoolB / schoolC`                                                              |
 | **Star**        | `star INDEX`<br> e.g., `star 2`                                                                                                     |
 | **Unstar**      | `unstar INDEX`<br> e.g., `unstar 2`                                                                                                 |
+| **Add meetings**| `addmeeting INDICES d/DESCRIPTION dt/DATE`<br> e.g., `addmeeting 1, 2 d/ Casual icebreaker dt/ 2026-03-26`                          |
+| **Delete meetings**| `deletemeeting INDICES`<br> e.g., `deletemeeting 1`                                                                              |
 | **Clear**       | `clear`                                                                                                                             |
+| **Exit**        | `exit`                                                                                                                              |
