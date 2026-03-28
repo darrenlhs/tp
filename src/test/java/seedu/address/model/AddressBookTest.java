@@ -3,9 +3,7 @@ package seedu.address.model;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import static seedu.address.testutil.Assert.assertThrows;
-import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.time.LocalDate;
@@ -21,6 +19,7 @@ import org.junit.jupiter.api.Test;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import seedu.address.logic.commands.CommandTestUtil;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.meeting.exceptions.MeetingNotFoundException;
@@ -28,6 +27,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.exceptions.DuplicatePersonException;
 import seedu.address.model.person.exceptions.PersonNotFoundException;
 import seedu.address.testutil.PersonBuilder;
+import seedu.address.testutil.TypicalPersons;
 
 public class AddressBookTest {
 
@@ -53,9 +53,9 @@ public class AddressBookTest {
     @Test
     public void resetData_withDuplicatePersons_throwsDuplicatePersonException() {
         // Two persons with the same identity fields
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
-        List<Person> newPersons = Arrays.asList(ALICE, editedAlice);
+        List<Person> newPersons = Arrays.asList(TypicalPersons.ALICE, editedAlice);
         List<Meeting> emptyMeetings = new ArrayList<>();
         AddressBookStub newData = new AddressBookStub(newPersons, emptyMeetings);
 
@@ -64,17 +64,39 @@ public class AddressBookTest {
 
     @Test
     public void resetData_withDuplicateMeeting_throwsDuplicateMeetingException() {
-        List<Person> newPersons = Collections.singletonList(ALICE);
+        List<Person> newPersons = TypicalPersons.getTypicalPersons();
 
         List<Meeting> newMeetings = new ArrayList<>();
         newMeetings.add(new Meeting(
-                "Coffee",
-                LocalDate.of(2026, 8, 12),
-                Set.of(ALICE.getId())));
+                TypicalPersons.COFFEE_MEETING.getDescription(),
+                TypicalPersons.COFFEE_MEETING.getDate(),
+                TypicalPersons.COFFEE_MEETING.getParticipantsID()));
         newMeetings.add(new Meeting(
-                "Coffee",
-                LocalDate.of(2026, 8, 12),
-                Set.of(ALICE.getId())));
+                TypicalPersons.COFFEE_MEETING.getDescription(),
+                TypicalPersons.COFFEE_MEETING.getDate(),
+                TypicalPersons.COFFEE_MEETING.getParticipantsID()));
+
+        AddressBookStub newData = new AddressBookStub(newPersons, newMeetings);
+
+        assertThrows(DuplicateMeetingException.class, () -> addressBook.resetData(newData));
+    }
+
+    @Test
+    public void resetData_withDuplicateMeetingDifferentParticipants_throwsDuplicateMeetingException() {
+        List<Person> newPersons = TypicalPersons.getTypicalPersons();
+
+        List<Meeting> newMeetings = new ArrayList<>();
+        newMeetings.add(new Meeting(
+                TypicalPersons.COFFEE_MEETING.getDescription(),
+                TypicalPersons.COFFEE_MEETING.getDate(),
+                TypicalPersons.COFFEE_MEETING.getParticipantsID()));
+
+        Set<UUID> participantsMinusOne = TypicalPersons.COFFEE_MEETING.getParticipantsID();
+        participantsMinusOne.remove(participantsMinusOne.iterator().next()); // Remove first UUID.
+        newMeetings.add(new Meeting(
+                TypicalPersons.COFFEE_MEETING.getDescription(),
+                TypicalPersons.COFFEE_MEETING.getDate(),
+                participantsMinusOne));
 
         AddressBookStub newData = new AddressBookStub(newPersons, newMeetings);
 
@@ -88,19 +110,19 @@ public class AddressBookTest {
 
     @Test
     public void hasPerson_personNotInAddressBook_returnsFalse() {
-        assertFalse(addressBook.hasPerson(ALICE));
+        assertFalse(addressBook.hasPerson(TypicalPersons.ALICE));
     }
 
     @Test
     public void hasPerson_personInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        assertTrue(addressBook.hasPerson(ALICE));
+        addressBook.addPerson(TypicalPersons.ALICE);
+        assertTrue(addressBook.hasPerson(TypicalPersons.ALICE));
     }
 
     @Test
     public void hasPerson_personWithSameIdentityFieldsInAddressBook_returnsTrue() {
-        addressBook.addPerson(ALICE);
-        Person editedAlice = new PersonBuilder(ALICE).withTags(VALID_TAG_HUSBAND)
+        addressBook.addPerson(TypicalPersons.ALICE);
+        Person editedAlice = new PersonBuilder(TypicalPersons.ALICE).withTags(CommandTestUtil.VALID_TAG_HUSBAND)
                 .build();
         assertTrue(addressBook.hasPerson(editedAlice));
     }
