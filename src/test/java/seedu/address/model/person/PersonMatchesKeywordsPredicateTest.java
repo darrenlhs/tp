@@ -10,6 +10,8 @@ import java.util.List;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.testutil.PersonBuilder;
+
 public class PersonMatchesKeywordsPredicateTest {
 
     @Test
@@ -182,4 +184,33 @@ public class PersonMatchesKeywordsPredicateTest {
 
         assertTrue(predicate.test(ALICE));
     }
+
+    @Test
+    public void test_nullPhone_noNpe() {
+        Person person = new PersonBuilder()
+                        .withName("Alice")
+                        .withPhone(null)
+                        .withEmail("alice@gmail.com")
+                        .build();
+
+        PersonMatchesKeywordsPredicate predicate = new PersonMatchesKeywordsPredicate(
+                        List.of("alice"), List.of(), List.of(), List.of());
+
+        assertTrue(predicate.test(person));
+    }
+
+    @Test
+    public void test_nullEmail_noNpe() {
+        Person person = new PersonBuilder()
+                        .withName("Bob")
+                        .withPhone("90001111")
+                        .withEmail(null)
+                        .build();
+
+        PersonMatchesKeywordsPredicate predicate = new PersonMatchesKeywordsPredicate(
+                        List.of("bob"), List.of(), List.of(), List.of());
+
+        assertTrue(predicate.test(person));
+    }
+
 }
