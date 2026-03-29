@@ -5,13 +5,14 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_DESCRIPTION;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDICES;
 
-import seedu.address.commons.core.index.Index;
-import seedu.address.logic.commands.FindMeetingCommand;
-import seedu.address.logic.parser.exceptions.ParseException;
-
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
+
+import seedu.address.commons.core.index.Index;
+import seedu.address.logic.commands.FindMeetingCommand;
+import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
  * Parses input arguments and creates a new FindMeetingCommand object
@@ -30,8 +31,14 @@ public class FindMeetingCommandParser implements Parser<FindMeetingCommand> {
 
         String preamble = argMultimap.getPreamble().trim();
 
-        List<String> descriptionKeywords = argMultimap.getAllValues(PREFIX_MEETING_DESCRIPTION);
-        List<String> dateKeywords = argMultimap.getAllValues(PREFIX_MEETING_DATE);
+        List<String> descriptionKeywords = argMultimap.getAllValues(PREFIX_MEETING_DESCRIPTION)
+                .stream()
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());
+        List<String> dateKeywords = argMultimap.getAllValues(PREFIX_MEETING_DATE)
+                .stream()
+                .filter(s -> !s.isEmpty())
+                .collect(Collectors.toList());;
         List<String> personIndicesList = argMultimap.getAllValues(PREFIX_PERSON_INDICES);
 
         Set<Index> personIndices = new HashSet<>();
@@ -45,6 +52,11 @@ public class FindMeetingCommandParser implements Parser<FindMeetingCommand> {
             // there should be nothing before the first prefix (d/)
             throw new ParseException(
                     String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMeetingCommand.MESSAGE_USAGE));
+        }
+
+        if (descriptionKeywords.isEmpty() && dateKeywords.isEmpty() && personIndices.isEmpty()) {
+            throw new ParseException(
+                    String.format(FindMeetingCommand.MESSAGE_NO_PARAMS_FOUND, FindMeetingCommand.MESSAGE_USAGE));
         }
 
         return new FindMeetingCommand(descriptionKeywords,

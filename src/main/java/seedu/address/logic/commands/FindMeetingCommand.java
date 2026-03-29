@@ -28,10 +28,28 @@ public class FindMeetingCommand extends Command {
             + "Parameters: [d/ SEARCH SUBSTRING] [dt/ SEARCH SUBSTRING] [i/ PERSON INDICES]...\n"
             + "Example: " + COMMAND_WORD + " d/ meeting dt/ 2026";
 
+    public static final String MESSAGE_FORMAT =
+            "Format: findmeeting [d/ SEARCH SUBSTRING) [dt/ SEARCH SUBSTRING] [i/ PERSON INDICES]...\n"
+                    + "Example: "
+                    + COMMAND_WORD
+                    + " d/ meeting"
+                    + " dt/ 2026"
+                    + " i/ 1, 2, 3";
+
+    public static final String MESSAGE_NO_PARAMS_FOUND =
+            "No description, date or indices have been detected." + "\n" + MESSAGE_FORMAT;
+
     private final List<String> descriptionKeywords;
     private final List<String> dateKeywords;
     private final Set<Index> personIndices;
 
+    /**
+     * Instantiates a new FindMeetingCommand with the respective parameters.
+     *
+     * @param descriptionKeywords the keywords corresponding to the meeting description.
+     * @param dateKeywords the keywords corresponding to the meeting date.
+     * @param personIndices the indices corresponding to the current person list's contact indices.
+     */
     public FindMeetingCommand(List<String> descriptionKeywords,
                               List<String> dateKeywords,
                               Set<Index> personIndices) {

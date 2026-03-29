@@ -35,16 +35,18 @@ public class MeetingMatchesKeywordsPredicate implements Predicate<Meeting> {
         String date = meeting.getDate().toString();
         Set<UUID> participantIDs = meeting.getParticipantsID();
 
-        boolean doAnyKeywordsMatchDescription = descriptionKeywords.stream()
+        boolean doAnyKeywordsMatchDescription = descriptionKeywords
+                .stream()
                 .anyMatch(k -> description.contains(k.toLowerCase()));
 
-        boolean doAnyKeywordsMatchDate = dateKeywords.stream()
+        boolean doAnyKeywordsMatchDate = dateKeywords
+                .stream()
                 .anyMatch(k -> date.contains(k.toLowerCase()));
 
-        boolean doesMeetingContainAllUUIDs = !uuidsToMatch.isEmpty()
+        boolean doesMeetingContainAllUuids = !uuidsToMatch.isEmpty()
                 && participantIDs.containsAll(uuidsToMatch);
 
-        return doAnyKeywordsMatchDescription || doAnyKeywordsMatchDate || doesMeetingContainAllUUIDs;
+        return doAnyKeywordsMatchDescription || doAnyKeywordsMatchDate || doesMeetingContainAllUuids;
     }
 
     @Override

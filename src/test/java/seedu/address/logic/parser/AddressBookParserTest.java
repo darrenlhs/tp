@@ -35,6 +35,7 @@ import seedu.address.logic.commands.EditTagCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterTagCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindMeetingCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
 import seedu.address.logic.commands.ListMeetingCommand;
@@ -130,6 +131,15 @@ public class AddressBookParserTest {
                         + keywords.stream().collect(Collectors.joining(" ")));
         assertEquals(new FindCommand(
                 new PersonMatchesKeywordsPredicate(keywords, List.of(), List.of(), List.of())), command);
+    }
+
+    @Test
+    public void parseCommand_findMeeting() throws Exception {
+        FindMeetingCommand command = (FindMeetingCommand) parser.parseCommand(
+                FindMeetingCommand.COMMAND_WORD + " "
+                        + "d/ meeting dt/ 2026 i/ 1");
+        assertEquals(new FindMeetingCommand(
+                List.of("meeting"), List.of("2026"), Set.of(Index.fromOneBased(1))), command);
     }
 
     @Test
