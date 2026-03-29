@@ -1,13 +1,11 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PERSON_TO_MEETING_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_PERSON_FROM_MEETING_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_DESCRIPTION;
-import static seedu.address.logic.parser.ParserUtil.parseIndices;
-
-import java.util.Set;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditMeetingCommand;
@@ -38,8 +36,14 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
 
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
 
-        Set<Index> meetingIndices = parseIndices(argMultimap.getPreamble(),
-                EditMeetingCommand.MESSAGE_USAGE);
+        Index meetingIndex;
+
+        try {
+            meetingIndex = ParserUtil.parseIndex(argMultimap.getPreamble());
+        } catch (ParseException pe) {
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
+                    EditMeetingCommand.MESSAGE_USAGE));
+        }
 
         if (argMultimap.getValue(PREFIX_MEETING_DESCRIPTION).isPresent()) {
             String trimmedDescription = argMultimap.getValue(PREFIX_MEETING_DESCRIPTION).get().trim();
@@ -68,6 +72,6 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
             throw new ParseException(EditMeetingCommand.MESSAGE_NOT_EDITED);
         }
 
-        return new EditMeetingCommand(meetingIndices, descriptor);
+        return new EditMeetingCommand(meetingIndex, descriptor);
     }
 }

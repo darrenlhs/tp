@@ -17,7 +17,6 @@ import java.util.Objects;
 import java.util.Optional;
 import java.util.Set;
 import java.util.UUID;
-import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.CollectionUtil;
@@ -44,31 +43,31 @@ public class EditMeetingCommand extends Command {
             + "Parameters: INDEX (must be a positive integer) "
             + "[" + PREFIX_MEETING_DESCRIPTION + "DESCRIPTION] "
             + "[" + PREFIX_MEETING_DATE + "DATE] "
-            + "[" + PREFIX_ADD_PERSON_TO_MEETING_INDEX + "PARTICIPANT_INDEX]... "
-            + "[" + PREFIX_DELETE_PERSON_FROM_MEETING_INDEX + "PARTICIPANT_INDEX]...\n"
+            + "[" + PREFIX_ADD_PERSON_TO_MEETING_INDEX + "PARTICIPANT_INDEX ...] "
+            + "[" + PREFIX_DELETE_PERSON_FROM_MEETING_INDEX + "PARTICIPANT_INDEX ...]\n"
             + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_MEETING_DESCRIPTION + "Team Sync "
             + PREFIX_MEETING_DATE + "2026-04-01 "
-            + PREFIX_ADD_PERSON_TO_MEETING_INDEX + "3 5 "
+            + PREFIX_ADD_PERSON_TO_MEETING_INDEX + "3, 5 "
             + PREFIX_DELETE_PERSON_FROM_MEETING_INDEX + "2";
 
     public static final String MESSAGE_EDIT_MEETING_SUCCESS = "Edited meeting(s): %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
 
-    private final Set<Index> meetingIndices;
+    private final Index meetingIndex;
     private final EditMeetingDescriptor editMeetingDescriptor;
 
     /**
-     * Creates an EditMeetingCommand to edit the specified {@code Meeting}s
+     * Creates an EditMeetingCommand to edit the specified {@code Meeting}
      *
-     * @param meetingIndices The indices of the meeting in the list to edit
+     * @param meetingIndex The index of the meeting in the list to edit
      * @param editMeetingDescriptor The details to edit the meeting with
      */
-    public EditMeetingCommand(Set<Index> meetingIndices, EditMeetingDescriptor editMeetingDescriptor) {
-        requireNonNull(meetingIndices);
+    public EditMeetingCommand(Index meetingIndex, EditMeetingDescriptor editMeetingDescriptor) {
+        requireNonNull(meetingIndex);
         requireNonNull(editMeetingDescriptor);
 
-        this.meetingIndices = meetingIndices;
+        this.meetingIndex = meetingIndex;
         this.editMeetingDescriptor = new EditMeetingDescriptor(editMeetingDescriptor);
     }
 
@@ -78,30 +77,23 @@ public class EditMeetingCommand extends Command {
 
         List<Meeting> lastShownMeetingList = model.getFilteredMeetingList();
 
-        Set<Meeting> meetingsToEdit = new HashSet<>();
-        Set<Index> editedMeetingIndices = new HashSet<>();
         editMeetingDescriptor.resolveParticipantIds(model);
 
-        for (Index index : meetingIndices) {
-            if (index.getZeroBased() >= lastShownMeetingList.size()) {
-                throw new CommandException(String.format(MESSAGE_INVALID_MEETING_INDEX, index.getOneBased()));
-            }
-            meetingsToEdit.add(lastShownMeetingList.get(index.getZeroBased()));
+        if (meetingIndex.getZeroBased() >= lastShownMeetingList.size()) {
+            throw new CommandException(String.format(MESSAGE_INVALID_MEETING_INDEX, meetingIndex.getOneBased()));
+        }
+        Meeting meetingToEdit = lastShownMeetingList.get(meetingIndex.getZeroBased());
+
+        Meeting editedMeeting = createEditedMeeting(meetingToEdit, editMeetingDescriptor);
+
+        try {
+            model.setMeeting(meetingToEdit, editedMeeting);
+        } catch (DuplicateMeetingException e) {
+            throw new CommandException(MESSAGE_MEETING_ALREADY_EXISTS);
         }
 
-        for (Index index : meetingIndices) {
-            Meeting meetingToEdit = lastShownMeetingList.get(index.getZeroBased());
-            Meeting editedMeeting = createEditedMeeting(meetingToEdit, editMeetingDescriptor);
-
-            try {
-                model.setMeeting(meetingToEdit, editedMeeting);
-                editedMeetingIndices.add(index);
-            } catch (DuplicateMeetingException e) {
-                throw new CommandException(MESSAGE_MEETING_ALREADY_EXISTS);
-            }
-        }
         return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS,
-                formatMeetingIndices(editedMeetingIndices)));
+                meetingIndex.getOneBased()));
     }
 
     /**
@@ -128,15 +120,6 @@ public class EditMeetingCommand extends Command {
         return new Meeting(updatedDescription, updatedDate, updatedParticipantsId);
     }
 
-    /**
-     * Formats the meeting indices into a comma-separated string for success messages.
-     */
-    private String formatMeetingIndices(Set<Index> meetingIndices) {
-        return meetingIndices.stream()
-                .map(i -> String.valueOf(i.getOneBased()))
-                .collect(Collectors.joining(", "));
-    }
-
     @Override
     public boolean equals(Object other) {
         if (other == this) {
@@ -149,14 +132,14 @@ public class EditMeetingCommand extends Command {
 
         EditMeetingCommand otherCommand = (EditMeetingCommand) other;
 
-        return meetingIndices.equals(otherCommand.meetingIndices)
+        return meetingIndex.equals(otherCommand.meetingIndex)
                 && editMeetingDescriptor.equals(otherCommand.editMeetingDescriptor);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("meetingIndices", meetingIndices)
+                .add("meetingIndex", meetingIndex)
                 .add("editMeetingDescriptor", editMeetingDescriptor)
                 .toString();
     }

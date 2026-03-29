@@ -11,6 +11,7 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_DESCRIPTION;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseFailure;
 import static seedu.address.logic.parser.CommandParserTestUtil.assertParseSuccess;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
+import static seedu.address.testutil.TypicalIndexes.INDEX_SECOND_PERSON;
 import static seedu.address.testutil.TypicalIndexes.INDEX_THIRD_PERSON;
 import static seedu.address.testutil.TypicalMeetings.PROJECT_MEETING;
 
@@ -18,7 +19,6 @@ import java.util.Set;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.EditMeetingCommand;
 import seedu.address.logic.commands.EditMeetingCommand.EditMeetingDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -60,9 +60,7 @@ class EditMeetingCommandParserTest {
 
     @Test
     void parse_allFieldsSpecified_success() throws ParseException {
-        Index targetIndex = Index.fromOneBased(2);
-
-        String userInput = targetIndex.getOneBased()
+        String userInput = INDEX_SECOND_PERSON.getOneBased()
                 + " " + PREFIX_MEETING_DESCRIPTION + PROJECT_MEETING.getDescription()
                 + " " + PREFIX_MEETING_DATE + PROJECT_MEETING.getDate()
                 + " " + PREFIX_ADD_PERSON_TO_MEETING_INDEX + "3"
@@ -74,7 +72,7 @@ class EditMeetingCommandParserTest {
         descriptor.setPeopleIndicesToAdd(Set.of(INDEX_THIRD_PERSON));
         descriptor.setPeopleIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
 
-        EditMeetingCommand expectedCommand = new EditMeetingCommand(Set.of(targetIndex), descriptor);
+        EditMeetingCommand expectedCommand = new EditMeetingCommand(INDEX_SECOND_PERSON, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }
@@ -90,7 +88,7 @@ class EditMeetingCommandParserTest {
         descriptor.setDescription(PROJECT_MEETING.getDescription());
         descriptor.setDate(PROJECT_MEETING.getDate());
 
-        EditMeetingCommand expectedCommand = new EditMeetingCommand(Set.of(INDEX_FIRST_PERSON), descriptor);
+        EditMeetingCommand expectedCommand = new EditMeetingCommand(INDEX_FIRST_PERSON, descriptor);
 
         assertParseSuccess(parser, userInput, expectedCommand);
     }

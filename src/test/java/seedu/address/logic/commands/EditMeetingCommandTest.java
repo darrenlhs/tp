@@ -54,7 +54,7 @@ public class EditMeetingCommandTest {
         descriptor.setPeopleIndicesToAdd(Set.of(INDEX_THIRD_PERSON));
         descriptor.setPeopleIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
 
-        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(Set.of(targetIndex), descriptor);
+        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(INDEX_FIRST_PERSON, descriptor);
 
         String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, "1");
 
@@ -66,8 +66,7 @@ public class EditMeetingCommandTest {
 
     @Test
     public void execute_someFieldsSpecifiedUnfilteredList_success() {
-        Index targetIndex = INDEX_SECOND_PERSON;
-        Meeting meetingToEdit = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
+        Meeting meetingToEdit = model.getFilteredMeetingList().get(INDEX_SECOND_PERSON.getZeroBased());
 
         String newDescription = STRATEGY_MEETING.getDescription();
 
@@ -78,9 +77,11 @@ public class EditMeetingCommandTest {
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
         descriptor.setDescription(newDescription);
 
-        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(Set.of(targetIndex), descriptor);
+        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(INDEX_SECOND_PERSON, descriptor);
 
-        String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, "2");
+        String expectedMessage = String.format(
+                EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS,
+                INDEX_SECOND_PERSON.getOneBased());
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
         expectedModel.setMeeting(meetingToEdit, editedMeeting);
@@ -91,9 +92,11 @@ public class EditMeetingCommandTest {
     @Test
     public void execute_noFieldSpecifiedUnfilteredList_success() {
         EditMeetingCommand editMeetingCommand = new EditMeetingCommand(
-                Set.of(INDEX_FIRST_PERSON),
+                INDEX_FIRST_PERSON,
                 new EditMeetingDescriptor());
-        String expectedMessage = String.format(EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS, "1");
+        String expectedMessage = String.format(
+                EditMeetingCommand.MESSAGE_EDIT_MEETING_SUCCESS,
+                INDEX_FIRST_PERSON.getOneBased());
 
         Model expectedModel = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
@@ -106,7 +109,7 @@ public class EditMeetingCommandTest {
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
         descriptor.setDescription(PROJECT_MEETING.getDescription());
 
-        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(Set.of(outOfBoundIndex), descriptor);
+        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(outOfBoundIndex, descriptor);
 
         assertCommandFailure(editMeetingCommand, model,
                 String.format(seedu.address.logic.commands.DeleteMeetingCommand.MESSAGE_INVALID_MEETING_INDEX,
@@ -115,15 +118,14 @@ public class EditMeetingCommandTest {
 
     @Test
     public void equals() {
-        Set<Index> indices = Set.of(Index.fromOneBased(1));
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
         descriptor.setDescription(PROJECT_MEETING.getDescription());
 
-        final EditMeetingCommand standardCommand = new EditMeetingCommand(indices, descriptor);
+        final EditMeetingCommand standardCommand = new EditMeetingCommand(INDEX_FIRST_PERSON, descriptor);
 
         // same values -> returns true
         EditMeetingDescriptor copyDescriptor = new EditMeetingDescriptor(descriptor);
-        EditMeetingCommand commandWithSameValues = new EditMeetingCommand(indices, copyDescriptor);
+        EditMeetingCommand commandWithSameValues = new EditMeetingCommand(INDEX_FIRST_PERSON, copyDescriptor);
         assertTrue(standardCommand.equals(commandWithSameValues));
 
         // same object -> returns true
@@ -136,23 +138,22 @@ public class EditMeetingCommandTest {
         assertFalse(standardCommand.equals(new ClearCommand()));
 
         // different index -> returns false
-        assertFalse(standardCommand.equals(new EditMeetingCommand(Set.of(Index.fromOneBased(2)), descriptor)));
+        assertFalse(standardCommand.equals(new EditMeetingCommand(INDEX_SECOND_PERSON, descriptor)));
 
         // different descriptor -> returns false
         EditMeetingDescriptor differentDescriptor = new EditMeetingDescriptor();
         differentDescriptor.setDescription(COFFEE_MEETING.getDescription());
-        assertFalse(standardCommand.equals(new EditMeetingCommand(indices, differentDescriptor)));
+        assertFalse(standardCommand.equals(new EditMeetingCommand(INDEX_FIRST_PERSON, differentDescriptor)));
     }
 
     @Test
     public void toStringMethod() {
-        Set<Index> indices = Set.of(INDEX_FIRST_PERSON);
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
-        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(indices, descriptor);
+        EditMeetingCommand editMeetingCommand = new EditMeetingCommand(INDEX_FIRST_PERSON, descriptor);
 
         // Expected string using ToStringBuilder style
         String expected = new ToStringBuilder(editMeetingCommand)
-                .add("meetingIndices", indices)
+                .add("meetingIndex", INDEX_FIRST_PERSON)
                 .add("editMeetingDescriptor", descriptor)
                 .toString();
 
