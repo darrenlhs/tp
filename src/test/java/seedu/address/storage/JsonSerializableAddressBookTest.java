@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalPersons.ALICE;
 import static seedu.address.testutil.TypicalPersons.PROJECT_MEETING;
 
@@ -12,7 +11,6 @@ import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
-import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.commons.util.JsonUtil;
 import seedu.address.model.AddressBook;
 import seedu.address.model.meeting.Meeting;
@@ -48,11 +46,13 @@ public class JsonSerializableAddressBookTest {
     }
 
     @Test
-    public void toModelType_invalidPersonFile_throwsIllegalValueException() throws Exception {
+    public void toModelType_invalidPersonIgnored_success() throws Exception {
         JsonSerializableAddressBook dataFromFile = JsonUtil.readJsonFile(
                 INVALID_PERSON_FILE, JsonSerializableAddressBook.class).get();
 
-        assertThrows(IllegalValueException.class, dataFromFile::toModelType);
+        AddressBook result = dataFromFile.toModelType();
+
+        assertEquals(0, result.getPersonList().size());
     }
 
     @Test
