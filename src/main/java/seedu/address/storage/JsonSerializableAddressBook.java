@@ -122,13 +122,9 @@ class JsonSerializableAddressBook {
                     continue;
                 }
 
-                // Check participants are valid
-                for (UUID participantId : meeting.getParticipantsID()) {
-                    if (!addressBook.hasSameID(participantId)) {
-                        logger.warning(String.format(
-                                MESSAGE_MEETING_WITH_INVALID_PARTICIPANT,
-                                meeting.getDescription(), participantId.toString()));
-                    }
+                // Skip the entire meeting if any participant is invalid
+                if (hasInvalidParticipants(meeting, addressBook)) {
+                    continue;
                 }
 
                 addressBook.addMeeting(meeting);
@@ -137,5 +133,21 @@ class JsonSerializableAddressBook {
                 logger.warning(String.format(MESSAGE_INVALID_MEETING, i, e.getMessage()));
             }
         }
+    }
+
+    /**
+     * Returns true if the meeting has any invalid participants.
+     * Logs a warning for each invalid participant found.
+     */
+    private boolean hasInvalidParticipants(Meeting meeting, AddressBook addressBook) {
+        for (UUID participantId : meeting.getParticipantsID()) {
+            if (addressBook.hasSameID(participantId)) {
+                logger.warning(String.format(
+                        MESSAGE_MEETING_WITH_INVALID_PARTICIPANT,
+                        meeting.toString(), participantId.toString()));
+                return true; // Found an invalid participant, stop checking further
+            }
+        }
+        return false; // All participants are valid
     }
 }
