@@ -94,6 +94,14 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
+     * Returns true if a person with the same {@code ID} exists in the address book.
+     */
+    public boolean hasSameID(UUID id) {
+        requireNonNull(id);
+        return persons.hasSameID(id);
+    }
+
+    /**
      * Adds a person to the address book.
      * The person must not already exist in the address book.
      */

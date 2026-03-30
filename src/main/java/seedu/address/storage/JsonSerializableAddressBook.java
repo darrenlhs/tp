@@ -2,6 +2,7 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.UUID;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -30,6 +31,8 @@ class JsonSerializableAddressBook {
             "%s already exists in the meeting list, skipping meeting.";
     public static final String MESSAGE_DUPLICATE_ID =
             "%s has an ID that already exists in the address book, skipping person.";
+    public static final String MESSAGE_MEETING_WITH_INVALID_PARTICIPANT =
+            "Meeting \"%s\" has invalid participant ID \"%s\", skipping meeting.";
 
     private static final Logger logger = LogsCenter.getLogger(JsonSerializableAddressBook.class);
 
@@ -58,26 +61,38 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Converts this address book into the model's {@code AddressBook} object.
-     * Logs for all invalid and duplicate {@code Person} and {@code Meeting} and
-     * skips past these objects.
+     * Converts this JSON-serializable address book into the model's {@code AddressBook} object.
+     * Logs any duplicates or invalid entries and skips them.
      */
     public AddressBook toModelType() {
         AddressBook addressBook = new AddressBook();
 
-        // Adds persons
+        // Add persons safely
+        addPersonsToModel(addressBook);
+
+        // Add meetings safely
+        addMeetingsToModel(addressBook);
+
+        return addressBook;
+    }
+
+    /**
+     * Adds all persons from the JSON list to the given {@code AddressBook}.
+     * Skips duplicates or invalid entries and logs warnings.
+     */
+    private void addPersonsToModel(AddressBook addressBook) {
         for (int i = 0; i < persons.size(); i++) {
             JsonAdaptedPerson jsonAdaptedPerson = persons.get(i);
             try {
                 Person person = jsonAdaptedPerson.toModelType();
 
-                // Skips person duplicate
+                // Skip exact duplicates
                 if (addressBook.hasPerson(person)) {
                     logger.warning(String.format(MESSAGE_DUPLICATE_PERSON, person.getName()));
                     continue;
                 }
 
-                // Skips duplicate ID
+                // Skip duplicate IDs
                 if (addressBook.hasSameID(person)) {
                     logger.warning(String.format(MESSAGE_DUPLICATE_ID, person.getName()));
                     continue;
@@ -89,17 +104,31 @@ class JsonSerializableAddressBook {
                 logger.warning(String.format(MESSAGE_INVALID_PERSON, i, e.getMessage()));
             }
         }
+    }
 
-        // Adds meetings
+    /**
+     * Adds all meetings from the JSON list to the given {@code AddressBook}.
+     * Skips duplicates or invalid entries, logs warnings, and logs meetings with invalid participants.
+     */
+    private void addMeetingsToModel(AddressBook addressBook) {
         for (int i = 0; i < meetings.size(); i++) {
             JsonAdaptedMeeting jsonAdaptedMeeting = meetings.get(i);
             try {
                 Meeting meeting = jsonAdaptedMeeting.toModelType();
 
-                // Skips meeting duplicate
+                // Skip duplicate meetings
                 if (addressBook.hasMeeting(meeting)) {
                     logger.warning(String.format(MESSAGE_DUPLICATE_MEETING, meeting.toString()));
                     continue;
+                }
+
+                // Check participants are valid
+                for (UUID participantId : meeting.getParticipantsID()) {
+                    if (!addressBook.hasSameID(participantId)) {
+                        logger.warning(String.format(
+                                MESSAGE_MEETING_WITH_INVALID_PARTICIPANT,
+                                meeting.getDescription(), participantId.toString()));
+                    }
                 }
 
                 addressBook.addMeeting(meeting);
@@ -108,7 +137,5 @@ class JsonSerializableAddressBook {
                 logger.warning(String.format(MESSAGE_INVALID_MEETING, i, e.getMessage()));
             }
         }
-
-        return addressBook;
     }
 }
