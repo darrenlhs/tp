@@ -24,6 +24,7 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
+import seedu.address.testutil.MeetingBuilder;
 
 public class AddMeetingCommandTest {
     public static final String VALID_DESCRIPTION_PROJECT = "Project Discussion";
@@ -48,14 +49,18 @@ public class AddMeetingCommandTest {
                 new Description(VALID_DESCRIPTION_PROJECT), VALID_DATE_20260325);
 
         // Original target person
-        Person targetPerson = model.getFilteredPersonList().get(indices.iterator().next().getZeroBased());
+        Person targetPerson = model.getFilteredPersonList()
+                .get(indices.iterator().next().getZeroBased());
 
         // Collect participant IDs for the meeting
         Set<UUID> participantIds = Set.of(targetPerson.getId());
 
-        // Meeting with validated IDs
-        Meeting meeting = new Meeting(new Description(VALID_DESCRIPTION_PROJECT),
-                VALID_DATE_20260325, participantIds);
+        // Meeting using MeetingBuilder
+        Meeting meeting = new MeetingBuilder()
+                .withDescription(VALID_DESCRIPTION_PROJECT)
+                .withDate(VALID_DATE_20260325)
+                .withParticipants(participantIds)
+                .build();
 
         String expectedMessage = String.format(AddMeetingCommand.MESSAGE_ADD_MEETING_SUCCESS, meeting);
 
@@ -78,14 +83,17 @@ public class AddMeetingCommandTest {
                 CARL.getId()
         );
 
-        // Meeting with validated IDs
-        Meeting meeting = new Meeting(VALID_DESCRIPTION_TEAM, VALID_DATE_20260401, participantIds);
+        // Meeting using MeetingBuilder
+        Meeting meeting = new MeetingBuilder()
+                .withDescription(VALID_DESCRIPTION_TEAM)
+                .withDate(VALID_DATE_20260401)
+                .withParticipants(participantIds)
+                .build();
 
-        // Build expected model by adding the meeting to each person
+        // Build expected model
         Model expectedModel = new ModelManager(model.getAddressBook(), new UserPrefs());
         expectedModel.addMeeting(meeting);
 
-        // Expected message with names
         String expectedMessage = String.format(AddMeetingCommand.MESSAGE_ADD_MEETING_SUCCESS, meeting);
 
         assertCommandSuccess(command, model, expectedMessage, expectedModel);
@@ -93,13 +101,12 @@ public class AddMeetingCommandTest {
 
     @Test
     public void execute_invalidIndexOutOfBounds_throwsCommandException() {
-        // Compute an index outside the current person list
         int outOfBounds = model.getFilteredPersonList().size() + 1;
         Index outOfBoundsIndex = Index.fromOneBased(outOfBounds);
         Set<Index> outOfBoundsIndices = Set.of(outOfBoundsIndex);
 
         AddMeetingCommand command = new AddMeetingCommand(outOfBoundsIndices,
-                VALID_DESCRIPTION_PROJECT, VALID_DATE_20260325);
+                new Description(VALID_DESCRIPTION_PROJECT), VALID_DATE_20260325);
 
         assertCommandFailure(command, model, AddMeetingCommand.MESSAGE_INVALID_PERSON_INDEX);
     }
@@ -110,16 +117,16 @@ public class AddMeetingCommandTest {
         Set<Index> secondIndices = VALID_INDICES_MULTIPLE;
 
         AddMeetingCommand firstCommand = new AddMeetingCommand(firstIndices,
-                VALID_DESCRIPTION_PROJECT, VALID_DATE_20260325);
+                new Description(VALID_DESCRIPTION_PROJECT), VALID_DATE_20260325);
         AddMeetingCommand secondCommand = new AddMeetingCommand(secondIndices,
-                VALID_DESCRIPTION_TEAM, VALID_DATE_20260401);
+                new Description(VALID_DESCRIPTION_TEAM), VALID_DATE_20260401);
 
         // same object -> returns true
         assertEquals(firstCommand, firstCommand);
 
         // same values -> returns true
         AddMeetingCommand firstCommandCopy = new AddMeetingCommand(firstIndices,
-                VALID_DESCRIPTION_PROJECT, VALID_DATE_20260325);
+                new Description(VALID_DESCRIPTION_PROJECT), VALID_DATE_20260325);
         assertEquals(firstCommand, firstCommandCopy);
 
         // different types -> returns false

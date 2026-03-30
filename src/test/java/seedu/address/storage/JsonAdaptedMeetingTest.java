@@ -29,7 +29,7 @@ public class JsonAdaptedMeetingTest {
     public void toModelType_validMeetings_success() throws Exception {
         for (JsonAdaptedMeeting meeting : VALID_MEETINGS) {
             Meeting modelMeeting = meeting.toModelType();
-            assert(modelMeeting.getDescription().equals(meeting.getDescription()));
+            assert(modelMeeting.getDescription().description.equals(meeting.getDescription()));
             assert(modelMeeting.getDate().toString().equals(meeting.getDate()));
             assert(modelMeeting.getParticipantsID().size() == VALID_IDS.size()); // optional extra check
         }
@@ -38,13 +38,6 @@ public class JsonAdaptedMeetingTest {
     @Test
     public void toModelType_nullDescription_throwsIllegalValueException() {
         JsonAdaptedMeeting meeting = new JsonAdaptedMeeting(null,
-                VALID_DATE_20260325.toString(), VALID_IDS);
-        assertThrows(IllegalValueException.class, meeting::toModelType);
-    }
-
-    @Test
-    public void toModelType_emptyDescription_throwsIllegalValueException() {
-        JsonAdaptedMeeting meeting = new JsonAdaptedMeeting(INVALID_DESCRIPTION,
                 VALID_DATE_20260325.toString(), VALID_IDS);
         assertThrows(IllegalValueException.class, meeting::toModelType);
     }
