@@ -169,7 +169,7 @@ public class ModelManager implements Model {
 
     @Override
     public ObservableList<Meeting> getFilteredMeetingList() {
-        return addressBook.getMeetingList();
+        return filteredMeetings;
     }
 
     @Override
