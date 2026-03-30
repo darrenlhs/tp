@@ -37,11 +37,11 @@ public class MeetingMatchesKeywordsPredicate implements Predicate<Meeting> {
 
         boolean doAnyKeywordsMatchDescription = descriptionKeywords
                 .stream()
-                .anyMatch(k -> description.contains(k.toLowerCase()));
+                .anyMatch(substring -> description.contains(substring.toLowerCase()));
 
         boolean doAnyKeywordsMatchDate = dateKeywords
                 .stream()
-                .anyMatch(k -> date.contains(k.toLowerCase()));
+                .anyMatch(substring -> date.contains(substring.toLowerCase()));
 
         boolean doesMeetingContainAllUuids = !uuidsToMatch.isEmpty()
                 && participantIDs.containsAll(uuidsToMatch);
