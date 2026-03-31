@@ -27,14 +27,6 @@ public class DeleteTagCommand extends Command {
             + ": Deletes the specified tag(s) from the person(s) "
             + "identified by the index number(s) used in the displayed person list.\n";
 
-    public static final String MESSAGE_FORMAT =
-            "(Format: deletetag INDEX, ... / TAG [/ TAG] ...)\n"
-            + "Example: "
-            + COMMAND_WORD
-            + " 1, 2, 3"
-            + " / computer science"
-            + " / friend";
-
     public static final String MESSAGE_DELETE_TAG_SUCCESS = "Removed tags %1$s from specified persons";
     public static final String MESSAGE_NO_TAGS = "At least one tag must be provided.";
     public static final String MESSAGE_NO_VALID_TAGS =

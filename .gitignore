@@ -8,6 +8,8 @@ src/main/resources/docs/
 /out/
 /*.iml
 
+/.vscode/
+
 # Storage/log files
 /data/
 /config.json
@@ -22,4 +24,3 @@ src/test/data/sandbox/
 .DS_Store
 docs/_site/
 bin/
-

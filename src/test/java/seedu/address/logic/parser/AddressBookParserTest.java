@@ -10,6 +10,7 @@ import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_INDEX_SIN
 import static seedu.address.logic.parser.AddMeetingCommandParserTest.INPUT_DATE_20260325;
 import static seedu.address.logic.parser.AddMeetingCommandParserTest.INPUT_DESC_PROJECT;
 import static seedu.address.logic.parser.AddMeetingCommandParserTest.INPUT_INDEX_SINGLE;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_PERSON_INDICES;
 import static seedu.address.testutil.Assert.assertThrows;
 import static seedu.address.testutil.TypicalIndexes.INDEX_FIRST_PERSON;
 
@@ -35,8 +36,10 @@ import seedu.address.logic.commands.EditTagCommand;
 import seedu.address.logic.commands.ExitCommand;
 import seedu.address.logic.commands.FilterTagCommand;
 import seedu.address.logic.commands.FindCommand;
+import seedu.address.logic.commands.FindMeetingCommand;
 import seedu.address.logic.commands.HelpCommand;
 import seedu.address.logic.commands.ListCommand;
+import seedu.address.logic.commands.ListMeetingCommand;
 import seedu.address.logic.commands.StarCommand;
 import seedu.address.logic.commands.UnstarCommand;
 import seedu.address.logic.parser.exceptions.ParseException;
@@ -132,6 +135,20 @@ public class AddressBookParserTest {
     }
 
     @Test
+    public void parseCommand_findMeeting() throws Exception {
+        FindMeetingCommand command = (FindMeetingCommand) parser.parseCommand(
+                FindMeetingCommand.COMMAND_WORD
+                + INPUT_DESC_PROJECT
+                + INPUT_DATE_20260325
+                + " " + PREFIX_PERSON_INDICES + INPUT_INDEX_SINGLE);
+
+        assertEquals(new FindMeetingCommand(
+                List.of(VALID_DESCRIPTION_PROJECT),
+                List.of(VALID_DATE_20260325.toString()),
+                Set.of(Index.fromOneBased(1))), command);
+    }
+
+    @Test
     public void parseCommand_help() throws Exception {
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD) instanceof HelpCommand);
         assertTrue(parser.parseCommand(HelpCommand.COMMAND_WORD + " 3") instanceof HelpCommand);
@@ -141,6 +158,12 @@ public class AddressBookParserTest {
     public void parseCommand_list() throws Exception {
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD) instanceof ListCommand);
         assertTrue(parser.parseCommand(ListCommand.COMMAND_WORD + " 3") instanceof ListCommand);
+    }
+
+    @Test
+    public void parseCommand_listMeeting() throws Exception {
+        assertTrue(parser.parseCommand(ListMeetingCommand.COMMAND_WORD) instanceof ListMeetingCommand);
+        assertTrue(parser.parseCommand(ListMeetingCommand.COMMAND_WORD + " 3") instanceof ListMeetingCommand);
     }
 
     @Test
