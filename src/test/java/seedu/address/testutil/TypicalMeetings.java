@@ -3,11 +3,7 @@ package seedu.address.testutil;
 import static seedu.address.testutil.TypicalPersons.ID_1;
 import static seedu.address.testutil.TypicalPersons.ID_3;
 import static seedu.address.testutil.TypicalPersons.ID_4;
-import static seedu.address.testutil.TypicalPersons.UUID_1;
-import static seedu.address.testutil.TypicalPersons.UUID_3;
-import static seedu.address.testutil.TypicalPersons.UUID_4;
 
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;

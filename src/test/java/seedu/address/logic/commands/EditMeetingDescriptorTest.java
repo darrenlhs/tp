@@ -14,9 +14,7 @@ import static seedu.address.testutil.TypicalPersons.ID_2;
 import static seedu.address.testutil.TypicalPersons.ID_3;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
-import java.time.LocalDate;
 import java.util.Set;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -26,7 +24,6 @@ import seedu.address.logic.commands.exceptions.CommandException;
 import seedu.address.model.Model;
 import seedu.address.model.ModelManager;
 import seedu.address.model.UserPrefs;
-import seedu.address.model.meeting.Description;
 import seedu.address.model.person.PersonId;
 
 public class EditMeetingDescriptorTest {

@@ -12,7 +12,6 @@ import static seedu.address.logic.commands.CommandTestUtil.VALID_TAG_HUSBAND;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
-import java.util.Set;
 
 import seedu.address.model.AddressBook;
 import seedu.address.model.meeting.Meeting;
@@ -78,18 +77,6 @@ public class TypicalPersons {
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
 
-    public static final Meeting PROJECT_MEETING = new MeetingBuilder()
-            .withDescription("Project Meeting")
-            .withDate("2026-06-15")
-            .withParticipants(Set.of(ID_1, ID_3, ID_4))
-            .build();
-
-    public static final Meeting COFFEE_MEETING = new MeetingBuilder()
-            .withDescription("Coffee")
-            .withDate("2026-06-11")
-            .withParticipants(Set.of(ID_1))
-            .build();
-
     private TypicalPersons() {} // prevents instantiation
 
     /**
@@ -100,7 +87,7 @@ public class TypicalPersons {
         for (Person person : getTypicalPersons()) {
             ab.addPerson(person);
         }
-        for (Meeting meeting : getTypicalMeetings()) {
+        for (Meeting meeting : TypicalMeetings.getTypicalMeetings()) {
             ab.addMeeting(meeting);
         }
         return ab;
@@ -108,9 +95,5 @@ public class TypicalPersons {
 
     public static List<Person> getTypicalPersons() {
         return new ArrayList<>(Arrays.asList(ALICE, BENSON, CARL, DANIEL));
-    }
-
-    public static List<Meeting> getTypicalMeetings() {
-        return new ArrayList<>((Arrays.asList(PROJECT_MEETING, COFFEE_MEETING)));
     }
 }

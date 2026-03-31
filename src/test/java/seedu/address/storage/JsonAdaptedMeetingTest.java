@@ -1,5 +1,6 @@
 package seedu.address.storage;
 
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.AddMeetingCommandTest.INVALID_DATE_WRONG_FORMAT;
 import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DATE_20260325;
 import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DESCRIPTION_PROJECT;
@@ -48,10 +49,17 @@ public class JsonAdaptedMeetingTest {
     }
 
     @Test
-    public void toModelType_invalidIDs_throwsException() {
-        JsonAdaptedMeeting meeting = new JsonAdaptedMeeting(VALID_DESCRIPTION_PROJECT,
-                VALID_DATE_20260325.toString(), INVALID_IDS);
-        assertThrows(Exception.class, meeting::toModelType);
+    public void toModelType_invalidIDs_ignored() throws Exception {
+        JsonAdaptedMeeting meetingWithInvalidIds = new JsonAdaptedMeeting(
+                VALID_DESCRIPTION_PROJECT,
+                VALID_DATE_20260325,
+                INVALID_IDS
+        );
+
+        Meeting modelMeeting = meetingWithInvalidIds.toModelType();
+
+        // Check that invalid IDs were ignored and meeting still has 0 participants
+        assertTrue(modelMeeting.getParticipantsID().isEmpty());
     }
 
     @Test
