@@ -10,39 +10,36 @@ import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DESCRIPTI
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.Set;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
 import seedu.address.testutil.MeetingBuilder;
 
 public class MeetingTest {
-    private static final UUID VALID_UUID_1 =
-            UUID.fromString("00000000-0000-0000-0000-000000000001");
-    private static final UUID VALID_UUID_2 =
-            UUID.fromString("00000000-0000-0000-0000-000000000002");
+    private static final String VALID_ID_1 = "00000000-0000-0000-0000-000000000001";
+    private static final String VALID_ID_2 = "00000000-0000-0000-0000-000000000002";
 
-    public static final Set<UUID> VALID_UUIDS = Set.of(VALID_UUID_1, VALID_UUID_2);
+    public static final Set<String> VALID_IDS = Set.of(VALID_ID_1, VALID_ID_2);
 
     @Test
     public void constructor_nullDescription_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
                 new MeetingBuilder().withDescription(null).withDate(VALID_DATE_20260325)
-                        .withParticipants(VALID_UUIDS).build());
+                        .withParticipants(VALID_IDS).build());
     }
 
     @Test
     public void constructor_nullDate_throwsNullPointerException() {
         assertThrows(NullPointerException.class, () ->
                 new MeetingBuilder().withDescription(VALID_DESCRIPTION_PROJECT).withDate(null)
-                        .withParticipants(VALID_UUIDS).build());
+                        .withParticipants(VALID_IDS).build());
     }
 
     @Test
     public void constructor_invalidDescription_throwsIllegalArgumentException() {
         assertThrows(IllegalArgumentException.class, () ->
                 new MeetingBuilder().withDescription(INVALID_DESCRIPTION)
-                        .withDate(VALID_DATE_20260325).withParticipants(VALID_UUIDS).build());
+                        .withDate(VALID_DATE_20260325).withParticipants(VALID_IDS).build());
     }
 
     @Test
@@ -50,11 +47,11 @@ public class MeetingTest {
         Meeting meeting = new MeetingBuilder()
                 .withDescription(VALID_DESCRIPTION_PROJECT)
                 .withDate(VALID_DATE_20260325)
-                .withParticipants(VALID_UUIDS)
+                .withParticipants(VALID_IDS)
                 .build();
         assertEquals(new Description(VALID_DESCRIPTION_PROJECT), meeting.getDescription());
         assertEquals(new MeetingDate(VALID_DATE_20260325), meeting.getDate());
-        assertEquals(VALID_UUIDS, meeting.getParticipantsID());
+        assertEquals(VALID_IDS, meeting.getParticipantsID());
     }
 
     @Test
@@ -62,7 +59,7 @@ public class MeetingTest {
         Meeting meeting = new MeetingBuilder()
                 .withDescription(VALID_DESCRIPTION_PROJECT)
                 .withDate(VALID_DATE_20260325)
-                .withParticipants(VALID_UUIDS)
+                .withParticipants(VALID_IDS)
                 .build();
         assertEquals(VALID_DESCRIPTION_PROJECT + " on " + VALID_DATE_20260325, meeting.toString());
     }
@@ -72,22 +69,22 @@ public class MeetingTest {
         Meeting meeting1 = new MeetingBuilder()
                 .withDescription(VALID_DESCRIPTION_PROJECT)
                 .withDate(VALID_DATE_20260325)
-                .withParticipants(VALID_UUIDS)
+                .withParticipants(VALID_IDS)
                 .build();
         Meeting meeting2 = new MeetingBuilder()
                 .withDescription(VALID_DESCRIPTION_PROJECT)
                 .withDate(VALID_DATE_20260325)
-                .withParticipants(VALID_UUIDS)
+                .withParticipants(VALID_IDS)
                 .build();
         Meeting meetingDiffDescription = new MeetingBuilder()
                 .withDescription(VALID_DESCRIPTION_TEAM)
                 .withDate(VALID_DATE_20260325)
-                .withParticipants(VALID_UUIDS)
+                .withParticipants(VALID_IDS)
                 .build();
         Meeting meetingDiffDate = new MeetingBuilder()
                 .withDescription(VALID_DESCRIPTION_PROJECT)
                 .withDate(VALID_DATE_20260401)
-                .withParticipants(VALID_UUIDS)
+                .withParticipants(VALID_IDS)
                 .build();
 
         // same object

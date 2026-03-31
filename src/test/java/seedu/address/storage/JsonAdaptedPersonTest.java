@@ -26,6 +26,7 @@ import org.junit.jupiter.api.Test;
 import seedu.address.commons.exceptions.IllegalValueException;
 import seedu.address.model.person.Email;
 import seedu.address.model.person.Name;
+import seedu.address.model.person.PersonId;
 import seedu.address.model.person.Phone;
 
 class JsonAdaptedPersonTest {
@@ -68,7 +69,7 @@ class JsonAdaptedPersonTest {
         JsonAdaptedPerson person = new JsonAdaptedPerson(
                 null, VALID_NAME_AMY, VALID_PHONE_AMY, VALID_EMAIL_AMY, VALID_TAGS_AMY);
         assertEquals(VALID_NAME_AMY, person.toModelType().getName().fullName);
-        UUID id = person.toModelType().getId();
+        PersonId id = person.toModelType().getId();
         assertEquals(true, id != null);
     }
 
@@ -93,14 +94,14 @@ class JsonAdaptedPersonTest {
         person.toModelType();
     }
 
-    // Invalid cases
-
     @Test
-    public void toModelType_invalidId_throwsIllegalValueException() {
+    public void toModelType_invalidId_noExceptionThrown() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(
                 INVALID_ID_1, VALID_NAME_AMY, VALID_PHONE_AMY, VALID_EMAIL_AMY, VALID_TAGS_AMY);
-        assertThrows(IllegalValueException.class, JsonAdaptedPerson.INVALID_UUID_MESSAGE, person::toModelType);
+        person.toModelType();
     }
+
+    // Invalid cases
 
     @Test
     public void toModelType_invalidName_throwsIllegalValueException() {

@@ -12,7 +12,6 @@ import static seedu.address.testutil.TypicalPersons.CARL;
 import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Set;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -54,7 +53,7 @@ public class AddMeetingCommandTest {
                 .get(indices.iterator().next().getZeroBased());
 
         // Collect participant IDs for the meeting
-        Set<UUID> participantIds = Set.of(targetPerson.getId());
+        Set<String> participantIds = Set.of(targetPerson.getId().toString());
 
         // Meeting using MeetingBuilder
         Meeting meeting = new MeetingBuilder()
@@ -79,10 +78,10 @@ public class AddMeetingCommandTest {
                 new MeetingDate(VALID_DATE_20260401));
 
         // Collect participant IDs from all target persons
-        Set<UUID> participantIds = Set.of(
-                ALICE.getId(),
-                BENSON.getId(),
-                CARL.getId()
+        Set<String> participantIds = Set.of(
+                ALICE.getId().toString(),
+                BENSON.getId().toString(),
+                CARL.getId().toString()
         );
 
         // Meeting using MeetingBuilder

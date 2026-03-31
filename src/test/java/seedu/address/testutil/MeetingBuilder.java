@@ -1,12 +1,11 @@
 package seedu.address.testutil;
 
-import static seedu.address.testutil.TypicalPersons.ID_1;
+import static seedu.address.testutil.PersonBuilder.DEFAULT_ID;
 
 import java.util.HashSet;
 import java.util.Set;
-import java.util.UUID;
-
 import java.util.stream.Collectors;
+
 import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.MeetingDate;
@@ -19,11 +18,10 @@ public class MeetingBuilder {
 
     public static final String DEFAULT_DESCRIPTION = "Project Meeting";
     public static final String DEFAULT_DATE = "2026-06-15";
-    public static final Set<UUID> DEFAULT_PARTICIPANTS = new HashSet<>();
 
     private Description description;
     private MeetingDate date;
-    private Set<PersonId> participants;
+    private Set<PersonId> participants = new HashSet<>();
 
     /**
      * Creates a {@code MeetingBuilder} with default details.
@@ -31,7 +29,7 @@ public class MeetingBuilder {
     public MeetingBuilder() {
         this.description = new Description(DEFAULT_DESCRIPTION);
         this.date = new MeetingDate(DEFAULT_DATE);
-        this.participants.add(ID_1);
+        this.participants.add(new PersonId(DEFAULT_ID));
     }
 
     /**

@@ -13,12 +13,9 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import seedu.address.model.AddressBook;
-import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
-import seedu.address.model.meeting.MeetingDate;
 import seedu.address.model.person.Person;
 
 /**
@@ -79,6 +76,18 @@ public class TypicalPersons {
             .withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
+            .build();
+
+    public static final Meeting PROJECT_MEETING = new MeetingBuilder()
+            .withDescription("Project Meeting")
+            .withDate("2026-06-15")
+            .withParticipants(Set.of(ID_1, ID_3, ID_4))
+            .build();
+
+    public static final Meeting COFFEE_MEETING = new MeetingBuilder()
+            .withDescription("Coffee")
+            .withDate("2026-06-11")
+            .withParticipants(Set.of(ID_1))
             .build();
 
     private TypicalPersons() {} // prevents instantiation

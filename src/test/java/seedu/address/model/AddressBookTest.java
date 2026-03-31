@@ -15,7 +15,6 @@ import java.util.Collection;
 import java.util.Collections;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -161,7 +160,7 @@ public class AddressBookTest {
         Meeting meetingWithNonexistentPerson = new MeetingBuilder()
                 .withDescription(VALID_DESCRIPTION_PROJECT)
                 .withDate(VALID_DATE_20260325)
-                .withParticipants(Set.of(firstPerson.getId()))
+                .withParticipants(Set.of(firstPerson.getId().toString()))
                 .build();
 
         assertThrows(PersonNotFoundException.class, () -> addressBook.addMeeting(meetingWithNonexistentPerson));
