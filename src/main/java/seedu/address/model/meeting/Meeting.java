@@ -5,7 +5,7 @@ import static java.util.Objects.requireNonNull;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
-import java.util.UUID;
+import seedu.address.model.person.PersonId;
 
 /**
  * Represents a Meeting associated with a person in the address book.
@@ -16,7 +16,7 @@ public class Meeting {
 
     private final Description description;
     private final MeetingDate date;
-    private final Set<UUID> participantsID;
+    private final Set<PersonId> participantsID;
 
     /**
      * Constructs a {@code Meeting} with the specified description, date,
@@ -26,13 +26,13 @@ public class Meeting {
      * @param date Date of the meeting; must not be null.
      * @param participantsID Set of participant IDs; must not be null or contain nulls.
      */
-    public Meeting(Description description, MeetingDate date, Set<UUID> participantsID) {
+    public Meeting(Description description, MeetingDate date, Set<PersonId> participantsID) {
         assert description != null : "description should not be null";
         assert date != null : "date should not be null";
         requireNonNull(participantsID, MESSAGE_INVALID_PARTICIPANT_IDS);
 
-        // Validate each UUID individually
-        for (UUID id : participantsID) {
+        // Validate each PersonId individually
+        for (PersonId id : participantsID) {
             if (id == null) {
                 throw new IllegalArgumentException(MESSAGE_INVALID_PARTICIPANT_IDS);
             }
@@ -51,7 +51,7 @@ public class Meeting {
         return date;
     }
 
-    public Set<UUID> getParticipantsID() {
+    public Set<PersonId> getParticipantsID() {
         return new HashSet<>(participantsID); // Returns a defensive copy of the set.
     }
 

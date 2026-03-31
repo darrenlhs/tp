@@ -1,12 +1,16 @@
 package seedu.address.testutil;
 
+import static seedu.address.testutil.TypicalPersons.ID_1;
+
 import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 
+import java.util.stream.Collectors;
 import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.MeetingDate;
+import seedu.address.model.person.PersonId;
 
 /**
  * A utility class to help with building {@code Meeting} objects.
@@ -19,15 +23,15 @@ public class MeetingBuilder {
 
     private Description description;
     private MeetingDate date;
-    private Set<UUID> participants;
+    private Set<PersonId> participants;
 
     /**
      * Creates a {@code MeetingBuilder} with default details.
      */
     public MeetingBuilder() {
-        description = new Description(DEFAULT_DESCRIPTION);
-        date = new MeetingDate(DEFAULT_DATE);
-        participants = new HashSet<>(DEFAULT_PARTICIPANTS);
+        this.description = new Description(DEFAULT_DESCRIPTION);
+        this.date = new MeetingDate(DEFAULT_DATE);
+        this.participants.add(ID_1);
     }
 
     /**
@@ -56,18 +60,20 @@ public class MeetingBuilder {
     }
 
     /**
-     * Sets the {@code participants} of the {@code Meeting}.
+     * Sets the participants from a set of String IDs. Converts them to PersonId.
      */
-    public MeetingBuilder withParticipants(Set<UUID> participants) {
-        this.participants = participants != null ? new HashSet<>(participants) : new HashSet<>();
+    public MeetingBuilder withParticipants(Set<String> participantIds) {
+        this.participants = participantIds != null
+                ? participantIds.stream().map(PersonId::new).collect(Collectors.toSet())
+                : new HashSet<>();
         return this;
     }
 
     /**
      * Adds a single participant to the {@code Meeting}.
      */
-    public MeetingBuilder addParticipant(UUID participantId) {
-        this.participants.add(participantId);
+    public MeetingBuilder addParticipant(String participantId) {
+        this.participants.add(new PersonId(participantId));
         return this;
     }
 

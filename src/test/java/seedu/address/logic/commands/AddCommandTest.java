@@ -24,6 +24,7 @@ import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.ReadOnlyUserPrefs;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonId;
 import seedu.address.testutil.PersonBuilder;
 import seedu.address.testutil.TypicalPersons;
 
@@ -151,7 +152,7 @@ public class AddCommandTest {
         }
 
         @Override
-        public Person getPerson(UUID uuid) {
+        public Person getPerson(PersonId id) {
             throw new AssertionError("This method should not be called.");
         }
 

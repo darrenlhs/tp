@@ -1,7 +1,6 @@
 package seedu.address.storage;
 
 import java.util.Set;
-import java.util.UUID;
 import java.util.stream.Collectors;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -12,6 +11,7 @@ import seedu.address.logic.parser.ParserUtil;
 import seedu.address.model.meeting.Description;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.MeetingDate;
+import seedu.address.model.person.PersonId;
 
 /**
  * Jackson-friendly version of {@link Meeting}.
@@ -43,7 +43,7 @@ class JsonAdaptedMeeting {
         this.description = source.getDescription().description;
         this.date = source.getDate().toString();
         this.personIds = source.getParticipantsID().stream()
-                .map(UUID::toString)
+                .map(PersonId::toString)
                 .collect(Collectors.toSet());
     }
 
@@ -72,16 +72,14 @@ class JsonAdaptedMeeting {
         if (date == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "date"));
         }
-        MeetingDate modelDate = new MeetingDate(date);
+        MeetingDate parsedDate = ParserUtil.parseDate(date);
 
         if (personIds == null) {
             throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, "personIds"));
         }
 
-        MeetingDate parsedDate = ParserUtil.parseDate(date);
-
-        Set<UUID> modelPersonIds = personIds.stream()
-                .map(UUID::fromString)
+        Set<PersonId> modelPersonIds = personIds.stream()
+                .map(PersonId::new)
                 .collect(Collectors.toSet());
 
         return new Meeting(modelDescription, parsedDate, modelPersonIds);

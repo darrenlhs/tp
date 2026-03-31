@@ -18,13 +18,11 @@ import seedu.address.model.tag.Tag;
  */
 public class Person {
 
-    // Identity field
-    private final UUID id;
-
     // Identity fields
     private final Name name;
     private final Phone phone;
     private final Email email;
+    private final PersonId id;
 
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
@@ -33,7 +31,7 @@ public class Person {
      * Constructs a Person object with the given id
      * Name and either phone or email must be present and not null.
      */
-    public Person(UUID id, Name name, Phone phone, Email email, Set<Tag> tags) {
+    public Person(PersonId id, Name name, Phone phone, Email email, Set<Tag> tags) {
         requireAllNonNull(id, name, tags);
         requireAnyNonNull(phone, email);
 
@@ -44,15 +42,7 @@ public class Person {
         this.tags.addAll(tags);
     }
 
-    /**
-     * Constructs a Person object without any given id
-     * Name and either phone or email must be present and not null.
-     */
-    public Person(Name name, Phone phone, Email email, Set<Tag> tags) {
-        this(UUID.randomUUID(), name, phone, email, tags);
-    }
-
-    public UUID getId() {
+    public PersonId getId() {
         return id;
     }
 

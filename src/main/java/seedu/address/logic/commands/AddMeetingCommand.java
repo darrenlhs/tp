@@ -6,7 +6,6 @@ import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMA;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.logic.commands.exceptions.CommandException;
@@ -16,6 +15,7 @@ import seedu.address.model.meeting.Meeting;
 import seedu.address.model.meeting.MeetingDate;
 import seedu.address.model.meeting.exceptions.DuplicateMeetingException;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonId;
 
 /**
  * Adds a meeting to one or more persons in the address book.
@@ -63,7 +63,7 @@ public class AddMeetingCommand extends Command {
 
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        Set<UUID> participantIds = new HashSet<>();
+        Set<PersonId> participantIds = new HashSet<>();
 
         // Validate indices + collect IDs
         for (Index index : indices) {

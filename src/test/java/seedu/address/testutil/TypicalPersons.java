@@ -25,16 +25,16 @@ import seedu.address.model.person.Person;
  * A utility class containing a list of {@code Person} objects to be used in tests.
  */
 public class TypicalPersons {
-    private static final UUID UUID_1 = UUID.fromString("00000000-0000-0000-0000-000000000001");
-    private static final UUID UUID_2 = UUID.fromString("00000000-0000-0000-0000-000000000002");
-    private static final UUID UUID_3 = UUID.fromString("00000000-0000-0000-0000-000000000003");
-    private static final UUID UUID_4 = UUID.fromString("00000000-0000-0000-0000-000000000004");
-    private static final UUID UUID_5 = UUID.fromString("00000000-0000-0000-0000-000000000005");
-    private static final UUID UUID_6 = UUID.fromString("00000000-0000-0000-0000-000000000006");
+    public static final String ID_1 = "00000000-0000-0000-0000-000000000001";
+    public static final String ID_2 = "00000000-0000-0000-0000-000000000002";
+    public static final String ID_3 = "00000000-0000-0000-0000-000000000003";
+    public static final String ID_4 = "00000000-0000-0000-0000-000000000004";
+    public static final String ID_5 = "00000000-0000-0000-0000-000000000005";
+    public static final String ID_6 = "00000000-0000-0000-0000-000000000006";
 
     // Assign unique IDs for each person
     public static final Person ALICE = new PersonBuilder()
-            .withId(UUID_1)
+            .withId(ID_1)
             .withName("Alice Pauline")
             .withEmail("alice@example.com")
             .withPhone("94351253")
@@ -42,7 +42,7 @@ public class TypicalPersons {
             .build();
 
     public static final Person BENSON = new PersonBuilder()
-            .withId(UUID_2)
+            .withId(ID_2)
             .withName("Benson Meier")
             .withEmail("johnd@example.com")
             .withPhone("98765432")
@@ -50,14 +50,14 @@ public class TypicalPersons {
             .build();
 
     public static final Person CARL = new PersonBuilder()
-            .withId(UUID_3)
+            .withId(ID_3)
             .withName("Carl Kurz")
             .withPhone("95352563")
             .withEmail("heinz@example.com")
             .build();
 
     public static final Person DANIEL = new PersonBuilder()
-            .withId(UUID_4)
+            .withId(ID_4)
             .withName("Daniel Meier")
             .withPhone("87652533")
             .withEmail("cornelia@example.com")
@@ -66,7 +66,7 @@ public class TypicalPersons {
 
     // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder()
-            .withId(UUID_5)
+            .withId(ID_5)
             .withName(VALID_NAME_AMY)
             .withPhone(VALID_PHONE_AMY)
             .withEmail(VALID_EMAIL_AMY)
@@ -74,21 +74,12 @@ public class TypicalPersons {
             .build();
 
     public static final Person BOB = new PersonBuilder()
-            .withId(UUID_6)
+            .withId(ID_6)
             .withName(VALID_NAME_BOB)
             .withPhone(VALID_PHONE_BOB)
             .withEmail(VALID_EMAIL_BOB)
             .withTags(VALID_TAG_HUSBAND, VALID_TAG_FRIEND)
             .build();
-
-    public static final Meeting PROJECT_MEETING = new Meeting(
-            new Description("Project Meeting"),
-            new MeetingDate("2026-06-15"),
-            Set.of(UUID_1, UUID_3, UUID_4));
-    public static final Meeting COFFEE_MEETING = new Meeting(
-            new Description("Coffee"),
-            new MeetingDate("2026-06-11"),
-            Set.of(UUID_1));
 
     private TypicalPersons() {} // prevents instantiation
 
