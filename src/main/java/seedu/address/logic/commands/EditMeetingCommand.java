@@ -58,7 +58,7 @@ public class EditMeetingCommand extends Command {
     private final EditMeetingDescriptor editMeetingDescriptor;
 
     /**
-     * Creates an EditMeetingCommand to edit the specified {@code Meeting}
+     * Creates an EditMeetingCommand to edit the specified {@code Meeting}.
      *
      * @param meetingIndex The index of the meeting in the list to edit
      * @param editMeetingDescriptor The details to edit the meeting with
@@ -111,10 +111,10 @@ public class EditMeetingCommand extends Command {
 
         Set<UUID> updatedParticipantsId = new HashSet<>(meetingToEdit.getParticipantsID());
 
-        editMeetingDescriptor.getPeopleToAddId()
+        editMeetingDescriptor.getIdsToAdd()
                 .ifPresent(updatedParticipantsId::addAll);
 
-        editMeetingDescriptor.getPeopleToDeleteId()
+        editMeetingDescriptor.getIdsToDelete()
                 .ifPresent(updatedParticipantsId::removeAll);
 
         return new Meeting(updatedDescription, updatedDate, updatedParticipantsId);
@@ -153,11 +153,11 @@ public class EditMeetingCommand extends Command {
         private LocalDate date;
         private Set<UUID> participantsID;
 
-        private Set<Index> peopleIndicesToAdd;
-        private Set<Index> peopleIndicesToDelete;
+        private Set<Index> personIndicesToAdd;
+        private Set<Index> personIndicesToDelete;
 
-        private Set<UUID> peopleToAddId;
-        private Set<UUID> peopleToDeleteId;
+        private Set<UUID> idsToAdd;
+        private Set<UUID> idsToDelete;
 
         public EditMeetingDescriptor() {}
 
@@ -168,10 +168,10 @@ public class EditMeetingCommand extends Command {
             setDescription(toCopy.description);
             setDate(toCopy.date);
             setParticipantsID(toCopy.participantsID);
-            setPeopleIndicesToAdd(toCopy.peopleIndicesToAdd);
-            setPeopleIndicesToDelete(toCopy.peopleIndicesToDelete);
-            setPeopleToAddId(toCopy.peopleToAddId);
-            setPeopleToDeleteId(toCopy.peopleToDeleteId);
+            setPersonIndicesToAdd(toCopy.personIndicesToAdd);
+            setPersonIndicesToDelete(toCopy.personIndicesToDelete);
+            setIdsToAdd(toCopy.idsToAdd);
+            setIdsToDelete(toCopy.idsToDelete);
         }
 
         /**
@@ -180,8 +180,8 @@ public class EditMeetingCommand extends Command {
         public boolean isAnyFieldEdited() {
             return CollectionUtil.isAnyNonNull(
                     description, date, participantsID,
-                    peopleIndicesToAdd, peopleIndicesToDelete,
-                    peopleToAddId, peopleToDeleteId);
+                    personIndicesToAdd, personIndicesToDelete,
+                    idsToAdd, idsToDelete);
         }
 
         /**
@@ -195,8 +195,8 @@ public class EditMeetingCommand extends Command {
         public void resolveParticipantIds(Model model) throws CommandException {
             List<Person> persons = model.getFilteredPersonList();
 
-            this.peopleToAddId = resolveIndicesToIds(peopleIndicesToAdd, persons);
-            this.peopleToDeleteId = resolveIndicesToIds(peopleIndicesToDelete, persons);
+            this.idsToAdd = resolveIndicesToIds(personIndicesToAdd, persons);
+            this.idsToDelete = resolveIndicesToIds(personIndicesToDelete, persons);
         }
 
         /**
@@ -236,20 +236,20 @@ public class EditMeetingCommand extends Command {
             this.participantsID = (participantsID != null) ? new HashSet<>(participantsID) : null;
         }
 
-        public void setPeopleIndicesToAdd(Set<Index> peopleIndicesToAdd) {
-            this.peopleIndicesToAdd = (peopleIndicesToAdd != null) ? new HashSet<>(peopleIndicesToAdd) : null;
+        public void setPersonIndicesToAdd(Set<Index> personIndicesToAdd) {
+            this.personIndicesToAdd = (personIndicesToAdd != null) ? new HashSet<>(personIndicesToAdd) : null;
         }
 
-        public void setPeopleIndicesToDelete(Set<Index> peopleIndicesToDelete) {
-            this.peopleIndicesToDelete = (peopleIndicesToDelete != null) ? new HashSet<>(peopleIndicesToDelete) : null;
+        public void setPersonIndicesToDelete(Set<Index> personIndicesToDelete) {
+            this.personIndicesToDelete = (personIndicesToDelete != null) ? new HashSet<>(personIndicesToDelete) : null;
         }
 
-        public void setPeopleToAddId(Set<UUID> peopleToAddId) {
-            this.peopleToAddId = (peopleToAddId != null) ? new HashSet<>(peopleToAddId) : null;
+        public void setIdsToAdd(Set<UUID> idsToAdd) {
+            this.idsToAdd = (idsToAdd != null) ? new HashSet<>(idsToAdd) : null;
         }
 
-        public void setPeopleToDeleteId(Set<UUID> peopleToDeleteId) {
-            this.peopleToDeleteId = (peopleToDeleteId != null) ? new HashSet<>(peopleToDeleteId) : null;
+        public void setIdsToDelete(Set<UUID> idsToDelete) {
+            this.idsToDelete = (idsToDelete != null) ? new HashSet<>(idsToDelete) : null;
         }
 
         public Optional<String> getDescription() {
@@ -266,27 +266,27 @@ public class EditMeetingCommand extends Command {
                     : Optional.empty();
         }
 
-        public Optional<Set<Index>> getPeopleIndicesToAdd() {
-            return (peopleIndicesToAdd != null)
-                    ? Optional.of(Collections.unmodifiableSet(peopleIndicesToAdd))
+        public Optional<Set<Index>> getPersonIndicesToAdd() {
+            return (personIndicesToAdd != null)
+                    ? Optional.of(Collections.unmodifiableSet(personIndicesToAdd))
                     : Optional.empty();
         }
 
-        public Optional<Set<Index>> getPeopleIndicesToDelete() {
-            return (peopleIndicesToDelete != null)
-                    ? Optional.of(Collections.unmodifiableSet(peopleIndicesToDelete))
+        public Optional<Set<Index>> getPersonIndicesToDelete() {
+            return (personIndicesToDelete != null)
+                    ? Optional.of(Collections.unmodifiableSet(personIndicesToDelete))
                     : Optional.empty();
         }
 
-        public Optional<Set<UUID>> getPeopleToAddId() {
-            return (peopleToAddId != null)
-                    ? Optional.of(Collections.unmodifiableSet(peopleToAddId))
+        public Optional<Set<UUID>> getIdsToAdd() {
+            return (idsToAdd != null)
+                    ? Optional.of(Collections.unmodifiableSet(idsToAdd))
                     : Optional.empty();
         }
 
-        public Optional<Set<UUID>> getPeopleToDeleteId() {
-            return (peopleToDeleteId != null)
-                    ? Optional.of(Collections.unmodifiableSet(peopleToDeleteId))
+        public Optional<Set<UUID>> getIdsToDelete() {
+            return (idsToDelete != null)
+                    ? Optional.of(Collections.unmodifiableSet(idsToDelete))
                     : Optional.empty();
         }
 
@@ -304,10 +304,10 @@ public class EditMeetingCommand extends Command {
             return Objects.equals(description, o.description)
                     && Objects.equals(date, o.date)
                     && Objects.equals(participantsID, o.participantsID)
-                    && Objects.equals(peopleIndicesToAdd, o.peopleIndicesToAdd)
-                    && Objects.equals(peopleIndicesToDelete, o.peopleIndicesToDelete)
-                    && Objects.equals(peopleToAddId, o.peopleToAddId)
-                    && Objects.equals(peopleToDeleteId, o.peopleToDeleteId);
+                    && Objects.equals(personIndicesToAdd, o.personIndicesToAdd)
+                    && Objects.equals(personIndicesToDelete, o.personIndicesToDelete)
+                    && Objects.equals(idsToAdd, o.idsToAdd)
+                    && Objects.equals(idsToDelete, o.idsToDelete);
         }
 
         @Override
@@ -316,10 +316,10 @@ public class EditMeetingCommand extends Command {
                     .add("description", description)
                     .add("date", date)
                     .add("participantsID", participantsID)
-                    .add("peopleIndicesToAdd", peopleIndicesToAdd)
-                    .add("peopleIndicesToDelete", peopleIndicesToDelete)
-                    .add("peopleToAddId", peopleToAddId)
-                    .add("peopleToDeleteId", peopleToDeleteId)
+                    .add("peopleIndicesToAdd", personIndicesToAdd)
+                    .add("peopleIndicesToDelete", personIndicesToDelete)
+                    .add("peopleToAddId", idsToAdd)
+                    .add("peopleToDeleteId", idsToDelete)
                     .toString();
         }
     }

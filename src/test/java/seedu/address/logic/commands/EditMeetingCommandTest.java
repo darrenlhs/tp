@@ -51,8 +51,8 @@ public class EditMeetingCommandTest {
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
         descriptor.setDescription(newDescription);
         descriptor.setDate(newDate);
-        descriptor.setPeopleIndicesToAdd(Set.of(INDEX_THIRD_PERSON));
-        descriptor.setPeopleIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
+        descriptor.setPersonIndicesToAdd(Set.of(INDEX_THIRD_PERSON));
+        descriptor.setPersonIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
 
         EditMeetingCommand editMeetingCommand = new EditMeetingCommand(INDEX_FIRST_PERSON, descriptor);
 

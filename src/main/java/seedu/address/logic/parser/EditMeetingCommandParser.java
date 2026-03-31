@@ -13,7 +13,7 @@ import seedu.address.logic.commands.EditMeetingCommand.EditMeetingDescriptor;
 import seedu.address.logic.parser.exceptions.ParseException;
 
 /**
- * Parses input arguments and creates a new EditMeetingCommand object
+ * Parses input arguments and creates a new EditMeetingCommand object.
  */
 public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
 
@@ -57,13 +57,13 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
         }
 
         if (argMultimap.getValue(PREFIX_ADD_PERSON_TO_MEETING_INDEX).isPresent()) {
-            descriptor.setPeopleIndicesToAdd(ParserUtil.parseIndices(
+            descriptor.setPersonIndicesToAdd(ParserUtil.parseIndices(
                     argMultimap.getValue(PREFIX_ADD_PERSON_TO_MEETING_INDEX).get(),
                     EditMeetingCommand.MESSAGE_USAGE));
         }
 
         if (argMultimap.getValue(PREFIX_DELETE_PERSON_FROM_MEETING_INDEX).isPresent()) {
-            descriptor.setPeopleIndicesToDelete(ParserUtil.parseIndices(
+            descriptor.setPersonIndicesToDelete(ParserUtil.parseIndices(
                     argMultimap.getValue(PREFIX_DELETE_PERSON_FROM_MEETING_INDEX).get(),
                     EditMeetingCommand.MESSAGE_USAGE));
         }

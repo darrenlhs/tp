@@ -69,8 +69,8 @@ class EditMeetingCommandParserTest {
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
         descriptor.setDescription(PROJECT_MEETING.getDescription());
         descriptor.setDate(PROJECT_MEETING.getDate());
-        descriptor.setPeopleIndicesToAdd(Set.of(INDEX_THIRD_PERSON));
-        descriptor.setPeopleIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
+        descriptor.setPersonIndicesToAdd(Set.of(INDEX_THIRD_PERSON));
+        descriptor.setPersonIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
 
         EditMeetingCommand expectedCommand = new EditMeetingCommand(INDEX_SECOND_PERSON, descriptor);
 

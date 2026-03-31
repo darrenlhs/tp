@@ -35,10 +35,10 @@ public class EditMeetingDescriptorTest {
         descriptor.setDescription(COFFEE_MEETING.getDescription());
         descriptor.setDate(COFFEE_MEETING.getDate());
         descriptor.setParticipantsID(Set.of(UUID_1, UUID_3));
-        descriptor.setPeopleIndicesToAdd(Set.of(INDEX_SECOND_PERSON));
-        descriptor.setPeopleIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
-        descriptor.setPeopleToAddId(Set.of(UUID_2));
-        descriptor.setPeopleToDeleteId(Set.of(UUID_1));
+        descriptor.setPersonIndicesToAdd(Set.of(INDEX_SECOND_PERSON));
+        descriptor.setPersonIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
+        descriptor.setIdsToAdd(Set.of(UUID_2));
+        descriptor.setIdsToDelete(Set.of(UUID_1));
 
         // same values -> returns true
         EditMeetingDescriptor copy = new EditMeetingDescriptor(descriptor);
@@ -70,22 +70,22 @@ public class EditMeetingDescriptorTest {
 
         // different indices to add -> returns false
         different = new EditMeetingDescriptor(descriptor);
-        different.setPeopleIndicesToAdd(Set.of(INDEX_THIRD_PERSON));
+        different.setPersonIndicesToAdd(Set.of(INDEX_THIRD_PERSON));
         assertFalse(descriptor.equals(different));
 
         // different indices to delete -> returns false
         different = new EditMeetingDescriptor(descriptor);
-        different.setPeopleIndicesToDelete(Set.of(INDEX_SECOND_PERSON));
+        different.setPersonIndicesToDelete(Set.of(INDEX_SECOND_PERSON));
         assertFalse(descriptor.equals(different));
 
         // different peopleToAddId -> returns false
         different = new EditMeetingDescriptor(descriptor);
-        different.setPeopleToAddId(Set.of(UUID.randomUUID()));
+        different.setIdsToAdd(Set.of(UUID.randomUUID()));
         assertFalse(descriptor.equals(different));
 
         // different peopleToDeleteId -> returns false
         different = new EditMeetingDescriptor(descriptor);
-        different.setPeopleToDeleteId(Set.of(UUID.randomUUID()));
+        different.setIdsToDelete(Set.of(UUID.randomUUID()));
         assertFalse(descriptor.equals(different));
     }
 
@@ -96,18 +96,18 @@ public class EditMeetingDescriptorTest {
                 + descriptor.getDescription().orElse(null) + ", date="
                 + descriptor.getDate().orElse(null) + ", participantsID="
                 + descriptor.getParticipantsID().orElse(null) + ", peopleIndicesToAdd="
-                + descriptor.getPeopleIndicesToAdd().orElse(null) + ", peopleIndicesToDelete="
-                + descriptor.getPeopleIndicesToDelete().orElse(null) + ", peopleToAddId="
-                + descriptor.getPeopleToAddId().orElse(null) + ", peopleToDeleteId="
-                + descriptor.getPeopleToDeleteId().orElse(null) + "}";
+                + descriptor.getPersonIndicesToAdd().orElse(null) + ", peopleIndicesToDelete="
+                + descriptor.getPersonIndicesToDelete().orElse(null) + ", peopleToAddId="
+                + descriptor.getIdsToAdd().orElse(null) + ", peopleToDeleteId="
+                + descriptor.getIdsToDelete().orElse(null) + "}";
         assertEquals(expected, descriptor.toString());
     }
 
     @Test
     public void resolveParticipantIds_validIndices_success() throws Exception {
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
-        descriptor.setPeopleIndicesToAdd(Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON));
-        descriptor.setPeopleIndicesToDelete(Set.of(INDEX_THIRD_PERSON));
+        descriptor.setPersonIndicesToAdd(Set.of(INDEX_FIRST_PERSON, INDEX_SECOND_PERSON));
+        descriptor.setPersonIndicesToDelete(Set.of(INDEX_THIRD_PERSON));
 
         descriptor.resolveParticipantIds(model);
 
@@ -116,15 +116,15 @@ public class EditMeetingDescriptorTest {
 
         Set<UUID> expectedDeleteIds = Set.of(UUID_3);
 
-        assertEquals(expectedAddIds, descriptor.getPeopleToAddId().orElseThrow());
-        assertEquals(expectedDeleteIds, descriptor.getPeopleToDeleteId().orElseThrow());
+        assertEquals(expectedAddIds, descriptor.getIdsToAdd().orElseThrow());
+        assertEquals(expectedDeleteIds, descriptor.getIdsToDelete().orElseThrow());
     }
 
     @Test
     public void resolveParticipantIds_invalidIndex_throwsCommandException() {
         Index invalidIndex = Index.fromOneBased(model.getFilteredPersonList().size() + 1);
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
-        descriptor.setPeopleIndicesToAdd(Set.of(invalidIndex));
+        descriptor.setPersonIndicesToAdd(Set.of(invalidIndex));
         assertThrows(CommandException.class, () -> descriptor.resolveParticipantIds(model));
     }
 }
