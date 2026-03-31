@@ -26,9 +26,9 @@ public class Person {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
+
     /**
-     * Constructs a Person object with the given id
-     * Name and either phone or email must be present and not null.
+     * Constructs a {@code Person} with a given ID.
      */
     public Person(PersonId id, Name name, Phone phone, Email email, Set<Tag> tags) {
         requireAllNonNull(id, name, tags);
@@ -39,6 +39,14 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.tags.addAll(tags);
+    }
+
+    /**
+     * Constructs a {@code Person} without a given ID.
+     * Generates a new random PersonId automatically.
+     */
+    public Person(Name name, Phone phone, Email email, Set<Tag> tags) {
+        this(new PersonId(), name, phone, email, tags);
     }
 
     public PersonId getId() {

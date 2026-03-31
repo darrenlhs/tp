@@ -19,7 +19,6 @@ import static seedu.address.testutil.Assert.assertThrows;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Set;
-import java.util.UUID;
 
 import org.junit.jupiter.api.Test;
 
@@ -61,13 +60,13 @@ class JsonAdaptedPersonTest {
     public void toModelType_validPersonWithId_returnsPerson() throws Exception {
         JsonAdaptedPerson person = new JsonAdaptedPerson(
                 VALID_ID_AMY, VALID_NAME_AMY, VALID_PHONE_AMY, VALID_EMAIL_AMY, VALID_TAGS_AMY);
-        assertEquals(UUID.fromString(VALID_ID_AMY), person.toModelType().getId());
+        assertEquals(new PersonId(VALID_ID_AMY), person.toModelType().getId());
     }
 
     @Test
     public void toModelType_validPersonWithoutId_generatesNewId() throws Exception {
-        JsonAdaptedPerson person = new JsonAdaptedPerson(
-                null, VALID_NAME_AMY, VALID_PHONE_AMY, VALID_EMAIL_AMY, VALID_TAGS_AMY);
+        JsonAdaptedPerson person = new JsonAdaptedPerson(null,
+                VALID_NAME_AMY, VALID_PHONE_AMY, VALID_EMAIL_AMY, VALID_TAGS_AMY);
         assertEquals(VALID_NAME_AMY, person.toModelType().getName().fullName);
         PersonId id = person.toModelType().getId();
         assertEquals(true, id != null);

@@ -9,28 +9,26 @@ import java.util.UUID;
  * Guarantees: immutable;
  */
 public class PersonId {
-
+    public static final String PERSON_ID_CONSTRAINTS = "ID string cannot be blank or null";
     private final UUID id;
 
     /**
+     * Generates a new random PersonId.
+     */
+    public PersonId() {
+        this.id = UUID.randomUUID();
+    }
+
+    /**
      * Wraps an existing string ID.
-     * If the string is null, empty, or invalid, generates a new random ID instead.
-     *
-     * @param idString existing ID string (can be null or empty)
+     * @param idString existing ID string
+     * @throws IllegalArgumentException if idString is null, blank, or not a valid UUID
      */
     public PersonId(String idString) {
         if (idString == null || idString.isBlank()) {
-            this.id = UUID.randomUUID();
-        } else {
-            UUID parsedId;
-            try {
-                parsedId = UUID.fromString(idString);
-            } catch (IllegalArgumentException e) {
-                // Invalid UUID string means generate random instead
-                parsedId = UUID.randomUUID();
-            }
-            this.id = parsedId;
+            throw new IllegalArgumentException(PERSON_ID_CONSTRAINTS);
         }
+        this.id = UUID.fromString(idString);
     }
 
     /** Returns the underlying UUID. */

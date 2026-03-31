@@ -104,6 +104,12 @@ public class PersonBuilder {
      * If {@code id} is null or empty, the constructor that generates a new ID will be used.
      */
     public Person build() {
-        return new Person(id, name, phone, email, tags);
+        if (id == null) {
+            // no ID set, generate automatically
+            return new Person(name, phone, email, tags);
+        } else {
+            // use the specified PersonId
+            return new Person(id, name, phone, email, tags);
+        }
     }
 }

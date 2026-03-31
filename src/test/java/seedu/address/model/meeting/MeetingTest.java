@@ -10,9 +10,11 @@ import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DESCRIPTI
 import static seedu.address.testutil.Assert.assertThrows;
 
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import org.junit.jupiter.api.Test;
 
+import seedu.address.model.person.PersonId;
 import seedu.address.testutil.MeetingBuilder;
 
 public class MeetingTest {
@@ -51,7 +53,12 @@ public class MeetingTest {
                 .build();
         assertEquals(new Description(VALID_DESCRIPTION_PROJECT), meeting.getDescription());
         assertEquals(new MeetingDate(VALID_DATE_20260325), meeting.getDate());
-        assertEquals(VALID_IDS, meeting.getParticipantsID());
+
+        Set<String> actualIds = meeting.getParticipantsID().stream()
+                .map(PersonId::toString)
+                .collect(Collectors.toSet());
+
+        assertEquals(VALID_IDS, actualIds);
     }
 
     @Test

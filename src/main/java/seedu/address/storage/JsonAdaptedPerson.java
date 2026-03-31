@@ -108,7 +108,13 @@ class JsonAdaptedPerson {
 
         final Set<Tag> modelTags = new HashSet<>(personTags);
 
-        PersonId modelId = new PersonId(id);
+        // If IllegalArgumentException returned, call constructor that generates new ID
+        final PersonId modelId;
+        try {
+            modelId = new PersonId(id);
+        } catch (IllegalArgumentException e) {
+            return new Person(modelName, modelPhone, modelEmail, modelTags);
+        }
         return new Person(modelId, modelName, modelPhone, modelEmail, modelTags);
     }
 }
