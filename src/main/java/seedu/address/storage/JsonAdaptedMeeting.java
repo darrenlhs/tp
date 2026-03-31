@@ -1,6 +1,7 @@
 package seedu.address.storage;
 
 import java.time.LocalDate;
+import java.util.HashSet;
 import java.util.Set;
 import java.util.UUID;
 import java.util.stream.Collectors;
@@ -83,9 +84,14 @@ class JsonAdaptedMeeting {
 
         LocalDate parsedDate = ParserUtil.parseDate(date);
 
-        Set<UUID> modelPersonIds = personIds.stream()
-                .map(UUID::fromString)
-                .collect(Collectors.toSet());
+        Set<UUID> modelPersonIds = new HashSet<>();
+        for (String id : personIds) {
+            try {
+                modelPersonIds.add(UUID.fromString(id));
+            } catch (IllegalArgumentException unused) {
+
+            }
+        }
 
         return new Meeting(description, parsedDate, modelPersonIds);
     }
