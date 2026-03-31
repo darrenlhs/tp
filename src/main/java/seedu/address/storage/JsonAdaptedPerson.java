@@ -117,7 +117,7 @@ class JsonAdaptedPerson {
             try {
                 modelId = UUID.fromString(id);
             } catch (IllegalArgumentException e) {
-                throw new IllegalValueException(INVALID_UUID_MESSAGE);
+                throw new IllegalArgumentException(INVALID_UUID_MESSAGE);
             }
             return new Person(modelId, modelName, modelPhone, modelEmail, modelTags);
         }
