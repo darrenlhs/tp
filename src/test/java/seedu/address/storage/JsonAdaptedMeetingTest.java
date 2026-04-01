@@ -30,7 +30,7 @@ public class JsonAdaptedMeetingTest {
             Meeting modelMeeting = meeting.toModelType();
             assert(modelMeeting.getDescription().description.equals(meeting.getDescription()));
             assert(modelMeeting.getDate().toString().equals(meeting.getDate()));
-            assert(modelMeeting.getParticipantsID().size() == VALID_IDS.size()); // optional extra check
+            assert(modelMeeting.getParticipantsIDs().size() == VALID_IDS.size()); // optional extra check
         }
     }
 
@@ -59,7 +59,7 @@ public class JsonAdaptedMeetingTest {
         Meeting modelMeeting = meetingWithInvalidIds.toModelType();
 
         // Check that invalid IDs were ignored and meeting still has 0 participants
-        assertTrue(modelMeeting.getParticipantsID().isEmpty());
+        assertTrue(modelMeeting.getParticipantsIDs().isEmpty());
     }
 
     @Test

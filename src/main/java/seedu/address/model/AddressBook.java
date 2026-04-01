@@ -112,7 +112,7 @@ public class AddressBook implements ReadOnlyAddressBook {
         requireNonNull(editedPerson);
         // Updates references to this person from meetings
         for (Meeting m : getMeetingsContainingId(target.getId())) {
-            Set<PersonId> newPersonIdSet = m.getParticipantsID();
+            Set<PersonId> newPersonIdSet = m.getParticipantsIDs();
 
             newPersonIdSet.remove(target.getId());
             newPersonIdSet.add(editedPerson.getId());
@@ -208,7 +208,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /** Throws an error if any of the ID in the meeting's participant set does not exist in the address book. */
     private void verifyParticipantsExist(Meeting meeting) throws PersonNotFoundException {
-        for (PersonId id : meeting.getParticipantsID()) {
+        for (PersonId id : meeting.getParticipantsIDs()) {
             getPerson(id);
         }
     }
@@ -219,7 +219,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      */
     private Set<Meeting> getMeetingsContainingId(PersonId id) {
         return meetings.asUnmodifiableObservableList().stream()
-                .filter(meeting -> meeting.getParticipantsID().contains(id))
+                .filter(meeting -> meeting.getParticipantsIDs().contains(id))
                 .collect(Collectors.toSet());
     }
 
@@ -228,7 +228,7 @@ public class AddressBook implements ReadOnlyAddressBook {
      * with the specified {@code id} removed from the set of participants PersonId.
      */
     private static Meeting removeIdFromMeeting(Meeting meeting, PersonId id) {
-        Set<PersonId> newPersonIdSet = meeting.getParticipantsID();
+        Set<PersonId> newPersonIdSet = meeting.getParticipantsIDs();
         newPersonIdSet.remove(id);
         return new Meeting(meeting.getDescription(), meeting.getDate(), newPersonIdSet);
     }

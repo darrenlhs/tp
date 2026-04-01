@@ -54,7 +54,7 @@ public class MeetingTest {
         assertEquals(new Description(VALID_DESCRIPTION_PROJECT), meeting.getDescription());
         assertEquals(new MeetingDate(VALID_DATE_20260325), meeting.getDate());
 
-        Set<String> actualIds = meeting.getParticipantsID().stream()
+        Set<String> actualIds = meeting.getParticipantsIDs().stream()
                 .map(PersonId::toString)
                 .collect(Collectors.toSet());
 

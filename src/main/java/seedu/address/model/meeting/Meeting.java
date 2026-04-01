@@ -50,7 +50,7 @@ public class Meeting {
         return date;
     }
 
-    public Set<PersonId> getParticipantsID() {
+    public Set<PersonId> getParticipantsIDs() {
         return new HashSet<>(participantsID); // Returns a defensive copy of the set.
     }
 

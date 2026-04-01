@@ -73,11 +73,11 @@ public class AddressBookTest {
         newMeetings.add(new Meeting(
                 COFFEE_MEETING.getDescription(),
                 COFFEE_MEETING.getDate(),
-                COFFEE_MEETING.getParticipantsID()));
+                COFFEE_MEETING.getParticipantsIDs()));
         newMeetings.add(new Meeting(
                 COFFEE_MEETING.getDescription(),
                 COFFEE_MEETING.getDate(),
-                COFFEE_MEETING.getParticipantsID()));
+                COFFEE_MEETING.getParticipantsIDs()));
 
         AddressBookStub newData = new AddressBookStub(newPersons, newMeetings);
 
@@ -92,9 +92,9 @@ public class AddressBookTest {
         newMeetings.add(new Meeting(
                 COFFEE_MEETING.getDescription(),
                 COFFEE_MEETING.getDate(),
-                COFFEE_MEETING.getParticipantsID()));
+                COFFEE_MEETING.getParticipantsIDs()));
 
-        Set<PersonId> participantsMinusOne = COFFEE_MEETING.getParticipantsID();
+        Set<PersonId> participantsMinusOne = COFFEE_MEETING.getParticipantsIDs();
         participantsMinusOne.remove(participantsMinusOne.iterator().next()); // Remove first UUID.
 
         newMeetings.add(new Meeting(
@@ -173,18 +173,18 @@ public class AddressBookTest {
 
         Meeting firstMeeting =
                 addressBook.getMeetingList().stream().findFirst().orElseThrow(MeetingNotFoundException::new);
-        PersonId firstParticipantId = firstMeeting.getParticipantsID().iterator().next();
+        PersonId firstParticipantId = firstMeeting.getParticipantsIDs().iterator().next();
 
         addressBook.removePerson(addressBook.getPerson(firstParticipantId));
 
-        Set<PersonId> newPersonIdSet = firstMeeting.getParticipantsID();
+        Set<PersonId> newPersonIdSet = firstMeeting.getParticipantsIDs();
         newPersonIdSet.remove(firstParticipantId);
 
         Meeting editedMeeting = new Meeting(firstMeeting.getDescription(), firstMeeting.getDate(), newPersonIdSet);
 
         for (Meeting m : addressBook.getMeetingList()) {
             if (m.isSameMeeting(editedMeeting)) {
-                assertEquals(editedMeeting.getParticipantsID(), m.getParticipantsID());
+                assertEquals(editedMeeting.getParticipantsIDs(), m.getParticipantsIDs());
             }
         }
     }

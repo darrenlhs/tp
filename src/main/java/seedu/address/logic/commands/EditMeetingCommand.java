@@ -110,7 +110,7 @@ public class EditMeetingCommand extends Command {
         MeetingDate updatedDate = editMeetingDescriptor.getDate()
                 .orElse(meetingToEdit.getDate());
 
-        Set<PersonId> updatedParticipantsId = new HashSet<>(meetingToEdit.getParticipantsID());
+        Set<PersonId> updatedParticipantsId = new HashSet<>(meetingToEdit.getParticipantsIDs());
 
         editMeetingDescriptor.getIdsToAdd()
                 .ifPresent(updatedParticipantsId::addAll);

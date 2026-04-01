@@ -46,7 +46,7 @@ class JsonAdaptedMeeting {
     public JsonAdaptedMeeting(Meeting source) {
         this.description = source.getDescription().description;
         this.date = source.getDate().toString();
-        this.personIds = source.getParticipantsID().stream()
+        this.personIds = source.getParticipantsIDs().stream()
                 .map(PersonId::toString)
                 .collect(Collectors.toSet());
     }

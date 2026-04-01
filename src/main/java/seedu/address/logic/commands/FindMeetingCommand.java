@@ -29,7 +29,7 @@ public class FindMeetingCommand extends Command {
             + "Example: " + COMMAND_WORD + " d/ meeting dt/ 2026";
 
     public static final String MESSAGE_FORMAT =
-            "Format: findmeeting [d/ SEARCH SUBSTRING) [dt/ SEARCH SUBSTRING] [i/ PERSON INDICES]...\n"
+            "Format: findmeeting [d/ SEARCH SUBSTRING] [dt/ SEARCH SUBSTRING] [i/ PERSON INDICES]...\n"
                     + "Example: "
                     + COMMAND_WORD
                     + " d/ meeting"
@@ -63,16 +63,16 @@ public class FindMeetingCommand extends Command {
         requireNonNull(model);
         List<Person> personList = model.getFilteredPersonList();
 
-        Set<PersonId> personIdToMatch = new HashSet<>();
+        Set<PersonId> personIdsToMatch = new HashSet<>();
         for (Index index : personIndices) {
             if (index.getZeroBased() >= personList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
-            personIdToMatch.add(personList.get(index.getZeroBased()).getId());
+            personIdsToMatch.add(personList.get(index.getZeroBased()).getId());
         }
 
         MeetingMatchesKeywordsPredicate predicate =
-                new MeetingMatchesKeywordsPredicate(descriptionKeywords, dateKeywords, personIdToMatch);
+                new MeetingMatchesKeywordsPredicate(descriptionKeywords, dateKeywords, personIdsToMatch);
 
         model.updateFilteredMeetingList(predicate);
         return new CommandResult(

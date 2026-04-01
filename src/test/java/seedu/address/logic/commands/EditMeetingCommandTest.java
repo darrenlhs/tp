@@ -43,7 +43,7 @@ public class EditMeetingCommandTest {
         Description newDescription = COFFEE_MEETING.getDescription();
         MeetingDate newDate = STRATEGY_MEETING.getDate();
 
-        Set<PersonId> expectedParticipants = new HashSet<>(meetingToEdit.getParticipantsID());
+        Set<PersonId> expectedParticipants = new HashSet<>(meetingToEdit.getParticipantsIDs());
         expectedParticipants.add(new PersonId(ID_3));
         expectedParticipants.remove(new PersonId(ID_1));
 
@@ -73,7 +73,7 @@ public class EditMeetingCommandTest {
 
         Meeting editedMeeting = new Meeting(newDescription,
                 meetingToEdit.getDate(),
-                meetingToEdit.getParticipantsID());
+                meetingToEdit.getParticipantsIDs());
 
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
         descriptor.setDescription(newDescription);

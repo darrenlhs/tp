@@ -38,7 +38,7 @@ public class MeetingBuilder {
     public MeetingBuilder(Meeting meetingToCopy) {
         description = meetingToCopy.getDescription();
         date = meetingToCopy.getDate();
-        participants = new HashSet<>(meetingToCopy.getParticipantsID());
+        participants = new HashSet<>(meetingToCopy.getParticipantsIDs());
     }
 
     /**

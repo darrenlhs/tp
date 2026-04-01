@@ -34,7 +34,7 @@ public class MeetingMatchesKeywordsPredicate implements Predicate<Meeting> {
     public boolean test(Meeting meeting) {
         String description = meeting.getDescription().description.toLowerCase();
         String date = meeting.getDate().toString();
-        Set<PersonId> participantIDs = meeting.getParticipantsID();
+        Set<PersonId> participantIDs = meeting.getParticipantsIDs();
 
         boolean doAnyKeywordsMatchDescription = descriptionKeywords
                 .stream()
