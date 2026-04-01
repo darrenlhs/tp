@@ -78,7 +78,7 @@ public class FilterTagCommand extends Command {
             throw new CommandException(MESSAGE_NO_VALID_TAG);
         }
 
-        model.updateFilteredPersonList(hasAnyTag);
+        model.updateFilteredPersonListStacked(hasAnyTag);
 
         return new CommandResult(String.format(
                 MESSAGE_FILTER_TAG_SUCCESS, tagList, model.getFilteredPersonList().size()));
