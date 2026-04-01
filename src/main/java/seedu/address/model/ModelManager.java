@@ -46,10 +46,6 @@ public class ModelManager implements Model {
         this(new AddressBook(), new UserPrefs());
     }
 
-    public Predicate<Person> getCurrentPredicate() {
-        return currentPredicate;
-    }
-
     //=========== UserPrefs ==================================================================================
 
     @Override
@@ -154,12 +150,12 @@ public class ModelManager implements Model {
 
     /**
      * Updates the filter of the filtered person list to filter by all previous {@code predicate}
-     * @param predicate
+     * @param predicate the new predicate to be appended to the existing predicates
      */
     @Override
     public void updateFilteredPersonListStacked(Predicate<Person> predicate) {
         requireNonNull(predicate);
-        Predicate<Person> stackedPredicate = getCurrentPredicate().and(predicate);
+        Predicate<Person> stackedPredicate = currentPredicate.and(predicate);
         currentPredicate = stackedPredicate; // update the stored predicate
         filteredPersons.setPredicate(stackedPredicate);
     }
