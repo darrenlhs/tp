@@ -77,7 +77,7 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Adds all persons from the JSON list to the given {@code AddressBook}.
+     * Tries to add all persons from the JSON list to the given {@code AddressBook}.
      * Skips and logs duplicates or invalid entries.
      */
     private void addPersonsToModel(AddressBook addressBook) {
@@ -107,7 +107,7 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Adds all meetings from the JSON list to the given {@code AddressBook}.
+     * Tries to add all meetings from the JSON list to the given {@code AddressBook}.
      * Skips and logs duplicates, invalid entries, and meetings with invalid participants.
      */
     private void addMeetingsToModel(AddressBook addressBook) {
@@ -123,7 +123,7 @@ class JsonSerializableAddressBook {
                 }
 
                 // Skip the entire meeting if any participant is not in contacts.
-                if (hasParticipantNotInContacts(meeting, addressBook)) {
+                if (hasAnyParticipantNotInContacts(meeting, addressBook)) {
                     continue;
                 }
 
@@ -137,9 +137,9 @@ class JsonSerializableAddressBook {
 
     /**
      * Returns true if the meeting has any participants not in the {@code UniquePersonList}.
-     * Logs a warning if such a participant is found.
+     * Logs a warning if such a participant is found and immediately returns true.
      */
-    private boolean hasParticipantNotInContacts(Meeting meeting, AddressBook addressBook) {
+    private boolean hasAnyParticipantNotInContacts(Meeting meeting, AddressBook addressBook) {
         for (PersonId participantId : meeting.getParticipantsIDs()) {
             if (!addressBook.hasSameID(participantId)) {
                 logger.warning(String.format(
