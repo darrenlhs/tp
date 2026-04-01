@@ -2,7 +2,6 @@ package seedu.address.storage;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.UUID;
 import java.util.logging.Logger;
 
 import com.fasterxml.jackson.annotation.JsonCreator;
@@ -15,6 +14,7 @@ import seedu.address.model.AddressBook;
 import seedu.address.model.ReadOnlyAddressBook;
 import seedu.address.model.meeting.Meeting;
 import seedu.address.model.person.Person;
+import seedu.address.model.person.PersonId;
 
 /**
  * An Immutable AddressBook that is serializable to JSON format.
@@ -122,8 +122,8 @@ class JsonSerializableAddressBook {
                     continue;
                 }
 
-                // Skip the entire meeting if any participant is invalid
-                if (hasInvalidParticipants(meeting, addressBook)) {
+                // Skip the entire meeting if any participant is not in contacts.
+                if (hasParticipantNotInContacts(meeting, addressBook)) {
                     continue;
                 }
 
@@ -136,12 +136,12 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Returns true if the meeting has any invalid participants.
-     * Logs a warning if invalid participant is found.
+     * Returns true if the meeting has any participants not in the {@code UniquePersonList}.
+     * Logs a warning if such a participant is found.
      */
-    private boolean hasInvalidParticipants(Meeting meeting, AddressBook addressBook) {
-        for (UUID participantId : meeting.getParticipantsID()) {
-            if (addressBook.hasSameID(participantId)) {
+    private boolean hasParticipantNotInContacts(Meeting meeting, AddressBook addressBook) {
+        for (PersonId participantId : meeting.getParticipantsIDs()) {
+            if (!addressBook.hasSameID(participantId)) {
                 logger.warning(String.format(
                         MESSAGE_MEETING_WITH_INVALID_PARTICIPANT,
                         meeting.toString(), participantId.toString()));

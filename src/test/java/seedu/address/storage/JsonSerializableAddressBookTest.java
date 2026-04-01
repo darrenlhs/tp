@@ -2,12 +2,11 @@ package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertDoesNotThrow;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static seedu.address.testutil.TypicalMeetings.PROJECT_MEETING;
 import static seedu.address.testutil.TypicalPersons.ALICE;
-import static seedu.address.testutil.TypicalPersons.PROJECT_MEETING;
 
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.time.LocalDate;
 
 import org.junit.jupiter.api.Test;
 
@@ -91,6 +90,6 @@ public class JsonSerializableAddressBookTest {
         Meeting meetingWithDuplicate = result.getMeetingList().get(0);
 
         assertEquals(PROJECT_MEETING.getDescription(), meetingWithDuplicate.getDescription());
-        assertEquals(LocalDate.parse(PROJECT_MEETING.getDate().toString()), meetingWithDuplicate.getDate());
+        assertEquals(PROJECT_MEETING.getDate(), meetingWithDuplicate.getDate());
     }
 }

@@ -5,7 +5,6 @@ import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
 import java.util.Iterator;
 import java.util.List;
-import java.util.UUID;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -50,11 +49,11 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if the list has a person with the same {@code ID} as {@code toCheck}.
+     * Returns true if the list has a person with the same {@code PersonID} as {@code id}.
      */
-    public boolean hasSameID(UUID toCheck) {
-        requireNonNull(toCheck);
-        return internalList.stream().anyMatch(person -> person.getId() == toCheck);
+    public boolean hasSameID(PersonId id) {
+        requireNonNull(id);
+        return internalList.stream().anyMatch(person -> person.getId().equals(id));
     }
 
     /**
