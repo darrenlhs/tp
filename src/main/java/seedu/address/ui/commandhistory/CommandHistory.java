@@ -40,7 +40,7 @@ public class CommandHistory {
 
     /**
      * Adds a command to the command history. Duplicate commands won't be added twice in a row.
-     * When adding a command, the current command position will be reset to the end of the list,
+     * When adding a command, the current command index will be reset to the end of the list,
      * i.e. After adding a command, <code>prevCommand()</code> will return the last added command.
      * Blank or null inputs will throw an exception.
      * @param command the command.
