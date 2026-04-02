@@ -44,7 +44,7 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void checkIndex_twoCommands_isOnDraft_true() {
+    public void checkIndex_twoCommands_isOnDraft() {
         CommandHistory ch = new CommandHistory();
         ch.add(COMMAND_1);
         ch.add(COMMAND_2);

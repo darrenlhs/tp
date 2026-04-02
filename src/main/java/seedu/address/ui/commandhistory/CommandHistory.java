@@ -2,32 +2,36 @@ package seedu.address.ui.commandhistory;
 
 import java.util.ArrayList;
 
+/**
+ * A list to store previously sent commands.
+ * This command history works similarly to a conventional terminal's command history.
+ * Commands can be added to the history using {@code add()}. The {@code CommandHistory} will keep track of the
+ * current command using an internal pointer which can be moved around using {@code nextCommand()} and
+ * {@code prevCommand()}. Recorded commands will be added to the end of the list,
+ * and duplicate commands won't be added twice in a row.<br><br>
+ *
+ * Example usage:
+ * <pre>
+ * {@code
+ * CommandHistory ch = new CommandHistory();
+ * ch.add("first command");
+ * ch.add("second command");
+ *
+ * String userDraft = "draft command"; // Assume the user is currently editing userDraft.
+ * userDraft = ch.prevCommand(userDraft); // userDraft becomes "second command".
+ * userDraft = ch.prevCommand(userDraft); // userDraft becomes "first command".
+ * userDraft = ch.nextCommand(userDraft); // userDraft becomes "second command".
+ * userDraft = ch.nextCommand(userDraft); // userDraft becomes "draft command".
+ * }
+ * </pre>
+ */
 public class CommandHistory {
     private final ArrayList<String> commands;
     private int currentIndex;
     private String draft;
 
     /**
-     * Creates a command history. The command history works similarly to a conventional terminal's command history.
-     * Commands can be added to the history using {@code add()}. The {@code CommandHistory} will keep track of the
-     * current command using an internal pointer which can be moved around using {@code nextCommand()} and
-     * {@code prevCommand()}. Recorded commands will be added to the end of the list,
-     * and duplicate commands won't be added twice in a row.<br><br>
-     *
-     * Example usage:
-     * <pre>
-     * {@code
-     * CommandHistory ch = new CommandHistory();
-     * ch.add("first command");
-     * ch.add("second command");
-     *
-     * String userDraft = "draft command"; // Assume the user is currently editing userDraft.
-     * userDraft = ch.prevCommand(userDraft); // userDraft becomes "second command".
-     * userDraft = ch.prevCommand(userDraft); // userDraft becomes "first command".
-     * userDraft = ch.nextCommand(userDraft); // userDraft becomes "second command".
-     * userDraft = ch.nextCommand(userDraft); // userDraft becomes "draft command".
-     * }
-     * </pre>
+     * Initializes an empty command history.
      */
     public CommandHistory() {
         this.commands = new ArrayList<>();
