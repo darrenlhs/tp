@@ -42,13 +42,16 @@ public class CommandHistory {
      * Adds a command to the command history. Duplicate commands won't be added twice in a row.
      * When adding a command, the current command position will be reset to the end of the list,
      * i.e. After adding a command, <code>prevCommand()</code> will return the last added command.
-     * Blank strings are accepted, but null is not and will cause the function to throw an exception.
+     * Blank or null inputs will throw an exception.
      * @param command the command.
-     * @throws IllegalArgumentException if the command string is null.
+     * @throws IllegalArgumentException if the command string is blank or null.
      */
     public void add(String command) throws IllegalArgumentException {
         if (command == null) {
             throw new IllegalArgumentException("Command history cannot accept null commands");
+        }
+        if (command.isBlank()) {
+            throw new IllegalArgumentException("Adding blank commands to command history is not allowed");
         }
 
         if (commands.isEmpty() || !commands.get(commands.size() - 1).equals(command)) {
@@ -62,13 +65,8 @@ public class CommandHistory {
      * Shifts to the next command in the history, or the draft if the end of history is reached.
      * @param currentCommand the current command that is being edited by the user. Used to save as draft.
      * @return the next command in the history.
-     * @throws IllegalArgumentException if {@code currentCommand} is null.
      */
-    public String nextCommand(String currentCommand) throws IllegalArgumentException {
-        if (currentCommand == null) {
-            throw new IllegalArgumentException("Command history cannot accept null commands");
-        }
-
+    public String nextCommand(String currentCommand) {
         if (isOnDraft()) {
             // If the user is currently editing the draft, then nextCommand() shouldn't erase the draft.
             return currentCommand;
@@ -81,13 +79,8 @@ public class CommandHistory {
      * Shifts to the previous command in the history, or the draft if the history is empty.
      * @param currentCommand the current command that is being edited by the user. Used to save as draft.
      * @return the previous command in the history.
-     * @throws IllegalArgumentException if {@code currentCommand} is null.
      */
     public String prevCommand(String currentCommand) throws IllegalArgumentException {
-        if (currentCommand == null) {
-            throw new IllegalArgumentException("Command history cannot accept null commands");
-        }
-
         if (isOnDraft()) {
             draft = currentCommand; // Saves the current draft.
         }

@@ -80,23 +80,9 @@ public class CommandHistoryTest {
     }
 
     @Test
-    public void addCommand_blank_success() {
+    public void addCommand_blank_fail() {
         CommandHistory ch = new CommandHistory();
-        ch.add(BLANK_STRING);
-
-        assertEquals(1, ch.size());
-    }
-
-    @Test
-    public void nextCommand_null_fail() {
-        CommandHistory ch = new CommandHistory();
-        assertThrows(IllegalArgumentException.class, () -> ch.nextCommand(null));
-    }
-
-    @Test
-    public void prevCommand_null_fail() {
-        CommandHistory ch = new CommandHistory();
-        assertThrows(IllegalArgumentException.class, () -> ch.prevCommand(null));
+        assertThrows(IllegalArgumentException.class, () -> ch.add(BLANK_STRING));
     }
 
     @Test
