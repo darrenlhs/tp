@@ -51,8 +51,14 @@ public class MeetingCard extends UiPart<Region> {
 
         date.setText(meeting.getDate().toString());
 
+        // Clear any existing children first (safety)
+        participants.getChildren().clear();
+
         participantSet.stream()
                 .sorted(Comparator.comparing(person -> person.getName().fullName))
-                .forEach(person -> participants.getChildren().add(new Label(person.getName().fullName)));
+                .forEach(person -> {
+                    ParticipantCard participantCard = new ParticipantCard(person);
+                    participants.getChildren().add(participantCard.getRoot());
+                });
     }
 }
