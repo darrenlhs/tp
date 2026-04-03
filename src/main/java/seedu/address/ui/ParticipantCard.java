@@ -17,6 +17,9 @@ public class ParticipantCard extends UiPart<Region> {
     @FXML
     private Label participantDetails;
 
+    /**
+     * Creates the display for a given {@code Person} in a meeting.
+     */
     public ParticipantCard(Person person) {
         super(FXML);
         this.person = person;
