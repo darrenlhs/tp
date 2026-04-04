@@ -115,18 +115,21 @@ public class AddMeetingCommandParserTest {
     @Test
     public void parse_preamblePresent_failure() {
         // extra preamble before any prefixes
-        assertParseFailure(parser, "randomPreamble " + VALID_INDEX_SET_SINGLE + INPUT_DESC_PROJECT + INPUT_DATE_20260325,
+        assertParseFailure(parser, "randomPreamble "
+                        + VALID_INDEX_SET_SINGLE + INPUT_DESC_PROJECT + INPUT_DATE_20260325,
                 String.format(MESSAGE_INVALID_COMMAND_FORMAT, AddMeetingCommand.MESSAGE_USAGE));
     }
 
     @Test
     public void parse_duplicatePrefixes_failure() {
         // duplicated description
-        assertParseFailure(parser, VALID_INDEX_SET_SINGLE + INPUT_DESC_PROJECT + INPUT_DESC_TEAM + INPUT_DATE_20260325,
+        assertParseFailure(parser,
+                VALID_INDEX_SET_SINGLE + INPUT_DESC_PROJECT + INPUT_DESC_TEAM + INPUT_DATE_20260325,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_MEETING_DESCRIPTION));
 
         // duplicated date
-        assertParseFailure(parser, VALID_INDEX_SET_SINGLE + INPUT_DESC_PROJECT + INPUT_DATE_20260325 + INPUT_DATE_20260401,
+        assertParseFailure(parser,
+                VALID_INDEX_SET_SINGLE + INPUT_DESC_PROJECT + INPUT_DATE_20260325 + INPUT_DATE_20260401,
                 Messages.getErrorMessageForDuplicatePrefixes(PREFIX_MEETING_DATE));
     }
 }

@@ -3,10 +3,11 @@ package seedu.address.logic.commands;
 import static java.util.Objects.requireNonNull;
 
 import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.List;
-
 import java.util.Set;
 import java.util.stream.Collectors;
+
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
 import seedu.address.logic.Messages;
@@ -39,14 +40,17 @@ public class DeleteCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        for (Index index : targetIndices) {
+        List<Index> sortedIndices = targetIndices.stream()
+                .sorted(Comparator.comparingInt(Index::getZeroBased)).toList();
+
+        for (Index index : sortedIndices) {
             if (index.getZeroBased() >= lastShownList.size()) {
                 throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
             }
         }
 
         List<Person> peopleToDelete = new ArrayList<>();
-        for (Index index : targetIndices) {
+        for (Index index : sortedIndices) {
             Person personToDelete = lastShownList.get(index.getZeroBased());
             peopleToDelete.add(personToDelete);
         }
