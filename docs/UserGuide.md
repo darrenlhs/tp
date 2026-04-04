@@ -53,11 +53,13 @@ Welcome to Internlink! This guide will help you get started.
 
 ### What is Internlink?
 Internlink is a **contact management app** built with students in mind. If you are an ambitious student who has a wide network of relations, this is the perfect tool for you.
+
 Internlink helps to:
-Store and organise contact information and label them conveniently with tags
-Keep track of your numerous connections with people such as classmates, seniors, mentors, and industry contacts
-Track interactions and open up avenues for future academic and career aspects
-Manage upcoming meetings so you don’t miss any important opportunities
+* Store and organise contact information and label them conveniently with tags
+* Keep track of your numerous connections with people such as classmates, seniors, mentors, and industry contacts
+* Track interactions and open up avenues for future academic and career aspects
+* Manage upcoming meetings so you don’t miss any important opportunities
+
 With Internlink, you can manage your network of personal and business relations in school with ease, and focus on striving to reach the top.
 
 ### Who this guide is for
@@ -70,7 +72,7 @@ This guide is written for students who have at least some experience with using 
 
 **For Novice users**
 
-* You can jump to the [Quick Start](#quick-start) section to get started on Internlink.
+* You can jump to the [Getting Started](#getting-started) section to get started on Internlink.
 </div>
 
 <div markdown="block" class="alert alert-success">
@@ -89,51 +91,6 @@ This guide is written for students who have at least some experience with using 
 
 —---------------------------------------------------------------------------------------------------------------------
 ## Getting Started
-
-
-Internlink requires **Java 17** to run. Please follow the instructions according to your computer's operating system.
-
-
-### 1. Java version check and installation
-
-
-**For macOS Users**
-1. Please follow the instructions [here](https://se-education.org/guides/tutorials/javaInstallationMac.html).
-2. After completing the setup, open the **Terminal** app and run the command `java -version` to confirm that
-   the correct version is installed, you should see a Java version starting with `17` (e.g., `17.0.5`).
-
-**For Windows and Linux Users**
-1. Open your system's CLI (e.g., PowerShell, Terminal).
-2. Execute this command: `java -version`.
-3. If the output shows a Java version starting with `17` (e.g., `17.0.5`), you already have the correct version
-   installed and may skip to the [Downloading HealthNote](#2-downloading-healthnote) section. If not, keep following the instructions to install Java `17`.
-4. Download Java `17` from [this website](https://www.oracle.com/java/technologies/javase/jdk17-0-13-later-archive-downloads.html)
-   according to your computer's operating system.
-5. Run the downloaded file and follow the on-screen instructions.
-6. After the installation, close and reopen your CLI, and repeat `step 2`.
-
-
-### 2. Downloading HealthNote
-Download the latest `healthnote.jar` file from [here](https://github.com/AY2526S1-CS2103T-F11-1/tp/releases).
-
-
-### 3. Running HealthNote
-1. Create a new folder on your computer where you want to store your patient data and move the downloaded
-   `healthnote.jar` into this new folder.
-2. Open your CLI and navigate to this folder (using commands like `cd`).
-3. Run this command: `java -jar healthnote.jar`
-4. A GUI similar to the one below should appear in a few seconds. Note how the app contains some sample data.
-
-
-Congratulations! You are now ready to use HealthNote. Refer to the [Features](#features) below for details of each command.
-
-
-[Back to Table of Contents](#table-of-contents)
-
-
-
-
-## Getting Started
 ### 1. Getting the correct Java version
 Internlink requires **Java 17** to run. Please follow the instructions according to your computer's operating system.
 
@@ -148,10 +105,10 @@ Internlink requires **Java 17** to run. Please follow the instructions according
 > Download and install Java 17 by following the guides below:
 > * [for Windows users](https://se-education.org/guides/tutorials/javaInstallationWindows.html)
 > * [for Mac users](https://se-education.org/guides/tutorials/javaInstallationMac.html)
-> * [for Linux users](https://se-education.org/guides/tutorials/javaInstallationLinux.html)
-> * After installation, restart your terminal and verify the version again by repeating step 2.
+> * [for Linux users](https://se-education.org/guides/tutorials/javaInstallationLinux.html)<br>
 
 
+After installation, restart your terminal and verify the version again by repeating step 2.<br>
 If installed correctly, when you [check your Java version again](#checking-your-java-version), you should see a Java version starting with `17` (e.g., `17.0.5`).
 
 ### 2. Downloading Internlink
@@ -227,8 +184,9 @@ AddressBook data are saved in the hard disk automatically after any command that
 
 AddressBook data are saved automatically as a JSON file `[JAR file location]/data/addressbook.json`. Advanced users are welcome to update data directly by editing that data file.
 
+> [!CAUTION] 
 > If your changes to the data file makes its format invalid, AddressBook will discard all data and start with an empty data file at the next run. Hence, it is recommended to take a backup of the file before editing it.<br>
-Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside of the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
+Furthermore, certain edits can cause the AddressBook to behave in unexpected ways (e.g., if a value entered is outside the acceptable range). Therefore, edit the data file only if you are confident that you can update it correctly.
 
 
 ## Features - Managing contact information
