@@ -161,13 +161,15 @@ Congratulations! You are now ready to use Internlink. Refer to the [Features](#f
 
 Shows a message explaining how to access the help page.
 
-![help message](images/helpMessage.png)
+![help message](images/helpcommand.png)
 
 Format: `help`
 
 ### Clearing all entries : `clear`
 
-Clears all entries from the address book.
+Clears all contacts and meetings from Internlink's data.
+
+![clear message](images/clearcommand.png)
 
 Format: `clear`
 
@@ -181,7 +183,9 @@ Format: `exit`
 
 ### Adding a person: `add`
 
-Adds a new person to the address book.
+Adds a new person to Internlink's data.
+
+![add message](images/addcommand.png)
 
 **Requirements:**
 A person must have a `NAME` and at least one of the following:
@@ -194,11 +198,13 @@ A person must have a `NAME` and at least one of the following:
 
 **Examples:**
 - `add n/John Doe e/johnd@example.com`
-- `add n/Betsy Crowe p/1234567 e/betsycrowe@example.com t/friend t/criminal`
+- `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com t/friend t/criminal`
 
 ### Deleting a person : `delete`
 
-Deletes the specified person from the address book.
+Deletes the specified person from Internlink's data
+
+![delete message](images/deletecommand.png)
 
 Format: `delete INDEX`
 
@@ -213,7 +219,9 @@ Examples:
 
 ### Editing a person : `edit`
 
-Edits an existing person in the address book.
+Edits an existing person in Internlink's data
+
+![edit message](images/editcommand.png)
 
 Format: `edit INDEX [n/NAME] [p/PHONE] [e/EMAIL] [t/TAG]…​`
 
@@ -229,7 +237,9 @@ Examples:
 *  `edit 2 n/Betsy Crower t/` Edits the name of the 2nd person to be `Betsy Crower` and clears all existing tags.
 
 ### Adding tags to one or more people : `addtag`
-Add one or more tags to one or more people in the address book
+Add one or more tags to one or more people in Internlink's data
+
+![addtag message](images/addtagcommand.png)
 
 Format: `addtag INDEX, [INDICES...] / TAG [/ TAG]`
 
@@ -244,7 +254,9 @@ Examples:
 
 
 ### Deleting tags from one or more people : `deletetag`
-Deletes one or more tags from one or more people in the address book
+Deletes one or more tags from one or more people in Internlink's data
+
+![deletetag message](images/deletetagcommand.png)
 
 Format: `deletetag INDEX, [INDICES...] / TAG [/ TAG]`
 
@@ -262,11 +274,14 @@ Examples:
 
 Rename existing tags across multiple contacts in batch
 
+![edittag message indices](images/edittagcommandindices.png)
+![edittag message global](images/edittagcommandglobal.png)
+
 Format: `edittag [INDICES OR 'all'] o/ OLDTAG n/ NEWTAG`
 
 * Using the `all` keyword instead of specific indices will do a global edit of the given `OLDTAG`, while inputting specific indices only edits them for the given contacts.
 * As long as one of the specified contacts has the given `OLDTAG`, the command will be valid.
-* `edittag` operates on the current list, not the whole address book.
+* `edittag` operates on the current filtered person list, not the whole person list.
 * Indices are to be separated by commas.
 
 Examples:
@@ -274,7 +289,9 @@ Examples:
 * `edittag all o/ cs n/ computer science` edits the tag `cs` for all contacts in the current list, and changes it to `computer science`.
 
 ### Starring a person : `star`
-Stars / Favourites a person in the address book
+Stars / Favourites a person in the Internlink's data
+
+![star message](images/starcommand.png)
 
 Format: `star INDEX`
 
@@ -290,7 +307,9 @@ Examples:
 
 
 ### Unstarring a person : `unstar`
-Unstars / Unfavourites a person in the address book
+Unstars / Unfavourites a person in Internlink's data
+
+![unstar message](images/unstarcommand.png)
 
 Format: `unstar INDEX`
 
@@ -308,6 +327,8 @@ Examples:
 
 ### Listing all persons : `list`
 
+![list message](images/listcommand.png)
+
 Shows a list of all persons currently stored in Internlink's data
 
 Format: `list`
@@ -318,21 +339,25 @@ Format: `list`
 
 Global find can take in multiple parameters and will output all contacts that has any of the fields that fit the parameters
 
+![result of `find billy`](images/findcommandglobal.png)
+
 Format: `find <SEARCH SUBSTRING> [<OTHER SEARCH SUBSTRINGS>]...`
 
 * The search is case-insensitive. e.g `hans` will match `Hans`
 * The order of the keywords does not matter. e.g. `Hans Bo` will match `Bo Hans`
 * Persons matching at least one keyword will be returned (i.e. `OR` search).
   e.g. `Hans Bo` will return `Hans Gruber`, `Bo Yang`
+* Both global `find` and field `find` operate on the current filtered person list.
 
 Examples:
 * `find John` returns `john` and `John Doe` in all fields except tags (name, email, phone)
 * `find alex david` returns `Alex Yeoh`, `David Li`<br>
-  ![result for 'find alex david'](images/findAlexDavidResult.png)
 
 ### Locating persons by specific fields: field `find`
 
 Field find can take in multiple parameters of the same type and only search within that field. BUT, field find cannot be used with global find concurrently.
+
+![result of `find p/1`](images/findcommandfield.png)
 
 Format: `find [n/NAME] [p/PHONE] [e/EMAIL]...`
 
@@ -343,6 +368,8 @@ The above example will filter all contacts whose name contains `david` OR whose 
 ### Finding contacts by tags : `findtag`
 
 Display only contacts with specific tags for easier management
+
+![result of `findtag / classmates / cs](images/findtagcommand.png)
 
 Format: `findtag / TAG [/ TAG]...`
 
