@@ -5,44 +5,31 @@ title: User Guide
 
 InternLink is a **desktop app for managing contacts, optimized for use via a Command Line Interface** (CLI) while still having the benefits of a Graphical User Interface (GUI). If you can type fast, InternLink can get your contact management tasks done faster than traditional GUI apps.
 
-### Table of Contents
-<!-- TOC -->
-* [InternLink User Guide](#internlink-user-guide)
-    * [Table of Contents](#table-of-contents)
+## Table of Contents:
 * [Quick start](#quick-start)
 * [Features](#features)
-* [Features - General features](#features-general-features)
-    - [Viewing help (`help`)](#viewing-help--help)
-    - [Clearing all entries (`clear`)](#clearing-all-entries--clear)
-    - [Exiting the program (`exit`)](#exiting-the-program--exit)
-    - [Saving the data](#saving-the-data)
-    - [Editing the data file](#editing-the-data-file)
-* [Features - Managing contact information](#features---managing-contact-information)
-    - [Adding a person (`add`)](#adding-a-person--add)
-    - [Deleting a person (`delete`)](#deleting-a-person--delete)
-    - [Editing a person (`edit`)](#editing-a-person--edit)
-    - [Adding tags to one or more people (`addtag`)](#adding-tags-to-one-or-more-people--addtag)
-    - [Deleting tags from one or more people (`deletetag`)](#deleting-tags-from-one-or-more-people--deletetag)
-    - [Editing existing tags (`edittag`)](#editing-existing-tags--edittag)
-    - [Starring a person (`star`)](#starring-a-person--star)
-    - [Unstarring a person (`unstar`)](#unstarring-a-person--unstar)
-* [Features - Searching for contact information](#features---searching-for-contact-information)
-    - [List](#listing-all-persons-list)
-    - [Locating persons globally (global `find`)](#locating-persons-globally--global-find)
-    - [Locating persons by specific fields (field `find`)](#locating-persons-by-specific-fields--field-find)
-    - [Finding contacts by tags (`findtag`)](#finding-contacts-by-tags--findtag)
-* [Features - Managing meeting information](#features---managing-meeting-information)
-    - [Adding a meeting (`addmeeting`)](#adding-a-meeting--addmeeting)
-    - [Deleting a meeting (`deletemeeting`)](#deleting-a-meeting--deletemeeting)
-    - [Editing a meeting (`editmeeting`)](#editing-a-meeting--editmeeting)
-* [Features - Searching for meeting information](#features---searching-for-meeting-information)
-    - [Finding a meeting (`findmeeting`)](#finding-a-meeting--findmeeting)
+    * [Viewing help: (help)](#viewing-help--help)
+    * [Adding a person (add)](#adding-a-person-add)
+    * [Deleting a person (delete)](#deleting-a-person--delete)
+    * [Editing a person (`edit`)](#editing-a-person--edit)
+    * [Listing all persons (`list`)](#listing-all-persons--list)
+    * [Locating contacts globally (global `find`)](#locating-persons-globally-global-find)
+    * [Locating contacts by specific fields (field `find`)](#locating-persons-by-specific-fields-field-find)
+    * [Adding tags to one or more people (`addtag`)](#adding-tags-to-one-or-more-people--addtag)
+    * [Deleting tags from one or more people (`deletetag`)](#deleting-tags-from-one-or-more-people--deletetag)
+    * [Editing existing tags (`edittag`)](#editing-existing-tags--edittag)
+    * [Filtering contacts by tags (`filtertag`)](#filtering-contacts-by-tags--filtertag)
+    * [Starring a person (`star`)](#starring-a-person--star)
+    * [Unstarring a person (`unstar`)](#unstarring-a-person--unstar)
+    * [Adding a meeting (`addmeeting`)](#adding-a-meeting--addmeeting)
+    * [Deleting a meeting (`deletemeeting`)](#deleting-a-meeting--deletemeeting)
+    * [Clearing all entries (`clear`)](#clearing-all-entries--clear)
+    * [Exiting the program (`exit`)](#exiting-the-program--exit)
+    * [Saving the data](#saving-the-data)
+    * [Editing the data file](#editing-the-data-file)
 * [FAQ](#faq)
 * [Known issues](#known-issues)
 * [Command summary](#command-summary)
-<!-- TOC -->
----
-
 --------------------------------------------------------------------------------------------------------------------
 
 ## Quick start
@@ -184,11 +171,11 @@ Examples:
 
 ### Locating persons by specific fields: field `find`
 
-Field find can take in multiple parameters of the same type and only search within that field. BUT, field find cannot be used with global find concurrently. 
+Field find can take in multiple parameters of the same type and only search within that field. BUT, field find cannot be used with global find concurrently.
 
 Format: `find [n/NAME] [p/PHONE] [e/EMAIL]...`
 
-Example: `find n/ david p/ 9927 e/ charlotte` 
+Example: `find n/ david p/ 9927 e/ charlotte`
 
 The above example will filter all contacts whose name contains `david` OR whose phone number contains `9927` OR whose email contains `charlotte`.
 
@@ -229,11 +216,11 @@ Rename existing tags across multiple contacts in batch
 Format: `edittag [INDICES OR 'all'] o/ OLDTAG n/ NEWTAG`
 
 * Using the `all` keyword instead of specific indices will do a global edit of the given `OLDTAG`, while inputting specific indices only edits them for the given contacts.
-* As long as one of the specified contacts has the given `OLDTAG`, the command will be valid. 
+* As long as one of the specified contacts has the given `OLDTAG`, the command will be valid.
 * `edittag` operates on the current list, not the whole address book.
 * Indices are to be separated by commas.
 
-Examples: 
+Examples:
 * `edittag 1, 2, 3 o/ cs n/ computer science` edits the tag `cs` for contacts 1, 2 and 3, and changes it to `computer science`.
 * `edittag all o/ cs n/ computer science` edits the tag `cs` for all contacts in the current list, and changes it to `computer science`.
 
@@ -243,10 +230,10 @@ Display only contacts with specific tags for easier management
 
 Format: `filtertag / TAG [/ TAG]...`
 
-* `filtertag` operates on the **entire address book** rather than the current filtered list. 
+* `filtertag` operates on the **entire address book** rather than the current filtered list.
 * All contacts containing **at least one** of the given tags will be filtered.
 
-Examples: 
+Examples:
 * `filtertag / classmates` will filter all contacts that contain the `classmates` tag.
 * `filtertag / schoolB / schoolC` will filter all contacts that contain at least one of the `schoolB` or `schoolC` tags.
 
@@ -294,7 +281,7 @@ Example: `addmeeting 1, 2 d/ Casual icebreaker dt/ 2026-03-26`
 
 ### Deleting a meeting : `deletemeeting`
 
-Remove meetings using indices 
+Remove meetings using indices
 
 Format: `deletemeeting INDICES`
 
