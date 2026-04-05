@@ -6,7 +6,7 @@ import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.Messages.MESSAGE_UNKNOWN_COMMAND;
 import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DATE_20260325;
 import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DESCRIPTION_PROJECT;
-import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_INDEX_SINGLE;
+import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_INDEX_SET_SINGLE;
 import static seedu.address.logic.parser.AddMeetingCommandParserTest.INPUT_DATE_20260325;
 import static seedu.address.logic.parser.AddMeetingCommandParserTest.INPUT_DESC_PROJECT;
 import static seedu.address.logic.parser.AddMeetingCommandParserTest.INPUT_INDEX_SINGLE;
@@ -69,7 +69,7 @@ public class AddressBookParserTest {
                 + INPUT_DESC_PROJECT + INPUT_DATE_20260325;
         AddMeetingCommand command = (AddMeetingCommand) parser.parseCommand(commandInput);
 
-        AddMeetingCommand expectedCommand = new AddMeetingCommand(VALID_INDEX_SINGLE,
+        AddMeetingCommand expectedCommand = new AddMeetingCommand(VALID_INDEX_SET_SINGLE,
                 new Description(VALID_DESCRIPTION_PROJECT),
                 new MeetingDate(VALID_DATE_20260325));
         assertEquals(expectedCommand, command);
@@ -85,7 +85,7 @@ public class AddressBookParserTest {
     public void parseCommand_delete() throws Exception {
         DeleteCommand command = (DeleteCommand) parser.parseCommand(
                 DeleteCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new DeleteCommand(INDEX_FIRST_PERSON), command);
+        assertEquals(new DeleteCommand(VALID_INDEX_SET_SINGLE), command);
     }
 
     @Test
@@ -93,7 +93,7 @@ public class AddressBookParserTest {
         String commandInput = DeleteMeetingCommand.COMMAND_WORD + INPUT_INDEX_SINGLE;
         DeleteMeetingCommand command = (DeleteMeetingCommand) parser.parseCommand(commandInput);
 
-        DeleteMeetingCommand expectedCommand = new DeleteMeetingCommand(VALID_INDEX_SINGLE);
+        DeleteMeetingCommand expectedCommand = new DeleteMeetingCommand(VALID_INDEX_SET_SINGLE);
         assertEquals(expectedCommand, command);
     }
 
