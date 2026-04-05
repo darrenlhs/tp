@@ -105,9 +105,9 @@ public class EditMeetingCommand extends Command {
      *
      * @throws CommandException If a participant being removed is not in the meeting
      */
-    private static Meeting createEditedMeeting(
-            Meeting meetingToEdit,
-            EditMeetingCommand.EditMeetingDescriptor editMeetingDescriptor) throws CommandException{
+    private static Meeting createEditedMeeting(Meeting meetingToEdit,
+                                               EditMeetingCommand.EditMeetingDescriptor editMeetingDescriptor)
+            throws CommandException {
 
         assert meetingToEdit != null;
 
