@@ -2,9 +2,12 @@ package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
 
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.stream.Collectors;
 
 import seedu.address.commons.core.index.Index;
 import seedu.address.commons.util.ToStringBuilder;
@@ -15,24 +18,27 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Unstars a person identified using it's displayed index from the address book.
- * This is basically the same as removing a tag with the reserved 'STAR' keyword
+ * Unstars the person(s) identified using their displayed indices from the current displayed list.
+ * This is basically the same as removing a tag with the reserved 'STAR' keyword.
  */
 public class UnstarCommand extends Command {
 
     public static final String COMMAND_WORD = "unstar";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Unstars / Unfavourites the person identified by the index number used in the displayed person list.\n"
+            + ": Unstars / Unfavourites the person(s) identified by their indices used in the displayed person list.\n"
             + "Parameters: INDEX (must be a positive integer)\n"
             + "Example: " + COMMAND_WORD + " 1";
 
-    public static final String MESSAGE_UNSTAR_PERSON_SUCCESS = "Unstarred Person: %1$s";
+    public static final String MESSAGE_UNSTAR_PERSON_SUCCESS = "Unstarred Person(s): %1$s";
 
-    private final Index targetIndex;
+    public static final String MESSAGE_NO_VALID_PERSONS_UNSTAR =
+            "Error: All contacts provided are either already unstarred or invalid.";
 
-    public UnstarCommand(Index targetIndex) {
-        this.targetIndex = targetIndex;
+    private final Set<Index> targetIndices;
+
+    public UnstarCommand(Set<Index> targetIndices) {
+        this.targetIndices = targetIndices;
     }
 
     @Override
@@ -40,26 +46,49 @@ public class UnstarCommand extends Command {
         requireNonNull(model);
         List<Person> lastShownList = model.getFilteredPersonList();
 
-        if (targetIndex.getZeroBased() >= lastShownList.size()) {
-            throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+        List<Person> personsToUnstar = new ArrayList<>();
+
+        List<Index> sortedIndices = new ArrayList<>(targetIndices);
+        sortedIndices.sort(Comparator.comparingInt(Index::getZeroBased));
+
+        for (Index index : sortedIndices) {
+            if (index.getZeroBased() >= lastShownList.size()) {
+                throw new CommandException(Messages.MESSAGE_INVALID_PERSON_DISPLAYED_INDEX);
+            }
+
+            Person personToUnstar = lastShownList.get(index.getZeroBased());
+
+            if (!personToUnstar.getTags().contains(new Tag(Tag.STAR_TAG))) {
+                continue; // already unstarred, skip
+            }
+
+            personsToUnstar.add(personToUnstar);
         }
 
-        Person personToUnstar = lastShownList.get(targetIndex.getZeroBased());
+        if (personsToUnstar.isEmpty()) {
+            throw new CommandException(MESSAGE_NO_VALID_PERSONS_UNSTAR);
+        }
 
-        Set<Tag> newTags = new HashSet<>(personToUnstar.getTags());
-        newTags.remove(new Tag(Tag.STAR_TAG));
+        for (Person personToUnstar : personsToUnstar) {
+            Set<Tag> newTags = new HashSet<>(personToUnstar.getTags());
+            newTags.remove(new Tag(Tag.STAR_TAG));
 
-        Person unstarredPerson = new Person(
-                personToUnstar.getId(),
-                personToUnstar.getName(),
-                personToUnstar.getPhone(),
-                personToUnstar.getEmail(),
-                newTags
-        );
+            Person unstarredPerson = new Person(
+                    personToUnstar.getId(),
+                    personToUnstar.getName(),
+                    personToUnstar.getPhone(),
+                    personToUnstar.getEmail(),
+                    newTags
+            );
 
-        model.setPerson(personToUnstar, unstarredPerson);
+            model.setPerson(personToUnstar, unstarredPerson);
+        }
 
-        return new CommandResult(String.format(MESSAGE_UNSTAR_PERSON_SUCCESS, Messages.format(unstarredPerson)));
+        String unstarredPersonsString = personsToUnstar.stream()
+                .map(person -> person.getName().fullName)
+                .collect(Collectors.joining(", "));
+
+        return new CommandResult(String.format(MESSAGE_UNSTAR_PERSON_SUCCESS, unstarredPersonsString));
 
     }
 
@@ -75,13 +104,13 @@ public class UnstarCommand extends Command {
         }
 
         UnstarCommand otherCommand = (UnstarCommand) other;
-        return targetIndex.equals(otherCommand.targetIndex);
+        return targetIndices.equals(otherCommand.targetIndices);
     }
 
     @Override
     public String toString() {
         return new ToStringBuilder(this)
-                .add("targetIndex", targetIndex)
+                .add("targetIndices", targetIndices)
                 .toString();
     }
 }
