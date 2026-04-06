@@ -99,14 +99,18 @@ public class AddressBookParserTest {
     public void parseCommand_star() throws Exception {
         StarCommand command = (StarCommand) parser.parseCommand(
                 StarCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new StarCommand(INDEX_FIRST_PERSON), command);
+        Set<Index> targetIndices = new HashSet<>();
+        targetIndices.add(INDEX_FIRST_PERSON);
+        assertEquals(new StarCommand(targetIndices), command);
     }
 
     @Test
     public void parseCommand_unstar() throws Exception {
         UnstarCommand command = (UnstarCommand) parser.parseCommand(
                 UnstarCommand.COMMAND_WORD + " " + INDEX_FIRST_PERSON.getOneBased());
-        assertEquals(new UnstarCommand(INDEX_FIRST_PERSON), command);
+        Set<Index> targetIndices = new HashSet<>();
+        targetIndices.add(INDEX_FIRST_PERSON);
+        assertEquals(new UnstarCommand(targetIndices), command);
     }
 
     @Test
