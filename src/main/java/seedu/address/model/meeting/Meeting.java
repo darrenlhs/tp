@@ -63,6 +63,14 @@ public class Meeting {
                 && date.equals(otherMeeting.date);
     }
 
+    public boolean isUpcoming() {
+        return date.isUpcoming();
+    }
+
+    public boolean isPast() {
+        return date.isPast();
+    }
+
     @Override
     public boolean equals(Object other) {
         if (other == this) {
