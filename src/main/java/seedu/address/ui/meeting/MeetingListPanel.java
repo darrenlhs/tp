@@ -38,7 +38,7 @@ public class MeetingListPanel extends UiPart<Region> {
                 buildListWithSeparators(meetingList, model));
 
         buildListWithSeparators(meetingList, model);
-        meetingListView.setCellFactory(listView -> new MeetingListPanel.MeetingListViewCell());
+        meetingListView.setCellFactory(listView -> new MeetingListViewCell());
     }
 
     /** Populates the {@code meetingListView} with the specified meetings. */
@@ -67,7 +67,7 @@ public class MeetingListPanel extends UiPart<Region> {
      * Custom {@code ListCell} that displays the graphics of a {@code Meeting} using a {@code MeetingCard}.
      * A {@code Separator} can also be inserted in the list.
      */
-    class MeetingListViewCell extends ListCell<ListItem> {
+    private static class MeetingListViewCell extends ListCell<ListItem> {
         @Override
         protected void updateItem(ListItem item, boolean empty) {
             super.updateItem(item, empty);
