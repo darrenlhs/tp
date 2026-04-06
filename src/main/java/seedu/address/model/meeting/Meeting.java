@@ -86,9 +86,9 @@ public class Meeting {
         Meeting otherMeeting = (Meeting) other;
         assert otherMeeting != null;
 
-        return Objects.equals(description, otherMeeting.description)
-                && Objects.equals(date, otherMeeting.date)
-                && Objects.equals(participantsID, otherMeeting.participantsID);
+        return description.equals(otherMeeting.description)
+                && date.equals(otherMeeting.date)
+                && participantsID.equals(otherMeeting.participantsID);
     }
 
     @Override
