@@ -19,4 +19,9 @@ public class SeparatorItem implements ListItem {
     public Region getView() {
         return new Separator(label).getRoot();
     }
+
+    @Override
+    public boolean isMouseTransparent() {
+        return true;
+    }
 }
