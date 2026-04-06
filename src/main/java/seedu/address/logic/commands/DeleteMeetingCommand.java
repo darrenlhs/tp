@@ -13,14 +13,13 @@ import seedu.address.model.Model;
 import seedu.address.model.meeting.Meeting;
 
 /**
- * For the persons at the given indices, deletes the meetings at the specified meeting indices.
- * Each deleted meeting is removed from every participant linked to that meeting.
+ * Deletes the meetings at the specified meeting indices in the displayed meeting list.
  */
 public class DeleteMeetingCommand extends Command {
     public static final String COMMAND_WORD = "deletemeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes meeting(s) specified by the indices.\n"
+            + ": Deletes meeting(s) specified by the used in the displayed meeting list.\n"
             + "Parameters: MEETING_INDEX (must be a positive integer) "
             + "[" + PREFIX_COMMA + "MEETING_INDEX]... \n"
             + "Example: " + COMMAND_WORD + " 1,2";
@@ -39,7 +38,6 @@ public class DeleteMeetingCommand extends Command {
      * @param meetingIndices The indices of the meetings to delete in the persons
      */
     public DeleteMeetingCommand(Set<Index> meetingIndices) {
-        assert meetingIndices != null : "meetingIndices should not be null";
         requireNonNull(meetingIndices);
 
         this.meetingIndices = new HashSet<>(meetingIndices);

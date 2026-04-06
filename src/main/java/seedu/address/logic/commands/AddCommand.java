@@ -13,12 +13,12 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Adds a person to the address book.
+ * Adds a person to the contact list.
  */
 public class AddCommand extends Command {
     public static final String COMMAND_WORD = "add";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the address book.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a person to the contact list.\n"
             + "Format: " + COMMAND_WORD + " "
             + PREFIX_NAME + "NAME "
             + "(" + PREFIX_PHONE + "PHONE_NUMBER) "
@@ -33,7 +33,7 @@ public class AddCommand extends Command {
             + PREFIX_TAG + "owesMoney";
 
     public static final String MESSAGE_SUCCESS = "New person added: %1$s";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book";
+    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the contact list";
 
     private final Person toAdd;
 
@@ -41,8 +41,6 @@ public class AddCommand extends Command {
      * Creates an AddCommand to add the specified {@code Person}
      */
     public AddCommand(Person person) {
-        assert person != null : "person should not be null";
-
         requireNonNull(person);
         toAdd = person;
     }

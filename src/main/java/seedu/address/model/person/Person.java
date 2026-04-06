@@ -31,11 +31,6 @@ public class Person {
      * Constructs a {@code Person} with a given ID.
      */
     public Person(PersonId id, Name name, Phone phone, Email email, Set<Tag> tags) {
-        assert id != null : "id should not be null";
-        assert name != null : "name should not be null";
-        assert tags != null : "tags should not be null";
-        assert phone != null || email != null : "phone and email cannot both be null";
-
         requireAllNonNull(id, name, tags);
         requireAnyNonNull(phone, email);
 
@@ -56,22 +51,18 @@ public class Person {
 
     // Returns a defensive copy of the parameters.
     public PersonId getId() {
-        assert id != null : "id should not be null when accessed";
         return new PersonId(id.toString());
     }
 
     public Name getName() {
-        assert name != null : "name should not be null when accessed";
         return new Name(name.toString());
     }
 
     public Phone getPhone() {
-        assert phone != null || email != null : "Person must have phone or email";
         return phone == null ? null : new Phone(phone.toString());
     }
 
     public Email getEmail() {
-        assert phone != null || email != null : "Person must have phone or email";
         return email == null ? null : new Email(email.toString());
     }
 
@@ -80,7 +71,6 @@ public class Person {
      * if modification is attempted.
      */
     public Set<Tag> getTags() {
-        assert tags != null : "tags should not be null when accessed";
         return Collections.unmodifiableSet(tags);
     }
 
@@ -103,8 +93,6 @@ public class Person {
      * Returns true if both persons have same name, phone and email.
      */
     public boolean hasSameDetails(Person otherPerson) {
-        assert otherPerson != null : "otherPerson should not be null";
-
         boolean isPhoneBothNull = getPhone() == null && otherPerson.getPhone() == null;
         boolean isPhoneBothNonNullAndEqual = getPhone() != null && getPhone().equals(otherPerson.getPhone());
         boolean isPhoneEqual = isPhoneBothNull || isPhoneBothNonNullAndEqual;
@@ -119,8 +107,9 @@ public class Person {
     }
 
     /**
-     * Returns true if both persons have the same identity and data fields.
+     * Returns true if both persons have the same identity and most data fields.
      * This defines a stronger notion of equality between two persons.
+     * {@code id} is not included as other fields are sufficient to compare.
      */
     @Override
     public boolean equals(Object other) {
@@ -133,12 +122,7 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
-        assert otherPerson.id != null : "otherPerson id should not be null";
-        assert otherPerson.name != null : "otherPerson name should not be null";
-        assert otherPerson.tags != null : "otherPerson tags should not be null";
-
-        return Objects.equals(id, otherPerson.id)
-                && Objects.equals(name, otherPerson.name)
+        return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
                 && Objects.equals(tags, otherPerson.tags);
@@ -146,18 +130,12 @@ public class Person {
 
     @Override
     public int hashCode() {
-        assert id != null : "id should not be null when hashing";
-        assert name != null : "name should not be null when hashing";
-        assert tags != null : "tags should not be null when hashing";
         // use this method for custom fields hashing instead of implementing your own
         return Objects.hash(name, phone, email, tags);
     }
 
     @Override
     public String toString() {
-        assert id != null : "id should not be null when converting to string";
-        assert name != null : "name should not be null when converting to string";
-        assert tags != null : "tags should not be null when converting to string";
         return new ToStringBuilder(this)
                 .add("id", id)
                 .add("name", name)

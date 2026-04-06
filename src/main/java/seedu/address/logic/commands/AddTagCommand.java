@@ -21,7 +21,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the contact list.
  */
 public class AddTagCommand extends Command {
 
@@ -43,8 +43,10 @@ public class AddTagCommand extends Command {
     private final Set<Tag> tags;
 
     /**
-     * @param targetIndices of the persons in the filtered person list to add tags to
-     * @param tags the collection of tags to be added
+     * Creates an AddTagCommand to add the specified {@code Tag}s to the specified {@code Person}s.
+     *
+     * @param targetIndices Indices of the persons in the current contact list to add tags to
+     * @param tags The collection of tags to be added
      */
     public AddTagCommand(Collection<Index> targetIndices, Collection<Tag> tags) {
         requireAllNonNull(targetIndices, tags);

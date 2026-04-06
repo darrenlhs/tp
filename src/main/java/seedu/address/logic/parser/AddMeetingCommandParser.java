@@ -27,9 +27,6 @@ public class AddMeetingCommandParser implements Parser<AddMeetingCommand> {
      */
     @Override
     public AddMeetingCommand parse(String args) throws ParseException {
-        assert(args != null);
-        assert(args != "");
-
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args,
                 PREFIX_MEETING_DESCRIPTION, PREFIX_MEETING_DATE);
 

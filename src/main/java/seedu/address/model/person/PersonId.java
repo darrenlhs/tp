@@ -12,9 +12,9 @@ import java.util.logging.Logger;
  */
 public class PersonId {
     public static final String PERSON_ID_CONSTRAINTS = "ID string cannot be blank or null";
-    private final UUID uuid;
-
     private static final Logger logger = Logger.getLogger(PersonId.class.getName());
+
+    private final UUID uuid;
 
     /**
      * Generates a new random PersonId.
@@ -30,9 +30,6 @@ public class PersonId {
      * @throws IllegalArgumentException if idString is null, blank, or not a valid UUID
      */
     public PersonId(String idString) {
-        assert idString != null : "idString must not be null";
-        assert !idString.isBlank() : "idString must not be blank";
-
         if (idString == null || idString.isBlank()) {
             throw new IllegalArgumentException(PERSON_ID_CONSTRAINTS);
         }

@@ -29,10 +29,6 @@ public class Meeting {
      * @param participantsID Set of participant IDs; must not be null or contain nulls.
      */
     public Meeting(Description description, MeetingDate date, Set<PersonId> participantsID) {
-        assert description != null : "description should not be null";
-        assert date != null : "date should not be null";
-        assert participantsID != null : "participantsID should not be null";
-
         requireAllNonNull(description, date);
         requireNonNull(participantsID, MESSAGE_INVALID_PARTICIPANT_IDS);
 

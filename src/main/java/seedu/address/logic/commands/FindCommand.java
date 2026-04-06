@@ -16,7 +16,7 @@ public class FindCommand extends Command {
     public static final String COMMAND_WORD = "find";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Finds all persons whose names contain any of"
-            + " the specified keywords (case-insensitive) on the current displayed list \n"
+            + " the specified keywords (case-insensitive) on the current displayed contact list \n"
             + "and displays them as a list with index numbers.\n"
             + "Parameters: KEYWORD [MORE_KEYWORDS]...\n"
             + "Example: " + COMMAND_WORD + " alice bob charlie \n"
@@ -24,8 +24,12 @@ public class FindCommand extends Command {
 
     private final PersonMatchesKeywordsPredicate predicate;
 
+    /**
+     * Creates a FindCommand to find the specified {@code Person}s given the {@code predicate}.
+     *
+     * @param predicate The predicate to look for in the current persons' list.
+     */
     public FindCommand(PersonMatchesKeywordsPredicate predicate) {
-        assert predicate != null : "predicate should not be null";
         requireNonNull(predicate);
 
         this.predicate = predicate;

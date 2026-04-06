@@ -2,8 +2,8 @@ package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
 import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_PERSON_TO_MEETING_INDEX;
-import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_PERSON_FROM_MEETING_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_ADD_CONTACT_TO_MEETING_INDEX;
+import static seedu.address.logic.parser.CliSyntax.PREFIX_DELETE_CONTACT_FROM_MEETING_INDEX;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_DATE;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_MEETING_DESCRIPTION;
 
@@ -25,18 +25,15 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
      */
     @Override
     public EditMeetingCommand parse(String args) throws ParseException {
-        assert(args != null);
-        assert(args != "");
-
         requireNonNull(args);
 
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(
                 args, PREFIX_MEETING_DESCRIPTION, PREFIX_MEETING_DATE,
-                PREFIX_ADD_PERSON_TO_MEETING_INDEX, PREFIX_DELETE_PERSON_FROM_MEETING_INDEX);
+                PREFIX_ADD_CONTACT_TO_MEETING_INDEX, PREFIX_DELETE_CONTACT_FROM_MEETING_INDEX);
 
         argMultimap.verifyNoDuplicatePrefixesFor(
                 PREFIX_MEETING_DESCRIPTION, PREFIX_MEETING_DATE,
-                PREFIX_ADD_PERSON_TO_MEETING_INDEX, PREFIX_DELETE_PERSON_FROM_MEETING_INDEX);
+                PREFIX_ADD_CONTACT_TO_MEETING_INDEX, PREFIX_DELETE_CONTACT_FROM_MEETING_INDEX);
 
         Index meetingIndex;
         try {
@@ -59,8 +56,7 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
      * @return An {@code EditMeetingDescriptor} populated with parsed values.
      * @throws ParseException If no fields are provided for editing.
      */
-    private EditMeetingDescriptor setEditMeetingDescriptor(ArgumentMultimap argMultimap)
-            throws ParseException {
+    private EditMeetingDescriptor setEditMeetingDescriptor(ArgumentMultimap argMultimap) throws ParseException {
         EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
 
         if (argMultimap.getValue(PREFIX_MEETING_DESCRIPTION).isPresent()) {
@@ -73,14 +69,15 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
                     argMultimap.getValue(PREFIX_MEETING_DATE).get()));
         }
 
-        if (argMultimap.getValue(PREFIX_ADD_PERSON_TO_MEETING_INDEX).isPresent()) {
+        if (argMultimap.getValue(PREFIX_ADD_CONTACT_TO_MEETING_INDEX).isPresent()) {
             descriptor.setPersonIndicesToAdd(ParserUtil.parseIndices(
-                    argMultimap.getValue(PREFIX_ADD_PERSON_TO_MEETING_INDEX).get(), EditMeetingCommand.MESSAGE_USAGE));
+                    argMultimap.getValue(PREFIX_ADD_CONTACT_TO_MEETING_INDEX).get(), EditMeetingCommand.MESSAGE_USAGE));
         }
 
-        if (argMultimap.getValue(PREFIX_DELETE_PERSON_FROM_MEETING_INDEX).isPresent()) {
+        if (argMultimap.getValue(PREFIX_DELETE_CONTACT_FROM_MEETING_INDEX).isPresent()) {
             descriptor.setPersonIndicesToDelete(ParserUtil.parseIndices(
-                    argMultimap.getValue(PREFIX_DELETE_PERSON_FROM_MEETING_INDEX).get(), EditMeetingCommand.MESSAGE_USAGE));
+                    argMultimap.getValue(PREFIX_DELETE_CONTACT_FROM_MEETING_INDEX).get(),
+                    EditMeetingCommand.MESSAGE_USAGE));
         }
 
         if (!descriptor.isAnyFieldEdited()) {

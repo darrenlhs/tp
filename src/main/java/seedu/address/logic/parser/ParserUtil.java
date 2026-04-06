@@ -62,8 +62,6 @@ public class ParserUtil {
     public static Set<Index> parseIndices(String indicesString, String usageMessage) throws ParseException {
         requireNonNull(indicesString);
         requireNonNull(usageMessage);
-        assert !indicesString.isBlank() : "indicesString should not be blank";
-        assert !usageMessage.isBlank() : "usageMessage should not be blank";
 
         String[] indices = indicesString.split(PREFIX_COMMA.toString());
 
@@ -71,7 +69,6 @@ public class ParserUtil {
         try {
             for (String index : indices) {
                 String trimmedIndex = index.trim();
-                assert !trimmedIndex.isEmpty() : "Each index should not be empty";
                 indexSet.add(ParserUtil.parseIndex(trimmedIndex));
             }
         } catch (ParseException pe) {
@@ -107,10 +104,8 @@ public class ParserUtil {
      */
     public static Description parseDescription(String description) throws ParseException {
         requireNonNull(description);
-        assert !description.isBlank() : "description should not be blank";
 
         String trimmedDescription = description.trim();
-        assert !trimmedDescription.isEmpty() : "Trimmed description should not be empty";
 
         if (!Description.isValidDescription(trimmedDescription)) {
             throw new ParseException(Description.MESSAGE_DESCRIPTION_CONSTRAINTS);
@@ -128,10 +123,7 @@ public class ParserUtil {
      */
     public static MeetingDate parseDate(String date) throws ParseException {
         requireNonNull(date);
-        assert !date.isBlank() : "date should not be blank";
-
         String trimmedDate = date.trim();
-        assert !trimmedDate.isEmpty() : "Trimmed date should not be empty";
 
         if (!MeetingDate.isValidDateString(trimmedDate)) {
             throw new ParseException(MeetingDate.MESSAGE_DATE_CONSTRAINTS);
@@ -202,8 +194,6 @@ public class ParserUtil {
      * {@code Set<Tag>} containing zero tags.
      */
     public static Optional<Set<Tag>> parseTagsOptional(Collection<String> tags) throws ParseException {
-        assert tags != null;
-
         if (tags.isEmpty()) {
             return Optional.empty();
         }
