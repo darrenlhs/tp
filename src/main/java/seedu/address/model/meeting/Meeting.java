@@ -29,33 +29,33 @@ public class Meeting {
      * @param participantsID Set of participant IDs; must not be null or contain nulls.
      */
     public Meeting(Description description, MeetingDate date, Set<PersonId> participantsID) {
-        requireAllNonNull(description, date);
-        requireNonNull(participantsID, MESSAGE_INVALID_PARTICIPANT_IDS);
+        requireAllNonNull(description, date, participantsID);
 
-        // Validate each PersonId individually
         for (PersonId id : participantsID) {
-            assert id != null : "Participant ID should not be null";
             requireNonNull(id, MESSAGE_INVALID_PARTICIPANT_IDS);
         }
 
         this.description = description;
         this.date = date;
         this.participantsID = new HashSet<>(participantsID);
+
+        // Assertions (internal consistency checks)
+        assert this.description != null;
+        assert this.date != null;
+        assert this.participantsID != null;
     }
 
-    // Returns a defensive copy of the parameters.
     public Description getDescription() {
-        assert description != null : "description should not be null when accessed";
+        assert description != null;
         return new Description(description.toString());
     }
 
     public MeetingDate getDate() {
-        assert date != null : "date should not be null when accessed";
+        assert date != null;
         return new MeetingDate(date.toString());
     }
 
     public Set<PersonId> getParticipantsIDs() {
-        assert participantsID != null : "participantsID should not be null when accessed";
         return new HashSet<>(participantsID);
     }
 
@@ -64,7 +64,7 @@ public class Meeting {
      * Two meetings are the same if their descriptions and date are equal.
      */
     public boolean isSameMeeting(Meeting otherMeeting) {
-        assert otherMeeting != null : "otherMeeting should not be null";
+        assert otherMeeting != null;
         return description.equals(otherMeeting.description)
                 && date.equals(otherMeeting.date);
     }
@@ -78,25 +78,21 @@ public class Meeting {
         if (other == this) {
             return true;
         }
+
         if (!(other instanceof Meeting)) {
             return false;
         }
+
         Meeting otherMeeting = (Meeting) other;
+        assert otherMeeting != null;
 
-        assert otherMeeting.description != null : "otherMeeting description should not be null";
-        assert otherMeeting.date != null : "otherMeeting date should not be null";
-        assert otherMeeting.participantsID != null : "otherMeeting participants should not be null";
-
-        return description.equals(otherMeeting.description)
-                && date.equals(otherMeeting.date)
-                && participantsID.equals(otherMeeting.participantsID);
+        return Objects.equals(description, otherMeeting.description)
+                && Objects.equals(date, otherMeeting.date)
+                && Objects.equals(participantsID, otherMeeting.participantsID);
     }
 
     @Override
     public int hashCode() {
-        assert description != null : "description should not be null when hashing";
-        assert date != null : "date should not be null when hashing";
-        assert participantsID != null : "participantsID should not be null when hashing";
         return Objects.hash(description, date, participantsID);
     }
 
@@ -105,8 +101,6 @@ public class Meeting {
      */
     @Override
     public String toString() {
-        assert description != null : "description should not be null when converting to string";
-        assert date != null : "date should not be null when converting to string";
         return description + " on " + date;
     }
 }

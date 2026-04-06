@@ -39,6 +39,10 @@ public class Person {
         this.phone = phone;
         this.email = email;
         this.tags.addAll(tags);
+
+        assert this.id != null;
+        assert this.name != null;
+        assert this.tags != null;
     }
 
     /**
@@ -93,6 +97,8 @@ public class Person {
      * Returns true if both persons have same name, phone and email.
      */
     public boolean hasSameDetails(Person otherPerson) {
+        assert otherPerson != null;
+
         boolean isPhoneBothNull = getPhone() == null && otherPerson.getPhone() == null;
         boolean isPhoneBothNonNullAndEqual = getPhone() != null && getPhone().equals(otherPerson.getPhone());
         boolean isPhoneEqual = isPhoneBothNull || isPhoneBothNonNullAndEqual;
@@ -122,6 +128,9 @@ public class Person {
         }
 
         Person otherPerson = (Person) other;
+
+        assert otherPerson != null;
+
         return Objects.equals(name, otherPerson.name)
                 && Objects.equals(phone, otherPerson.phone)
                 && Objects.equals(email, otherPerson.email)
