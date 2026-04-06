@@ -9,22 +9,23 @@
       alignment="CENTER"
       spacing="10"
       styleClass="separator"
-      prefHeight="30">
+      prefHeight="44">
 
     <!-- Left line -->
     <Region fx:id="leftLine"
             maxHeight="1"
             style="-fx-background-color: #888888;"
-            HBox.hgrow="ALWAYS"/>
+            HBox.hgrow="ALWAYS" />
 
     <!-- Center label -->
     <Label fx:id="title"
-           text="Section"/>
+           text="Section"
+           styleClass="separator" />
 
     <!-- Right line -->
     <Region fx:id="rightLine"
             maxHeight="1"
             style="-fx-background-color: #888888;"
-            HBox.hgrow="ALWAYS"/>
+            HBox.hgrow="ALWAYS" />
 
 </HBox>
