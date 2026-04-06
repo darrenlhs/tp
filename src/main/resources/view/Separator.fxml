@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+
+<HBox xmlns="http://javafx.com/javafx/8"
+      xmlns:fx="http://javafx.com/fxml/1"
+      alignment="CENTER"
+      spacing="10"
+      styleClass="separator"
+      prefHeight="30">
+
+    <!-- Left line -->
+    <Region fx:id="leftLine"
+            maxHeight="1"
+            style="-fx-background-color: #888888;"
+            HBox.hgrow="ALWAYS"/>
+
+    <!-- Center label -->
+    <Label fx:id="title"
+           text="Section"/>
+
+    <!-- Right line -->
+    <Region fx:id="rightLine"
+            maxHeight="1"
+            style="-fx-background-color: #888888;"
+            HBox.hgrow="ALWAYS"/>
+
+</HBox>
