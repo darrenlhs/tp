@@ -162,15 +162,41 @@ Alternatively, to get started, you can try out some of the suggested commands he
 
 * `exit` : Exits the app.
 
-
-
-
 [Back to Table of Contents](#table-of-contents)
 
 
 --------------------------------------------------------------------------------------------------------------------
 
 ## User Interface
+
+> ⚠️ **Caution:** Reducing the window size may affect the display of information.
+
+-------------------------------------------------------------------------------
+| 📇 Contacts View                                                            |
+-------------------------------------------------------------------------------
+| Purpose:                                                                    |
+| Manage and browse contacts.                                                 |
+|                                                                             |
+| Key Components:                                                             |
+| - Command Box: Used to enter commands                                       |
+| - Command Result Display: Shows feedback/results after commands             |
+| - Contact List: Displays contacts with indices for easy reference           |
+| - Tab Button (Go to Meetings): Switches to Meetings View                    |
+-------------------------------------------------------------------------------
+
+-------------------------------------------------------------------------------
+| 📅 Meetings View                                                            |
+-------------------------------------------------------------------------------
+| Purpose:                                                                    |
+| Manage and track meetings.                                                  |
+|                                                                             |
+| Key Components:                                                             |
+| - Command Box: Used to input meeting-related commands                       |
+| - Command Result Display: Displays confirmation/error messages              |
+| - Upcoming Meetings: Lists all future meetings                              |
+| - Past Meetings: Lists meetings that have already occurred                  |
+| - Tab Button (Go to Contacts): Switches back to Contacts View               |
+-------------------------------------------------------------------------------
 
 [Back to Table of Contents](#table-of-contents)
 
