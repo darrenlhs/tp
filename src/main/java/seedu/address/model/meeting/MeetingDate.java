@@ -10,7 +10,7 @@ import java.time.format.DateTimeParseException;
  * Represents a Meeting's date in the address book.
  * Guarantees: immutable; is valid in yyyy-MM-dd format.
  */
-public class MeetingDate {
+public class MeetingDate implements Comparable<MeetingDate> {
     public static final String MESSAGE_DATE_NON_NULL =
             "Meeting date must not be null";
     public static final String MESSAGE_DATE_CONSTRAINTS =
@@ -35,7 +35,7 @@ public class MeetingDate {
     public static boolean isValidDateString(String test) {
         requireNonNull(test);
         try {
-            LocalDate.parse(test); // validates both format + real date
+            LocalDate.parse(test);
             return true;
         } catch (DateTimeParseException e) {
             return false;
@@ -46,9 +46,22 @@ public class MeetingDate {
         return date;
     }
 
+    public boolean isBefore(LocalDate time) {
+        return date.isBefore(time);
+    }
+
+    public boolean isAfter(LocalDate time) {
+        return date.isAfter(time);
+    }
+
+    @Override
+    public int compareTo(MeetingDate o) {
+        return this.date.compareTo(o.getDate());
+    }
+
     @Override
     public String toString() {
-        return date.toString(); // yyyy-MM-dd
+        return date.toString();
     }
 
     @Override
