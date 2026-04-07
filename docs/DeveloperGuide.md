@@ -202,38 +202,35 @@ WIP: Fill in information here
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
 
-| Priority | As a …​                                    | I want to …​                     | So that I can…​                                                        |
-| -------- | ------------------------------------------ | ------------------------------ | ---------------------------------------------------------------------- |
-| `* * *`  | new user                                   | see usage instructions         | refer to instructions when I forget how to use the App                 |
-| `* * *`  | user                                       | add a new person               |                                                                        |
-| `* * *`  | user                                       | delete a person                | remove entries that I no longer need                                   |
-| `* * *`  | user                                       | find a person by name          | locate details of persons without having to go through the entire list |
-| `* * *`  | user                                       | list all the people            | browse my full directory                                               |
-| `* * *`  | user                                       | edit a contact information easily | keep my records accurate                                            |
-| `* * *`  | user                                       | add a new tag to one or more people | categorise contacts in different ways                             |
-| `* * *`  | user                                       | delete a new tag to one or more people | keep tags up to date                                           |
-| `* * *`  | user                                       | edit a new tag to one or more people | keep tags up to date                                             |
-| `* * *`  | user                                       | filter contacts by one or multiple tags | find contacts that fall under specific categories             |
-| `* *`    | user                                       | hide private contact details   | minimize chance of someone else seeing them by accident                |
-| `* *`    | user                                       | star/favourite contacts I access regularly | find high-priority connections quickly                     |
-| `* *`    | student who cannot remember exact details  | search using flexible keyword matching | still find the correct contact even with without remembering fully|
-| `* *`    | student is waiting for a recruiter's reply | mark a contact for follow-up by a specific date | remember to check in                                  |
-| `* *`    | student who tends to procrastinate follow-ups | see overdue follow-up contacts | remember to check in with my contact                                |
-| `* *`    | user                                       | schedule meetings with a contact | remember to meet with my contact                                     |
-| `* *`    | user                                       | edit meeting with a contact   | keep meeting details up to date                                         |
-| `* *`    | user                                       | mark meetings as completed   | keep meeting details up to date                                          |
-| `* *`    | user                                       | delete meetings with a contact   | keep meeting details up to date                                      |
-| `* *`    | student who forgets details of conversations | add interaction notes with a timestamp   | recall what was discussed previously                       |
-| `* *`    | student                                    | delete interaction notes       | remove this interaction from the log                                   |
-| `* *`    | student                                    | edit interaction notes         | update the interaction log with correct information                    |
-| `* *`    | student preparing for a follow-up email    | review past interaction log    | reference earlier conversations accurately                           |
-| `* *`    | user                                       | delete contacts en masse       | remove irrelevant contacts quickly                                     |
-| `* *`    | user who meets people regularly            | sort based on the last met date| see how long it has been since they contacted this person              |
-| `* *`    | student managing many applications         | see a list of contacts that have not had interaction in the past X days   | maintain active communication |
-| `*`      | user with many persons in the address book | sort contacts lexicographically | locate a person easily                                                 |
-| `*`      | user who makes many typos                  | go to my last command quickly  | quickly edit the command                                               |
-| `*`      | user                                       | undo multiple commands         | easily reverse my actions                                              |
-| `*`      | user                                       | see the history of changes made in that session  | know what changes I made                             |
+| Priority | As a        | I want to                                                   | So that I can                                             |
+|----------|-------------|-------------------------------------------------------------|-----------------------------------------------------------|
+| `* * *`  | general user| add a new person to the contact list                        | store new contacts                                        |
+| `* * *`  | general user| delete a person from the contact list                       | remove entries that I no longer need                      |
+| `* * *`  | general user| list out all people in the contact list                     | see my saved contacts                                     |
+| `* * *`  | general user| view a person’s profile in the contact list with full details| access comprehensive details when needed                 |
+| `* * *`  | general user| edit information of people in the contact list              | keep my records accurate                                  |
+| `* * *`  | general user| add a meeting with people in the contact list               | keep track of scheduled interactions                      |
+| `* * *`  | general user| delete meetings with people in the contact list             | remove outdated or cancelled meetings                     |
+| `* * *`  | general user| find people in the contact list by one or multiple tags     | locate people in specific categories                      |
+| `* *`    | general user| find a person in the contact list by name                   | locate details without going through the entire list      |
+| `* *`    | general user| find people in the contact list by phone or email           | locate contacts even without names                        |
+| `* *`    | new user    | see usage instructions                                      | refer to instructions when I forget how to use the app    |
+| `* *`    | general user| add tags to people in the contact list en masse             | categorise contacts efficiently                           |
+| `* *`    | general user| delete tags from people in the contact list en masse        | keep tags up to date efficiently                          |
+| `* *`    | general user| edit a tag for people in the contact list en masse          | maintain accurate categorisation efficiently              |
+| `* *`    | general user| star or favourite people in the contact list                | access important contacts quickly                         |
+| `* *`    | general user| unstar or remove favourite from people in the contact list  | keep priorities updated                                   |
+| `* *`    | general user| edit meetings with people in the contact list               | keep meeting details up to date                           |
+| `* *`    | general user| find meetings by date or description                        | locate specific meetings easily                           |
+| `* *`    | general user| delete people in the contact list en masse                  | remove multiple entries efficiently                       |
+| `* *`    | general user| see overdue follow-ups for people in the contact list       | remember to follow up                                     |
+| `*`      | general user| sort people in the contact list lexicographically           | locate contacts more easily                               |
+| `*`      | general user| sort meetings by date                                       | view meetings in chronological order                      |
+| `*`      | general user| go to my last command quickly                               | fix mistakes faster                                       |
+
+## Use Cases
+
+For all use cases below, the **System** is **Internlink** and the **Actor** is the **user**
 
 **Use case: UC1 - Add a contact / meeting**
 
