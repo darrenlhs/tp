@@ -23,6 +23,7 @@ Hello fellow students, welcome to our Internlink User Guide!
     - [Viewing help (`help`)](#viewing-help--help)
     - [Clearing all entries (`clear`)](#clearing-all-entries--clear)
     - [Exiting the program (`exit`)](#exiting-the-program--exit)
+    - [Quickly editing previous commands](#quickly-editing-previous-commands)
 * [Features - Managing contact information](#features---managing-contact-information)
     - [Adding a contact (`add`)](#adding-a-contact--add)
     - [Deleting a contact (`delete`)](#deleting-a-contact--delete)
@@ -260,6 +261,14 @@ exit
 **Description:** You can use this command to exit Internlink.
 
 > 💡 **Tip:** Worried about losing your data? Don’t worry — all changes are automatically saved after every edit.
+
+[Back to Table of Contents](#table-of-contents)
+
+### Quickly Editing Previous Commands
+
+When typing your command, you can use **up** and **down** arrows to shift through previous commands that you have entered.
+
+> 💡 **Tip:** Use the arrow buttons to quickly edit or reenter previous commands!
 
 [Back to Table of Contents](#table-of-contents)
 
