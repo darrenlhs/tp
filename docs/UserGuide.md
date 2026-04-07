@@ -268,6 +268,10 @@ exit
 
 When typing your command, you can use **up** and **down** arrows to shift through previous commands that you have entered.
 
+Usage:
+* **Up** arrow: Previous command
+* **Down** arrow: Next command
+
 > 💡 **Tip:** Use the arrow buttons to quickly edit or reenter previous commands!
 
 [Back to Table of Contents](#table-of-contents)
