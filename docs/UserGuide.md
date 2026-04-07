@@ -621,6 +621,11 @@ editmeeting MEETING_INDEX (d/DESCRIPTION) (dt/DATE) (add/CONTACT_INDEX [, CONTAC
 
 > ❗ **Note:** DATE must be in the `YYYY-MM-DD` format (e.g. `2024-03-15`).
 
+> ⚠️ **Warning:** No warning is shown when adding a participant who is already in the meeting.
+> - Additions are processed before deletions.
+> - If a participant is **already in the meeting** and their INDEX appears in both `add/` and `del/`, they will be **removed**.
+> - If a participant is **not in the meeting** and their INDEX appears in both `add/` and `del/`, that person will **not be added** to the meeting.
+
 > 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about command format](#notes-about-command-format) section for a detailed explanation.
 
 **Examples:**
