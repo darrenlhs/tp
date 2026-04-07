@@ -76,6 +76,14 @@ public class DeleteTagCommand extends Command {
         return new CommandResult(String.format(MESSAGE_DELETE_TAG_SUCCESS, tags));
     }
 
+    /**
+     * Returns the list of persons to edit and delete tags from.
+     *
+     * @param lastShownList The currently displayed contact list.
+     * @param targetIndices The set of target indices representing persons to be edited.
+     * @return The list of persons to edit.
+     * @throws CommandException if an invalid person index (i.e. negative, zero, or out of bounds) is provided.
+     */
     private static List<Person> getPersonsToEdit(List<Person> lastShownList, Set<Index> targetIndices)
             throws CommandException {
         // checks for any invalid indices

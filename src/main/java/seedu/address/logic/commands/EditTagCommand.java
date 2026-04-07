@@ -66,7 +66,7 @@ public class EditTagCommand extends Command {
 
         Set<Index> resolvedIndices = getResolvedIndices(lastShownList, targetIndices);
 
-        editSpecifiedPersons(model, resolvedIndices, lastShownList);
+        editSpecifiedPersons(model, lastShownList, resolvedIndices);
 
         if (resolvedIndices.size() == lastShownList.size()) {
             // global edit
@@ -83,11 +83,11 @@ public class EditTagCommand extends Command {
     /**
      * Returns the final set of person indices to be operated on in the edittag command.
      *
-     * @param lastShownList The current filtered person list.
+     * @param lastShownList The currently displayed contact list.
      * @param targetIndices The set of indices initially passed into the command.
      * @return The final set of person indices to be operated on.
      */
-    private static Set<Index> getResolvedIndices(List<Person> lastShownList , Set<Index> targetIndices)
+    private static Set<Index> getResolvedIndices(List<Person> lastShownList, Set<Index> targetIndices)
             throws CommandException {
         Set<Index> resolvedIndices = new HashSet<>(); // targetIndices is final, so extra safety to not modify it
 
@@ -114,11 +114,11 @@ public class EditTagCommand extends Command {
      * Edits the tags for the specified persons based on their given indices.
      *
      * @param model The model used in the command.
+     * @param lastShownList The currently displayed contact list.
      * @param resolvedIndices The set of person indices to be operated on.
-     * @param lastShownList The current filtered person list.
      * @throws CommandException if none of the given contacts contain the specified old tag.
      */
-    private void editSpecifiedPersons(Model model, Set<Index> resolvedIndices, List<Person> lastShownList)
+    private void editSpecifiedPersons(Model model, List<Person> lastShownList, Set<Index> resolvedIndices)
             throws CommandException {
         boolean isOldTagValid = false;
         List<Person> personsToEdit = new ArrayList<>();
