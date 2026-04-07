@@ -107,6 +107,14 @@
     -fx-background-color: #515658;
 }
 
+.separator {
+    -fx-background-color: #383838;
+}
+
+.separator .label {
+    -fx-font-size: 16px;
+}
+
 .list-cell:filled:selected {
     -fx-background-color: #424d5f;
 }
