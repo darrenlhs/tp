@@ -6,60 +6,61 @@ title: Internlink User Guide
 Hello fellow students, welcome to our Internlink User Guide!
 ### Table of Contents
 <!-- TOC -->
-* [Introduction](#introduction)
-* [What is Internlink?](#what-is-internlink)
-* [Who this guide is for](#who-this-guide-is-for)
-* [Using this Guide](#using-this-guide)
-* [Getting Started](#getting-started)
-- [#1 Getting the correct Java version](#1-getting-the-correct-java-version)
-    - [Checking your Java version](#checking-your-java-version)
-- [#2 Downloading Internlink](#2-downloading-internlink)
-- [#3 Running Internlink](#3-running-internlink)
-* [User Interface](#user-interface)
-* [Features](#features-)
-* [Guide to Command Format](#guide-to-command-format)
-* [Notes about Command Format](#notes-about-command-format)
-* [Features - General features](#features---general-features)
-    - [Viewing help (`help`)](#viewing-help--help)
-    - [Clearing all entries (`clear`)](#clearing-all-entries--clear)
-    - [Exiting the program (`exit`)](#exiting-the-program--exit)
-    - [Quickly editing previous commands using arrow keys](#quickly-editing-previous-commands-using-arrow-keys)
-* [Features - Managing contact information](#features---managing-contact-information)
-    - [Adding a contact (`add`)](#adding-a-contact--add)
-    - [Deleting a contact (`delete`)](#deleting-a-contact--delete)
-    - [Editing a contact (`edit`)](#editing-a-contact--edit)
-    * [Mass-tagging features](#mass-tagging-features)
-        - [Adding tags to one or more contacts (`addtag`)](#adding-tags-to-one-or-more-contacts--addtag)
-        - [Deleting tags from one or more contacts (`deletetag`)](#deleting-tags-from-one-or-more-contacts--deletetag)
-        - [Editing existing tags (`edittag`)](#editing-existing-tags--edittag)
-    * [⭐ Using stars (favourites)](#-using-stars-favourites)
-        - [Starring contacts (`star`)](#starring-contacts--star)
-        - [Unstarring contacts (`unstar`)](#unstarring-contacts--unstar)
-* [Features - Filtering the contact list](#features---filtering-the-contact-list)
-    - [Listing all contacts (`list`)](#listing-all-contacts--list)
+* [Internlink User Guide](#internlink-user-guide)
+    * [Table of Contents](#table-of-contents)
+  * [Introduction](#introduction)
+  * [What is Internlink?](#what-is-internlink)
+    * [Who this guide is for](#who-this-guide-is-for)
+  * [Using this Guide](#using-this-guide)
+  * [Getting Started](#getting-started)
+    * [1. Getting the correct Java version](#1-getting-the-correct-java-version)
+    * [**Checking your Java version:**](#checking-your-java-version)
+    * [2. Downloading Internlink](#2-downloading-internlink)
+    * [3. Running Internlink](#3-running-internlink)
+  * [User Interface](#user-interface)
+    * [Contacts View](#contacts-view)
+    * [Meetings Page](#meetings-page)
+  * [Features](#features)
+    * [Guide to Command Format](#guide-to-command-format)
+    * [Notes about Command Format](#notes-about-command-format)
+  * [Features - General features](#features---general-features)
+    * [Viewing help : `help`](#viewing-help--help)
+    * [Clearing all entries : `clear`](#clearing-all-entries--clear)
+    * [Exiting the program : `exit`](#exiting-the-program--exit)
+    * [Accessing previous commands using arrow keys](#accessing-previous-commands-using-arrow-keys)
+  * [Features - Managing contact information](#features---managing-contact-information)
+    * [Adding a contact : `add`](#adding-a-contact--add)
+    * [Deleting a contact : `delete`](#deleting-a-contact--delete)
+    * [Editing a contact : `edit`](#editing-a-contact--edit)
+  * [Features - Mass-tagging features](#features---mass-tagging-features)
+    * [Adding tags to one or more contacts : `addtag`](#adding-tags-to-one-or-more-contacts--addtag)
+    * [Deleting tags from one or more contacts : `deletetag`](#deleting-tags-from-one-or-more-contacts--deletetag)
+    * [Editing existing tags : `edittag`](#editing-existing-tags--edittag)
+  * [Features - Using stars (favourites)](#features---using-stars-favourites)
+    * [Starring contacts : `star`](#starring-contacts--star)
+    * [Unstarring contacts : `unstar`](#unstarring-contacts--unstar)
+  * [Features - Filtering the contact list](#features---filtering-the-contact-list)
+    * [Listing all contacts : `list`](#listing-all-contacts--list)
     * [Finding contact information](#finding-contact-information)
-        - [Locating contacts globally (global `find`)](#locating-contacts-globally-global-find)
-        - [Locating contacts by specific fields (field `find`)](#locating-contacts-by-specific-fields-field-find)
-        - [Finding contacts by tags (`findtag`)](#finding-contacts-by-tags--findtag)
-* [Features - Managing meeting information](#features---managing-meeting-information)
-    - [Adding a meeting (`addmeeting`)](#adding-a-meeting--addmeeting)
-    - [Deleting a meeting (`deletemeeting`)](#deleting-a-meeting--deletemeeting)
-    - [Editing a meeting (`editmeeting`)](#editing-a-meeting--editmeeting)
-* [Features - Filtering the meeting list](#features---filtering-the-meeting-list)
-    - [Listing all meetings (`listmeeting`)](#listing-all-meetings--listmeeting)
-    * [Finding meeting information](#finding-meeting-information)
-        - [Finding a meeting (`findmeeting`)](#finding-a-meeting--findmeeting)
-* [Features - Managing data](#features--managing-data)
-    - [Saving the data](#saving-the-data)
-    - [Editing the data file](#editing-the-data-file)
-* [FAQ](#faq)
-* [Known issues](#known-issues)
-* [Command summary](#command-summary)
-* [Glossary](#glossary-)
+    * [Locating contacts globally: global `find`](#locating-contacts-globally-global-find)
+    * [Locating contacts by specific fields: field `find`](#locating-contacts-by-specific-fields-field-find)
+    * [Finding contacts by tags : `findtag`](#finding-contacts-by-tags--findtag)
+  * [Features - Managing meeting information](#features---managing-meeting-information)
+    * [Adding a meeting : `addmeeting`](#adding-a-meeting--addmeeting)
+    * [Deleting a meeting : `deletemeeting`](#deleting-a-meeting--deletemeeting)
+    * [Editing a meeting : `editmeeting`](#editing-a-meeting--editmeeting)
+  * [Features - Filtering the meeting list](#features---filtering-the-meeting-list)
+    * [Listing all meetings : `listmeeting`](#listing-all-meetings--listmeeting)
+    * [Finding a meeting : `findmeeting`](#finding-a-meeting--findmeeting)
+  * [Features – Managing data](#features--managing-data)
+    * [Saving the data](#saving-the-data)
+    * [Editing the data file](#editing-the-data-file)
+  * [FAQ](#faq)
+  * [Known issues](#known-issues)
+  * [Command summary](#command-summary)
+  * [Glossary](#glossary)
 <!-- TOC -->
----
 
-<div style="page-break-after: always;"></div>
 ------------------------------------------------------------------------------
 ## Introduction
 Welcome to Internlink! This guide will help you get started.
@@ -161,7 +162,6 @@ Alternatively, to get started, you can try out some of the suggested commands he
 
 * `clear` : Deletes all contacts.
 
-
 * `exit` : Exits the app.
 
 [Back to Table of Contents](#table-of-contents)
@@ -170,10 +170,9 @@ Alternatively, to get started, you can try out some of the suggested commands he
 --------------------------------------------------------------------------------------------------------------------
 
 ## User Interface
-
 > ⚠️ **Caution:** Reducing the window size may affect the display of information.
 
-### 📇 Contacts View
+### Contacts View
 ![Contacts Page](images/contacts_annotated.png)
 
 | Component               | Description                                         |
@@ -291,7 +290,7 @@ exit
 
 [Back to Table of Contents](#table-of-contents)
 
-### Quickly editing previous commands using arrow keys
+### Accessing previous commands using arrow keys
 
 When typing your command, you can use **up** and **down** arrows to shift through previous commands that you have entered.
 
@@ -299,7 +298,7 @@ Usage:
 * **Up** arrow: Previous command
 * **Down** arrow: Next command
 
-> 💡 **Tip:** Use the arrow buttons to quickly edit or reenter previous commands!
+> 💡 **Tip:** Need to make some updates to your contact list? Use the arrow keys to reuse previous commands and save time!
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -327,7 +326,7 @@ An added contact is automatically be sorted into your list by alphabetical order
 
 > 💡 **Tip:** In a rush? Just provide a *name* and *one other contact detail* (phone number/email) to add the contact. You can fill in the rest later with the [`edit` command](#editing-a-contact--edit)
 
-> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about command format](#notes-about-command-format) section for a detailed explanation.
+> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
 **Examples:**
 - `add n/John Doe e/johndoe@example.com` adds a new contact with name `John Doe` and email `johndoe@example.com`.
@@ -371,7 +370,7 @@ edit INDEX (n/NAME) (p/PHONE) (e/EMAIL) (t/TAG)…
 
 > 💡 **Tip:** Need to remove all tags from a contact at once? Use `t/` without specifying any tags to do so.
 
-> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about command format](#notes-about-command-format) section for a detailed explanation.
+> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
 **Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` edits the phone number and email of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
@@ -379,7 +378,7 @@ edit INDEX (n/NAME) (p/PHONE) (e/EMAIL) (t/TAG)…
 
 [Back to Table of Contents](#table-of-contents)
 
-### Mass-tagging features
+## Features - Mass-tagging features
 > 💡 **Tip:** Recently joined a group with people who are already in your contact list? Perhaps consider using these next few commands to make updating your contacts easier.
 
 Internlink introduces 3 new tag-related functions that all allow operation on one or more contacts at once.
@@ -443,7 +442,7 @@ edittag (INDICES OR 'all') o/ OLDTAG n/ NEWTAG
 [Back to Table of Contents](#table-of-contents)
 
 
-### ⭐ Using stars (favourites)
+## Features - Using stars (favourites)
 
 You can mark important contacts as favourites to easily identify and have them always appear at the top of your contact list.
 This is especially useful for keeping track of frequently contacted people or high-priority connections.
@@ -640,7 +639,7 @@ editmeeting MEETING_INDEX (d/DESCRIPTION) (dt/DATE) (add/CONTACT_INDEX [, CONTAC
 > - If a participant is **already in the meeting** and their INDEX appears in both `add/` and `del/`, they will be **removed**.
 > - If a participant is **not in the meeting** and their INDEX appears in both `add/` and `del/`, that person will **not be added** to the meeting.
 
-> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about command format](#notes-about-command-format) section for a detailed explanation.
+> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
 **Examples:**
 * `editmeeting 2 dt/2026-05-01 d/Project meeting` edits the meeting at index `2` in the displayed meeting list, changing the description to `Project meeting` and date to `2026-05-01`.
@@ -670,8 +669,6 @@ listmeeting
 > 💡 **Tip:** Similar to `list`, this command is essential to clearing all current filters and obtain the full meeting list.
 
 [Back to Table of Contents](#table-of-contents)
-
-### Finding meeting information
 
 ### Finding a meeting : `findmeeting`
 
@@ -704,8 +701,7 @@ Use the [`listmeeting` command](#listing-all-meetings--listmeeting) to clear all
 
 [Back to Table of Contents](#table-of-contents)
 
-### Features – Managing data
-
+## Features - Managing data
 ### Saving the data
 Internlink’s data automatically saves after any command that changes the data. There is no need to save manually.
 
