@@ -3,6 +3,7 @@ package seedu.address.model.meeting;
 import static java.util.Objects.requireNonNull;
 import static seedu.address.commons.util.CollectionUtil.requireAllNonNull;
 
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
@@ -65,6 +66,14 @@ public class Meeting {
         assert otherMeeting != null : "otherMeeting should not be null";;
         return description.equals(otherMeeting.description)
                 && date.equals(otherMeeting.date);
+    }
+
+    public boolean isBefore(LocalDate time) {
+        return date.isBefore(time);
+    }
+
+    public boolean isAfter(LocalDate time) {
+        return date.isAfter(time);
     }
 
     /**

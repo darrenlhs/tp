@@ -1,7 +1,9 @@
 package seedu.address.model.meeting;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertNotEquals;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 import static seedu.address.logic.commands.AddMeetingCommandTest.INVALID_DESCRIPTION;
 import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DATE_20260325;
 import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DATE_20260401;
@@ -59,6 +61,30 @@ public class MeetingTest {
                 .collect(Collectors.toSet());
 
         assertEquals(VALID_IDS, actualIds);
+    }
+
+    @Test
+    public void dateComparisons() {
+        MeetingDate date1 = new MeetingDate(VALID_DATE_20260325);
+        MeetingDate date2 = new MeetingDate(VALID_DATE_20260401);
+
+        Meeting m1 = new MeetingBuilder()
+                .withDescription(VALID_DESCRIPTION_PROJECT)
+                .withDate(VALID_DATE_20260325)
+                .withParticipants(VALID_IDS)
+                .build();
+
+        Meeting m2 = new MeetingBuilder()
+                .withDescription(VALID_DESCRIPTION_TEAM)
+                .withDate(VALID_DATE_20260401)
+                .withParticipants(VALID_IDS)
+                .build();
+
+        assertTrue(m1.isBefore(date2.getDate()));
+        assertTrue(m2.isAfter(date1.getDate()));
+
+        assertFalse(m1.isAfter(date2.getDate()));
+        assertFalse(m2.isBefore(date1.getDate()));
     }
 
     @Test
