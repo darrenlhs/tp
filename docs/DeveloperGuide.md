@@ -98,14 +98,14 @@ The `CommandHistory` component:
 * Example usage:
   ```
   CommandHistory ch = new CommandHistory();
-  
+
   // Assume the user has entered these two commands.
   ch.add("first command");
   ch.add("second command");
-  
+
   // userDraft is the text in the CommandBox.
   String userDraft = "draft command";
-  
+
   userDraft = ch.prevCommand(userDraft); // userDraft becomes "second command".
   userDraft = ch.prevCommand(userDraft); // userDraft becomes "first command".
   userDraft = ch.nextCommand(userDraft); // userDraft becomes "second command".
@@ -209,6 +209,89 @@ When the command is executed, `AddCommand` invokes `Model#hasPerson(Person)` to 
 The following sequence diagram illustrates the flow of parsing and execution for the `add` command.
 
 ![Sequence diagram of add](images/AddSequenceDiagram.png)
+
+
+## Editing a person: `edit`
+The `edit` command is used to edit an already existing preson in the contacts list. The user specifies the index of the person to edit, together with one or more fields to be updated.
+
+Any field of a person can be modified using `edit` -- `n/NAME`, `p/PHONE`, `e/EMAIL@EMAIL.COM`, `t/TAG`.
+
+Using edit with tags (`t/TAG`) will replace all existing tags with the new tags specified in the command. This means that all previous tags will be wiped unless they are listed out while using edit.
+
+The edit person feature is implemented using the following main components:
+* `EditCommand`
+* `EditCommandParser`
+* `EditPersonDescriptor`
+
+When the user enters an edit command, the input is first handled by `AddressBookParser`, which delegates parsing to `EditCommandParser`.
+
+`EditCommandParser` parses:
+* the target index of the person to be edited
+* the fields the user wants to modify
+
+The parsed values are stored in an `EditPersonDescriptor`, which acts as a container for the optional fields provided by the user. This is necessary because the user may choose to edit only some fields instead of all fields.
+
+After parsing, an `EditCommand` object is created with:
+
+* the target index
+* the descriptor containing the edited values
+
+During execution, `EditCommand` retrieves the person at the specified index from the currently displayed person list. It then creates a new edited `Person` object by combining:
+
+* the original person’s existing values
+* the new values from `EditPersonDescriptor` if they were specified
+
+Fields not provided by the user remain unchanged.
+
+Finally, the command asks the `Model` to replace the original person with the edited person. The updated person list is then reflected in the UI.
+
+
+The following sequence diagram illustrates the flow of parsing and execution for the `edit` command.
+![Sequence diagram of edit](images/EditCommandSequenceDiagram.png)
+
+
+## Finding a Person: `find`
+The find command allows the user to search for persons whose fields match given keywords. In the implementation, there are two types of find operations that reuse the same predicate `find`.
+
+1. Global find
+Searches across all supported fields of a person and returns persons where any field matches the given substring
+
+2. Field-specific filtered search
+Searches only within specified fields and returns persons whose value in that field matches the given substring in that specific field.
+
+This design allows the system to support both broad and targeted searching while keeping the matching logic reusable.
+
+Examples:
+
+* Global find: `find alex`
+* Field-specific find: `find n/alex`
+* Field-specific find: `find n/alex e/gmail`
+
+A global find checks whether the substring appears in any searchable field, while a field-specific find restricts the search to the specified field only. Field-specific find will find contacts all within the displayed contact list that matches ANY of the keywords of specified fields.
+For example, `find n/alex e/gmail` will find persons named 'alex' AND persons whose emails have a 'gmail' in it.
+
+The find feature is implemented mainly using the following components:
+
+* `FindCommand`
+* `FindCommandParser`
+* `PersonMatchesKeywordsPredicate`
+* `ModelManager`
+
+When the user enters a find command, `AddressBookParser` identifies the command and passes the input to `FindCommandParser`.
+
+`FindCommandParser` determines which type of search the user is performing:
+
+* If the user provides a plain keyword without a prefix, the parser interprets it as a global find.
+* If the user provides a prefixed argument such as n/, p/, e/, or another supported prefix, the parser interprets it as a field-specific filtered search.
+
+After parsing, the command creates a `PersonMatchesKeywordsPredicate`. Although both search modes use the same predicate class, the predicate is configured differently depending on the parsed input.
+
+This predicate is then passed into a `FindCommand`, which updates the model’s filtered person list.
+
+The following sequence diagram illustrates the flow of parsing and execution for the `find` command.
+![Sequence diagram of find - logic](images/FindCommandSequenceDiagramLogic.png)
+![Sequence diagram of find - model](images/FindCommandSequenceDiagramModel.png)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
@@ -553,7 +636,7 @@ Use case ends.
     * 2a1. InternLink notifies the user of the invalid index error.
 
       Use case resumes at step 1.
-    * 
+    *
 * 2a. One or more specified contacts are already starred / unstarred.
     * 2a1. All specified contacts are already in the target state (starred / unstarred).
         * InternLink notifies the user that all selected contacts are already starred / unstarred.
@@ -668,100 +751,100 @@ testers are expected to do more *exploratory* testing.
 1. Launch the application as seen above.
 
 
-2. Use the help command: `help`  
+2. Use the help command: `help`
    Expected: A help message is displayed that provides a link to the user guide.
 
 ---
 
 ### Adding and managing contacts
 
-1. Add a new contact with minimal required fields: `add n/Alice Tan p/91234567`  
+1. Add a new contact with minimal required fields: `add n/Alice Tan p/91234567`
    Expected: A new contact named Alice Tan is added with the phone number shown.
 
 
-2. Try adding a contact without a name: `add p/91234567`  
+2. Try adding a contact without a name: `add p/91234567`
    Expected: Error message indicating invalid command format.
 
 
-3. Add another contact with tags: `add n/Bob Lee e/bob@example.com t/friend t/cs`  
+3. Add another contact with tags: `add n/Bob Lee e/bob@example.com t/friend t/cs`
    Expected: Contact is added with email and tags.
 
 
-4. Edit an existing contact: `edit 1 p/98765432 e/alice@new.com`  
+4. Edit an existing contact: `edit 1 p/98765432 e/alice@new.com`
    Expected: Contact 1’s phone and email are updated.
 
 
-5. Try editing without specifying any fields: `edit 1`  
+5. Try editing without specifying any fields: `edit 1`
    Expected: Error message indicating that at least one field must be provided.
 
 ---
 
 ### Working with tags and favourites
 
-1. Add tags to multiple contacts: `addtag 1, 2 / friends / cs`  
+1. Add tags to multiple contacts: `addtag 1, 2 / friends / cs`
    Expected: Tags are added to both contacts.
 
 
-2. Attempt to use an invalid index: `addtag 0 / friends`  
+2. Attempt to use an invalid index: `addtag 0 / friends`
    Expected: Error message indicating invalid index.
 
 
-3. Rename a tag: `edittag 1, 2 o/cs n/computer science`  
+3. Rename a tag: `edittag 1, 2 o/cs n/computer science`
    Expected: Tag is updated for the specified contacts.
 
 
-4. Try editing a tag without specifying the old tag: `edittag 1, 2 n/computer science`  
+4. Try editing a tag without specifying the old tag: `edittag 1, 2 n/computer science`
    Expected: Error message due to missing old tag.
 
 
-5. Remove a tag: `deletetag 1 / friends`  
+5. Remove a tag: `deletetag 1 / friends`
    Expected: Tag is removed from contact 1.
 
 
-6. Try an incorrectly formatted delete tag command: `deletetag / friends 1`  
+6. Try an incorrectly formatted delete tag command: `deletetag / friends 1`
    Expected: Error message indicating invalid format.
 
 
-7. Mark a contact as starred: `star 2`  
+7. Mark a contact as starred: `star 2`
    Expected: Contact 2 is marked as starred.
 
 
-8. Try starring with an invalid index: `star 0`  
+8. Try starring with an invalid index: `star 0`
    Expected: Error message indicating invalid index.
 
 
-9. Remove starred marking: `unstar 2`  
+9. Remove starred marking: `unstar 2`
    Expected: Contact 2 is no longer marked as starred.
 
 ---
 
 ### Searching and filtering contacts
 
-1. List all contacts: `list`  
+1. List all contacts: `list`
    Expected: Full contact list is displayed.
 
 
-2. Search for contacts globally: `find Alice`  
+2. Search for contacts globally: `find Alice`
    Expected: Contacts matching "Alice" are shown.
 
 
-3. Try searching without a keyword: `find`  
+3. Try searching without a keyword: `find`
    Expected: Error message indicating missing search term.
 
 
-4. Search using specific fields: `find n/Alice p/9876`  
+4. Search using specific fields: `find n/Alice p/9876`
    Expected: Contacts matching the name or phone are shown.
 
 
-5. Try mixing global and field search: `find Alice n/Bob`  
+5. Try mixing global and field search: `find Alice n/Bob`
    Expected: Error message due to invalid command format.
 
 
-6. Search by tags: `findtag / friends`  
+6. Search by tags: `findtag / friends`
    Expected: Contacts with the tag are displayed.
 
 
-7. Try searching without specifying tags: `findtag`  
+7. Try searching without specifying tags: `findtag`
    Expected: Error message indicating missing tags.
 
 ---
@@ -771,58 +854,58 @@ testers are expected to do more *exploratory* testing.
 1. Click the tab to switch from the Contacts view to the Meetings view.
 
 
-2. Create a meeting with contacts: `addmeeting 1, 2 d/Project meeting dt/2026-05-26`  
+2. Create a meeting with contacts: `addmeeting 1, 2 d/Project meeting dt/2026-05-26`
    Expected: Meeting is added with the given details.
 
 
-3. Try using an invalid date format: `addmeeting d/Project meeting dt/26-05-2026`  
+3. Try using an invalid date format: `addmeeting d/Project meeting dt/26-05-2026`
    Expected: Error message indicating invalid date format.
 
 
-4. Edit the meeting: `editmeeting 1 d/Updated meeting dt/2026-06-01`  
+4. Edit the meeting: `editmeeting 1 d/Updated meeting dt/2026-06-01`
    Expected: Meeting details are updated.
 
 
-5. Try editing with an invalid date: `editmeeting 1 dt/01-06-2026`  
+5. Try editing with an invalid date: `editmeeting 1 dt/01-06-2026`
    Expected: Error message indicating invalid date format.
 
 
-6. List all meetings: `listmeeting`  
+6. List all meetings: `listmeeting`
    Expected: All meetings are displayed.
 
 
-7. Search for meetings: `findmeeting d/project`  
+7. Search for meetings: `findmeeting d/project`
    Expected: Matching meetings are shown.
 
 
-8. Try searching with an invalid date: `findmeeting dt/01-06-2026`  
+8. Try searching with an invalid date: `findmeeting dt/01-06-2026`
    Expected: Error message indicating invalid date format.
 
 
-9. Delete a meeting: `deletemeeting 1`  
+9. Delete a meeting: `deletemeeting 1`
    Expected: Meeting at index 1 is deleted.
 
 
-10. Try deleting with an invalid index: `deletemeeting 999`  
+10. Try deleting with an invalid index: `deletemeeting 999`
     Expected: Error message indicating invalid index.
 
 ---
 
 ### Cleaning up
 
-1. Delete a contact: `delete 1`  
+1. Delete a contact: `delete 1`
    Expected: Contact at index 1 is removed.
 
 
-2. Try deleting with an invalid index: `delete 999`  
+2. Try deleting with an invalid index: `delete 999`
    Expected: Error message indicating invalid index.
 
 
-3. Clear all data: `clear`  
+3. Clear all data: `clear`
    Expected: All contacts and meetings are removed.
 
 
-4. Exit the application: `exit`  
+4. Exit the application: `exit`
    Expected: Application closes successfully.
 
 ---
