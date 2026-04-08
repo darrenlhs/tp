@@ -100,7 +100,7 @@ public class EditMeetingCommand extends Command {
         }
 
         return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS,
-                editedMeeting.toString()));
+                editedMeeting));
     }
 
     /**

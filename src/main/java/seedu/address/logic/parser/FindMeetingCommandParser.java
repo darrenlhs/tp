@@ -39,7 +39,7 @@ public class FindMeetingCommandParser implements Parser<FindMeetingCommand> {
         List<String> dateKeywords = argMultimap.getAllValues(PREFIX_MEETING_DATE)
                 .stream()
                 .filter(s -> !s.isEmpty())
-                .collect(Collectors.toList());;
+                .collect(Collectors.toList());
         List<String> personIndicesList = argMultimap.getAllValues(PREFIX_CONTACT_INDICES);
 
         Set<Index> personIndices = new HashSet<>();

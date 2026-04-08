@@ -63,7 +63,7 @@ public class Meeting {
      * Two meetings are the same if their descriptions and date are equal.
      */
     public boolean isSameMeeting(Meeting otherMeeting) {
-        assert otherMeeting != null : "otherMeeting should not be null";;
+        assert otherMeeting != null : "otherMeeting should not be null";
         return description.equals(otherMeeting.description)
                 && date.equals(otherMeeting.date);
     }
@@ -91,7 +91,7 @@ public class Meeting {
         }
 
         Meeting otherMeeting = (Meeting) other;
-        assert otherMeeting != null : "otherMeeting should not be null";;
+        assert otherMeeting != null : "otherMeeting should not be null";
 
         return description.equals(otherMeeting.description)
                 && date.equals(otherMeeting.date)
