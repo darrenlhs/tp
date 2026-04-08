@@ -48,7 +48,7 @@ return
 
 EditCommandParser -> EditPersonDescriptor : setName, setPhone, ...
 activate EditPersonDescriptor
-return 
+return
 
 return editPersonDescriptor
 
