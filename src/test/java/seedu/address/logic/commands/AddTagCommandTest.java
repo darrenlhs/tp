@@ -27,7 +27,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Contains integration tests (interaction with the Model) and unit tests for EditCommand.
+ * Contains integration tests (interaction with the Model) and unit tests for AddTagCommand.
  */
 public class AddTagCommandTest {
     public static final Index INDEX_FIRST_PERSON_COPY = Index.fromOneBased(1);

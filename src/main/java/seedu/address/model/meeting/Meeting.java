@@ -11,7 +11,7 @@ import java.util.Set;
 import seedu.address.model.person.PersonId;
 
 /**
- * Represents a Meeting associated with a person in the address book.
+ * Represents a Meeting associated with zero or more persons.
  */
 public class Meeting {
     public static final String MESSAGE_INVALID_PARTICIPANT_IDS =

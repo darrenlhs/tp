@@ -17,7 +17,7 @@ public class Description {
     /**
      * Constructs a {@code Description}.
      *
-     * @param description A non-blank meeting description.
+     * @param description A meeting description to validate.
      */
     public Description(String description) {
         requireNonNull(description, MESSAGE_DESCRIPTION_NON_NULL);
@@ -30,7 +30,7 @@ public class Description {
      * Returns true if a given string is not blank.
      */
     public static boolean isValidDescription(String test) {
-        return !test.isBlank(); // only checks that it's not empty or all spaces
+        return !test.isBlank();
     }
 
     @Override

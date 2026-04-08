@@ -94,7 +94,7 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Returns true if a person with the same {@code PersonId} exists in the address book.
+     * Returns true if a person with a {@code PersonId} of {@code id} exists in the address book.
      */
     public boolean hasSameID(PersonId id) {
         requireNonNull(id);
@@ -217,7 +217,8 @@ public class AddressBook implements ReadOnlyAddressBook {
     }
 
     /**
-     * Throws an error if any of the ID in the meeting's participant set does not exist in the address book.
+     * Throws an error if any of the {@code PersonId} in the meeting's participant set does not exist
+     * in the address book.
      */
     private void verifyParticipantsExist(Meeting meeting) throws PersonNotFoundException {
         for (PersonId id : meeting.getParticipantsIDs()) {
@@ -237,7 +238,7 @@ public class AddressBook implements ReadOnlyAddressBook {
 
     /**
      * Returns a copy of the given {@code meeting}
-     * with the specified {@code id} removed from the set of participants PersonId.
+     * with the specified {@code id} removed from the set of participants.
      */
     private static Meeting removeIdFromMeeting(Meeting meeting, PersonId id) {
         Set<PersonId> newPersonIdSet = meeting.getParticipantsIDs();

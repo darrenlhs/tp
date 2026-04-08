@@ -149,7 +149,7 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Updates the filter of the filtered person list to filter by all previous {@code predicate}
+     * Updates the filter of the filtered person list to filter by all previous {@code predicate}.
      *
      * @param predicate The new predicate to be appended to the existing predicates.
      */
@@ -195,15 +195,14 @@ public class ModelManager implements Model {
     }
 
     /**
-     * Updates the filter of the filtered meeting list to filter by the given
-     * {@code predicate}.
+     * Updates the filter of the filtered meeting list to filter by the given {@code predicate}.
      *
-     * @throws NullPointerException if {@code predicate} is null.
+     * @throws NullPointerException If {@code predicate} is null.
      */
     @Override
     public void updateFilteredMeetingList(Predicate<Meeting> predicate) {
         requireNonNull(predicate);
-        currentPredicateMeeting = predicate; // sets the current predicate to whatever has been passed by the user
+        currentPredicateMeeting = predicate;
         filteredMeetings.setPredicate(predicate);
     }
 
@@ -216,7 +215,7 @@ public class ModelManager implements Model {
     public void updateFilteredMeetingListStacked(Predicate<Meeting> predicate) {
         requireNonNull(predicate);
         Predicate<Meeting> stackedPredicate = currentPredicateMeeting.and(predicate);
-        currentPredicateMeeting = stackedPredicate; // update the stored predicate
+        currentPredicateMeeting = stackedPredicate;
         filteredMeetings.setPredicate(stackedPredicate);
     }
 

@@ -123,7 +123,7 @@ class JsonSerializableAddressBook {
                 }
 
                 // Skip the entire meeting if any participant is not in contacts.
-                if (hasAnyParticipantNotInContacts(meeting, addressBook)) {
+                if (hasParticipantNotInContacts(meeting, addressBook)) {
                     continue;
                 }
 
@@ -136,18 +136,20 @@ class JsonSerializableAddressBook {
     }
 
     /**
-     * Returns true if the meeting has any participants not in the {@code UniquePersonList}.
+     * Returns true if the meeting has a participant not in the {@code UniquePersonList}.
      * Logs a warning if such a participant is found and immediately returns true.
      */
-    private boolean hasAnyParticipantNotInContacts(Meeting meeting, AddressBook addressBook) {
+    private boolean hasParticipantNotInContacts(Meeting meeting, AddressBook addressBook) {
         for (PersonId participantId : meeting.getParticipantsIDs()) {
             if (!addressBook.hasSameID(participantId)) {
                 logger.warning(String.format(
                         MESSAGE_MEETING_WITH_INVALID_PARTICIPANT,
                         meeting.toString(), participantId.toString()));
-                return true; // Found an invalid participant, stop checking further
+
+                // Found an invalid participant, stop checking further
+                return true;
             }
         }
-        return false; // All participants are valid
+        return false;
     }
 }

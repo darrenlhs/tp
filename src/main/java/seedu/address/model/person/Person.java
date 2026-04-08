@@ -26,7 +26,6 @@ public class Person {
     // Data fields
     private final Set<Tag> tags = new HashSet<>();
 
-
     /**
      * Constructs a {@code Person} with a given ID.
      */

@@ -42,7 +42,7 @@ public class AddMeetingCommandTest {
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
-    public void execute_singleIndex_success() throws Exception {
+    public void execute_singleIndex_success() {
         Set<Index> indices = VALID_INDEX_SET_SINGLE;
         AddMeetingCommand command = new AddMeetingCommand(indices,
                 new Description(VALID_DESCRIPTION_PROJECT),
@@ -72,7 +72,7 @@ public class AddMeetingCommandTest {
     }
 
     @Test
-    public void execute_multipleIndices_success() throws Exception {
+    public void execute_multipleIndices_success() {
         AddMeetingCommand command = new AddMeetingCommand(VALID_INDICES_SET_MULTIPLE,
                 new Description(VALID_DESCRIPTION_TEAM),
                 new MeetingDate(VALID_DATE_20260401));

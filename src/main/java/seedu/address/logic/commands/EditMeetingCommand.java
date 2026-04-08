@@ -178,7 +178,7 @@ public class EditMeetingCommand extends Command {
         public EditMeetingDescriptor() {}
 
         /**
-         * Copies constructor.
+         * Copies {@code toCopy}'s information.
          */
         public EditMeetingDescriptor(EditMeetingDescriptor toCopy) {
             setDescription(toCopy.description);
@@ -203,7 +203,7 @@ public class EditMeetingCommand extends Command {
         /**
          * Converts the participant indices stored in this descriptor into the corresponding
          * participant IDs using the provided {@code model}. The resulting IDs are stored
-         * internally as {@code peopleToAddId} and {@code peopleToDeleteId}.
+         * internally as {@code idsToAdd} and {@code idsToDelete}.
          *
          * @param model The {@code Model} containing the list of persons to resolve indices from.
          * @throws CommandException Thrown if any index is out of bounds of the person list.

@@ -20,7 +20,6 @@ import seedu.address.model.tag.Tag;
 
 public class EditTagCommandParserTest {
     private EditTagCommandParser parser = new EditTagCommandParser();
-    private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
     @Test
     public void parse_validArgs_returnsEditTagCommand() {

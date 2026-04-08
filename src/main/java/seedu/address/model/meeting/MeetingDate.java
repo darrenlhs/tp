@@ -21,7 +21,7 @@ public class MeetingDate implements Comparable<MeetingDate> {
     /**
      * Constructs a {@code Date}.
      *
-     * @param dateString A valid date string in yyyy-MM-dd format.
+     * @param dateString A date string to validate.
      */
     public MeetingDate(String dateString) {
         requireNonNull(dateString, MESSAGE_DATE_NON_NULL);

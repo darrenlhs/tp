@@ -24,10 +24,10 @@ public class AddTagCommandParserTest {
     private static final String EMPTY_TAG = "";
     private static final String INVALID_TAG = "hubby*"; // '*' not allowed in tags
 
-    private static final String VALID_TAG_DESC_ONE = " " + PREFIX_SEPARATOR + VALID_TAG_ONE;
-    private static final String VALID_TAG_DESC_TWO = " " + PREFIX_SEPARATOR + VALID_TAG_TWO;
-    private static final String EMPTY_TAG_DESC = " " + PREFIX_SEPARATOR + EMPTY_TAG;
-    private static final String INVALID_TAG_DESC = " " + PREFIX_SEPARATOR + INVALID_TAG;
+    private static final String VALID_TAG_INPUT_ONE = " " + PREFIX_SEPARATOR + VALID_TAG_ONE;
+    private static final String VALID_TAG_INPUT_TWO = " " + PREFIX_SEPARATOR + VALID_TAG_TWO;
+    private static final String EMPTY_TAG_INPUT = " " + PREFIX_SEPARATOR + EMPTY_TAG;
+    private static final String INVALID_TAG_INPUT = " " + PREFIX_SEPARATOR + INVALID_TAG;
 
 
     private static final String MESSAGE_INVALID_FORMAT =
@@ -44,10 +44,10 @@ public class AddTagCommandParserTest {
         assertParseFailure(parser, PREFIX_SEPARATOR.toString(), MESSAGE_INVALID_FORMAT);
 
         // only space and tag separator written
-        assertParseFailure(parser, EMPTY_TAG_DESC, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, EMPTY_TAG_INPUT, MESSAGE_INVALID_FORMAT);
 
         // no index specified
-        assertParseFailure(parser, VALID_TAG_DESC_ONE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, VALID_TAG_INPUT_ONE, MESSAGE_INVALID_FORMAT);
 
         // no tags specified
         assertParseFailure(parser, "1", AddTagCommand.MESSAGE_NO_TAGS);
@@ -56,30 +56,30 @@ public class AddTagCommandParserTest {
     @Test
     public void parse_invalidPreamble_failure() {
         // negative index
-        assertParseFailure(parser, "-5" + VALID_TAG_DESC_ONE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "-5" + VALID_TAG_INPUT_ONE, MESSAGE_INVALID_FORMAT);
 
         // zero index
-        assertParseFailure(parser, "0" + VALID_TAG_DESC_ONE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "0" + VALID_TAG_INPUT_ONE, MESSAGE_INVALID_FORMAT);
 
         // invalid arguments being parsed as preamble
-        assertParseFailure(parser, "1 some random string" + VALID_TAG_DESC_ONE, MESSAGE_INVALID_FORMAT);
+        assertParseFailure(parser, "1 some random string" + VALID_TAG_INPUT_ONE, MESSAGE_INVALID_FORMAT);
     }
 
     @Test
     public void parse_invalidTags_failure() {
-        assertParseFailure(parser, "1" + INVALID_TAG_DESC, Tag.MESSAGE_CONSTRAINTS); // invalid tag
+        assertParseFailure(parser, "1" + INVALID_TAG_INPUT, Tag.MESSAGE_CONSTRAINTS); // invalid tag
 
-        assertParseFailure(parser, "1" + EMPTY_TAG_DESC, AddTagCommand.MESSAGE_NO_TAGS); // empty tag
+        assertParseFailure(parser, "1" + EMPTY_TAG_INPUT, AddTagCommand.MESSAGE_NO_TAGS); // empty tag
 
         // valid tag + empty tag
-        assertParseFailure(parser, "1" + VALID_TAG_DESC_ONE + EMPTY_TAG_DESC, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + VALID_TAG_INPUT_ONE + EMPTY_TAG_INPUT, Tag.MESSAGE_CONSTRAINTS);
 
         // empty tag + valid tag
-        assertParseFailure(parser, "1" + EMPTY_TAG_DESC + VALID_TAG_DESC_ONE, Tag.MESSAGE_CONSTRAINTS);
+        assertParseFailure(parser, "1" + EMPTY_TAG_INPUT + VALID_TAG_INPUT_ONE, Tag.MESSAGE_CONSTRAINTS);
 
         // valid tag + empty tag + valid tag
         assertParseFailure(parser, "1"
-                + VALID_TAG_DESC_ONE + EMPTY_TAG_DESC + VALID_TAG_DESC_ONE, Tag.MESSAGE_CONSTRAINTS);
+                + VALID_TAG_INPUT_ONE + EMPTY_TAG_INPUT + VALID_TAG_INPUT_ONE, Tag.MESSAGE_CONSTRAINTS);
     }
 
     @Test
@@ -90,7 +90,7 @@ public class AddTagCommandParserTest {
         tags.add(new Tag(VALID_TAG_ONE));
         AddTagCommand expectedCommand = new AddTagCommand(targetIndex, tags);
 
-        String userInput = targetIndex.getOneBased() + VALID_TAG_DESC_ONE;
+        String userInput = targetIndex.getOneBased() + VALID_TAG_INPUT_ONE;
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -103,7 +103,7 @@ public class AddTagCommandParserTest {
         tags.add(new Tag(VALID_TAG_TWO));
         AddTagCommand expectedCommand = new AddTagCommand(targetIndex, tags);
 
-        String userInput = targetIndex.getOneBased() + VALID_TAG_DESC_ONE + VALID_TAG_DESC_TWO;
+        String userInput = targetIndex.getOneBased() + VALID_TAG_INPUT_ONE + VALID_TAG_INPUT_TWO;
         assertParseSuccess(parser, userInput, expectedCommand);
     }
 
@@ -120,7 +120,7 @@ public class AddTagCommandParserTest {
 
         String userInput =
                 INDEX_FIRST_PERSON.getOneBased() + PREFIX_COMMA.toString() + INDEX_SECOND_PERSON.getOneBased()
-                + VALID_TAG_DESC_ONE + VALID_TAG_DESC_TWO;
+                + VALID_TAG_INPUT_ONE + VALID_TAG_INPUT_TWO;
         System.out.println(userInput);
         assertParseSuccess(parser, userInput, expectedCommand);
     }
