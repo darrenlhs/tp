@@ -10,6 +10,7 @@ participant ":AddressBookParser" as AddressBookParser LOGIC_COLOR
 participant ":EditCommandParser" as EditCommandParser LOGIC_COLOR
 participant ":ArgumentTokenizer" as ArgumentTokenizer LOGIC_COLOR
 participant "e:EditCommand" as EditCommand LOGIC_COLOR
+participant ":EditPersonDescriptor" as EditPersonDescriptor LOGIC_COLOR
 participant "r:CommandResult" as CommandResult LOGIC_COLOR
 end box
 
@@ -33,11 +34,26 @@ return ArgumentMultimap
 
 EditCommandParser -> EditCommandParser : setEditPersonDescriptor(ArgumentMultimap)
 activate EditCommandParser
-return EditPersonDescriptor
 
+create EditPersonDescriptor
+
+note right of EditPersonDescriptor
+EditPersonDescriptor is a
+nested class within EditCommand.
+end note
+
+EditCommandParser -> EditPersonDescriptor
+activate EditPersonDescriptor
+return
+
+EditCommandParser -> EditPersonDescriptor : setName, setPhone, ...
+activate EditPersonDescriptor
+return 
+
+return editPersonDescriptor
 
 create EditCommand
-EditCommandParser -> EditCommand : New EditCommand(index, EditPersonDescriptor)
+EditCommandParser -> EditCommand : New EditCommand(index, editPersonDescriptor)
 activate EditCommand
 EditCommand --> EditCommandParser : e
 deactivate EditCommand
@@ -55,13 +71,20 @@ deactivate AddressBookParser
 LogicManager -> EditCommand : execute(m)
 activate EditCommand
 
-EditCommand -> Model : getFilteredPersonList
+EditCommand -> Model : getFilteredPersonList()
 activate Model
 return List<Person>
 
-EditCommand -> EditCommand : createEditedPerson
+EditCommand -> EditCommand : createEditedPerson(personToEdit, editPersonDescriptor)
 activate EditCommand
+
+EditCommand -> EditPersonDescriptor
+activate EditPersonDescriptor
+EditPersonDescriptor --> EditCommand
+deactivate EditPersonDescriptor
 return editedPerson
+
+
 
 EditCommand -> Model : editPerson(personToEdit, editedPerson)
 activate Model
