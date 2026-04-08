@@ -19,13 +19,13 @@ import seedu.address.model.tag.Tag;
 
 /**
  * Edits the specified tag for the persons identified
- * using their displayed indices from the contact list, or globally.
+ * using their indices from the displayed contact list, or globally.
  */
 public class EditTagCommand extends Command {
     public static final String COMMAND_WORD = "edittag";
 
     public static final String MESSAGE_FORMAT = "Formats:\n"
-                    + "1. " + COMMAND_WORD + " INDEX[,INDEX]... "
+                    + "1. " + COMMAND_WORD + " INDEX [,INDEX]... "
                     + PREFIX_OLDTAG + "OLD_TAG "
                     + PREFIX_NEWTAG + "NEW_TAG\n"
                     + "Note: INDEX must be a positive integer\n"
@@ -36,8 +36,8 @@ public class EditTagCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the specified tag for the person(s) "
-            + "identified by their index number(s) in the displayed contact list, "
-            + "or globally in the current displayed contact list using \"all\".\n"
+            + "identified by their index number(s) in the displayed contact list.\n"
+            + "You can also edit the tag globally in the displayed contact list using \"all\".\n"
             + MESSAGE_FORMAT;
 
     public static final String MESSAGE_EDIT_TAG_SUCCESS_INDICES =

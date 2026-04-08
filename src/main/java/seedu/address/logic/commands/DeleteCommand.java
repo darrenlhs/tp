@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes people identified using their indices from the current displayed contact list.
+ * Deletes people identified using their indices from the displayed contact list.
  */
 public class DeleteCommand extends Command {
 

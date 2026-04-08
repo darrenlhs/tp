@@ -28,7 +28,7 @@ public class AddTagCommand extends Command {
     public static final String COMMAND_WORD = "addtag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Adds tags to one or more persons identified by their indices.\n"
+            + ": Adds tags to one or more persons identified by their indices in the displayed contact list.\n"
             + "Multiple persons can be specified using commas, and multiple tags using '/'.\n"
             + "Format: " + COMMAND_WORD + " INDEX [,INDEX]... "
             + PREFIX_SEPARATOR + "TAG [" + PREFIX_SEPARATOR + "TAG]...\n"

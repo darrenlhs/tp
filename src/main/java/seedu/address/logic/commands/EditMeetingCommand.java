@@ -38,15 +38,16 @@ public class EditMeetingCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the details of the meeting identified by its index in the displayed meeting list.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Participants can be added or removed using their indices in the contact list.\n"
-            + "E.g. " + PREFIX_ADD_CONTACT_TO_MEETING_INDEX + "2 adds the 2nd person to the meeting.\n"
-            + "Format: " + COMMAND_WORD + " MEETING_INDEX (must be a positive integer)"
+            + "Participants can be added or removed using their indices in the displayed contact list. "
+            + "E.g. " + PREFIX_ADD_CONTACT_TO_MEETING_INDEX
+            + "2 adds the 2nd person in the displayed contact list to the meeting.\n"
+            + "Format: " + COMMAND_WORD + " MEETING_INDEX "
             + "(" + PREFIX_MEETING_DESCRIPTION + "DESCRIPTION) "
             + "(" + PREFIX_MEETING_DATE + "DATE) "
             + "(" + PREFIX_ADD_CONTACT_TO_MEETING_INDEX
-            + "CONTACT_INDEX (must be a positive integer) [, CONTACT_INDEX]...) "
+            + "CONTACT_INDEX [, CONTACT_INDEX]...) "
             + "(" + PREFIX_DELETE_CONTACT_FROM_MEETING_INDEX
-            + "CONTACT_INDEX (must be a positive integer) [, CONTACT_INDEX]...)\n"
+            + "CONTACT_INDEX [, CONTACT_INDEX]...)\n"
             + "Note: Date must be in YYYY-MM-DD format.\n"
             + "Note: MEETING_INDEX and CONTACT_INDEX must be a positive integer\n"
             + "Example: " + COMMAND_WORD + " 2 "

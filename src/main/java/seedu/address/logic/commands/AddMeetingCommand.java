@@ -25,7 +25,7 @@ public class AddMeetingCommand extends Command {
     public static final String COMMAND_WORD = "addmeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting "
-            + "to zero or more specified persons by their indices.\n"
+            + "to zero or more specified persons by their indices in the displayed contact list.\n"
             + "Format: " + COMMAND_WORD + " [CONTACT_INDEX] [,CONTACT_INDEX]... "
             + PREFIX_MEETING_DESCRIPTION + "DESCRIPTION "
             + PREFIX_MEETING_DATE + "DATE\n"

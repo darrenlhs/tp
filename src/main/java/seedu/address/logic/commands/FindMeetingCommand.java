@@ -19,7 +19,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
 
 /**
- * Finds and lists all meetings in the current displayed meeting list whose specific
+ * Finds and lists all meetings in the displayed meeting list whose specific
  * parameters contains any of the argument keywords. Keyword matching is case-insensitive.
  */
 public class FindMeetingCommand extends Command {
@@ -39,8 +39,8 @@ public class FindMeetingCommand extends Command {
                     + PREFIX_CONTACT_INDICES + "1,2,3";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds meetings whose fields match any of the given keywords"
-            + " (case-insensitive) in the current meeting list.\n"
+            + ": Finds meetings whose specified fields have any of the given substrings"
+            + " (case-insensitive) in the displayed meeting list.\n"
             + MESSAGE_FORMAT;
 
     public static final String MESSAGE_NO_PARAMS_FOUND =

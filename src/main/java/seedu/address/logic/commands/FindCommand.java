@@ -15,10 +15,11 @@ public class FindCommand extends Command {
 
     public static final String COMMAND_WORD = "find";
 
-    public static final String MESSAGE_USAGE = COMMAND_WORD + ": Searches in the displayed contact list for those"
-            + " that match any one of the given keywords.\n"
-            + "You can search using a global substring across name, phone, and email fields.\n"
-            + "Alternatively, you can specify fields to search.\n"
+    public static final String MESSAGE_USAGE = COMMAND_WORD
+            + ": Finds people in the displayed contact list whose specified fields "
+            + "contain any of the given substrings (case-insensitive).\n"
+            + "You may also perform a global find by omitting field prefixes and providing a single substring, "
+            + "which will be matched against the name, phone, and email fields.\n"
             + "Global Find: Format: " + COMMAND_WORD + " SEARCH_SUBSTRING\n"
             + "Example: " + COMMAND_WORD + " John\n"
             + "Field-Specific Find: Format: " + COMMAND_WORD + " (n/NAME)... (p/PHONE)... (e/EMAIL)...\n"

@@ -15,7 +15,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Finds for the specified tags in the current displayed contact list
+ * Finds for the specified tags in the displayed contact list
  * and displays the resulting contact list.
  */
 public class FindTagCommand extends Command {
@@ -27,7 +27,7 @@ public class FindTagCommand extends Command {
                     + PREFIX_SEPARATOR + "TAG]...";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Finds contacts that contain any of the specified tags in the current displayed contact list.\n"
+            + ": Finds contacts that contain any of the specified tags in the displayed contact list.\n"
             + MESSAGE_FORMAT + "\n"
             + "Example: " + COMMAND_WORD + " "
             + PREFIX_SEPARATOR + "classmates "

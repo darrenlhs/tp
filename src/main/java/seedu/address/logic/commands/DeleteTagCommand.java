@@ -19,13 +19,13 @@ import seedu.address.model.person.Person;
 import seedu.address.model.tag.Tag;
 
 /**
- * Deletes the specified tags from the persons identified using their displayed indices from the contact list.
+ * Deletes the specified tags from the persons identified using their indices from the displayed contact list.
  */
 public class DeleteTagCommand extends Command {
     public static final String COMMAND_WORD = "deletetag";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
-            + ": Deletes tag(s) from one or more persons identified by their indices.\n"
+            + ": Deletes tag(s) from one or more persons identified by their indices in the displayed contact list.\n"
             + "Format: " + COMMAND_WORD + " INDEX [,INDEX]... "
             + PREFIX_SEPARATOR + "TAG [" + PREFIX_SEPARATOR + "TAG]...\n"
             + "Note: INDEX must be a positive integer\n"
