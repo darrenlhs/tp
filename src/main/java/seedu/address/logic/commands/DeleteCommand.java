@@ -32,9 +32,9 @@ public class DeleteCommand extends Command {
     private final Set<Index> targetIndices;
 
     /**
-     * Creates an DeleteCommand to delete the specified {@code Person}s.
+     * Creates a DeleteCommand to delete the specified {@code Person}s.
      *
-     * @param targetIndices Indexes of persons to add the meeting to.
+     * @param targetIndices Indexes of persons to delete.
      */
     public DeleteCommand(Set<Index> targetIndices) {
         requireNonNull(targetIndices);

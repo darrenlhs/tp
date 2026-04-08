@@ -29,7 +29,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
 
 /**
- * Edits the details of existing meetings in the meeting list.
+ * Edits the details of an existing meeting in the meeting list.
  */
 public class EditMeetingCommand extends Command {
 
@@ -65,7 +65,7 @@ public class EditMeetingCommand extends Command {
     /**
      * Creates an EditMeetingCommand to edit the specified {@code Meeting}.
      *
-     * @param meetingIndex The index of the meeting in the list to edit.
+     * @param meetingIndex The index of the meeting in the displayed meeting list to edit.
      * @param editMeetingDescriptor The details to edit the meeting with.
      */
     public EditMeetingCommand(Index meetingIndex, EditMeetingDescriptor editMeetingDescriptor) {
