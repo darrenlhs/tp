@@ -268,12 +268,12 @@ For all use cases below, the **System** is **Internlink** and the **Actor** is t
 3. InternLink saves the contact.
 4. InternLink updates the contact list.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
 * 2a. The contact / meeting already exists.
-    * 2a1. InternLink notifies the user of the duplicate contact / meeting error.
+    * 2a1. InternLink notifies the user of the duplicate person / meeting error.
 
       Use case resumes at step 1.
 
@@ -287,12 +287,12 @@ For all use cases below, the **System** is **Internlink** and the **Actor** is t
 3. InternLink deletes the specified contact(s) / meeting(s).
 4. InternLink updates the contact list.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
-* 3a. One or more of the specified indices are invalid contact(s) / meeting(s).
-    * 3a1. InternLink notifies the user of the invalid index error.
+* 2a. One or more of the specified indices are invalid contact(s) / meeting(s).
+    * 2a1. InternLink notifies the user of the invalid index error.
 
       Use case resumes at step 1.
 
@@ -301,16 +301,16 @@ For all use cases below, the **System** is **Internlink** and the **Actor** is t
 
 **MSS**
 
-1. User requests to list contacts.
-2. InternLink retrieves all contacts.
-3. InternLink displays the contact list.
+1. User requests to list contacts / meetings.
+2. InternLink retrieves all contacts / meetings.
+3. InternLink displays the contact / meeting list.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
-* 2a. There are no contacts /meetings stored.
-    * 2a1. InternLink displays an empty list.
+* 3a. There are no contacts / meetings stored.
+    * 3a1. InternLink displays an empty list.
 
       Use case ends.
 
@@ -323,9 +323,8 @@ For all use cases below, the **System** is **Internlink** and the **Actor** is t
 2. InternLink identifies the specified contact in the current displayed list.
 3. InternLink checks whether the updated contact would duplicate an existing contact.
 4. InternLink updates the contact.
-5. InternLink updates the contact list.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
@@ -334,8 +333,8 @@ For all use cases below, the **System** is **Internlink** and the **Actor** is t
 
       Use case resumes at step 1.
 
-* 4a. The updated contact would duplicate an existing contact.
-    * 4a1. InternLink notifies the user of the duplicate contact error.
+* 3a. The updated contact would duplicate an existing contact (same name, email and phone).
+    * 3a1. InternLink notifies the user of the duplicate person error.
 
       Use case resumes at step 1.
 
@@ -344,12 +343,12 @@ For all use cases below, the **System** is **Internlink** and the **Actor** is t
 **MSS**
 
 1. User requests to edit a meeting by index, providing the updated meeting details.
-2. InternLink identifies the specified meeting.
-3. InternLink checks whether the updated meeting would duplicate an existing meeting.
-4. InternLink updates the meeting.
-5. InternLink updates the meeting list.
+2. InternLink identifies the specified meeting in the current displayed meeting list.
+3. Internlink identifies the specified contacts in the current displayed contact list.
+4. InternLink checks whether the updated meeting would duplicate an existing meeting.
+5. InternLink updates the meeting.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
@@ -363,12 +362,18 @@ For all use cases below, the **System** is **Internlink** and the **Actor** is t
 
       Use case resumes at step 1.
 
-* 3b. At least one specified contacts to remove is not a participant in the meeting.
-    * 3b1. InternLink notifies the user of the error.
+* 3b. One or more specified contacts to remove are not participants in the meeting.
+    * 3b1. The contacts were specified as added in the same command (e.g., `add/1 del/1`).
+        * InternLink proceeds without those contacts.
 
-      Use case resumes at step 1.
+          Use case resumes at step 4.
 
-* 4a. The updated meeting would duplicate an existing meeting.
+    * 3b2. The contacts were not added in the same command.
+        * InternLink notifies the user of the error.
+
+          Use case resumes at step 1.
+
+* 4a. The updated meeting would duplicate an existing meeting (same description and date).
     * 4a1. InternLink notifies the user of the duplicate meeting error.
 
       Use case resumes at step 1.
@@ -378,56 +383,57 @@ For all use cases below, the **System** is **Internlink** and the **Actor** is t
 
 **MSS**
 
-1. User requests to find contacts and provides search predicates as input.
-2. InternLink checks the current displayed contact list for contacts that match.
-3. InternLink filters the current displayed contact list based on those that match.
-4. InternLink displays the matching contacts.
+1. User requests to find contacts and provides search input.
+2. InternLink evaluates the current displayed contact list for contacts that have the input as substrings.
+3. InternLink filters the displayed contact list to include only matching contacts.
+4. InternLink displays the filtered list of contacts.
 
 Use case ends.
 
-Extensions:
+**Extensions:**
 
 * 1a. User provides prefix-based input (e.g. `n/NAME`, `e/EMAIL`).
-    * 1a1. InternLink filters contacts based on the specified fields.
-    
-      Use case resumes from step 5.
+    * 1a1. InternLink restricts the search to the specified fields based on the provided prefixes.
 
-* 1b. User provides a keyword-based input (without prefixes).
-    * 1b1. InternLink searches for contacts that match the keyword in all of its fields.
-      
-      Use case resumes from step 5.
+      Use case resumes at step 2.
 
-* 4a. No contacts match the search criteria.
-    * 4a1. InternLink displays an empty filtered contact list.
-    
+* 1b. User provides keyword-based input (without prefixes).
+    * 1b1. InternLink treats the entire input as a single substring that is searched in contacts' name, phone, and email.
+
+      Use case resumes at step 2.
+
+* 4a. No contacts in the displayed contact list match the search criteria.
+    * 4a1. InternLink displays an empty contact list.
+
       Use case ends.
 
 **Use case: UC7 - Find meetings**
 
 **MSS**
 
-1. User requests to find meetings and provides search input (e.g. description, date, or participant indices).
-2. InternLink checks the current displayed meeting list for meetings that match the specified input.
-3. If participant indices are provided, InternLink filters the meeting list to show only meetings that contain **all** specified participants.
-4. InternLink further filters the meeting list to satisfy any other specified criteria, such as description or date.
-5. InternLink displays the matching meetings.
+1. User requests to find meetings and provides search inputs (e.g. description, date, or participant indices).
+2. InternLink evaluates the current meeting list based on the provided inputs:
+    - If participant indices are provided, meetings containing all specified participants are considered matches.
+    - If description or date prefixes are provided (e.g. `d/`, `dt/`), meetings whose fields contain the specified substrings are considered matches.
+3. InternLink filters the meeting list to include meetings that match any of the specified prefixes.
+4. InternLink displays the filtered list of meetings.
 
 Use case ends.
 
-Extensions:
+**Extensions:**
 
 * 2a. One or more specified participant indices are invalid.
     * 2a1. InternLink notifies the user of the invalid index error.
 
-      Use case ends.
+      Use case resumes at step 1.
 
-* 3a. A meeting contains only some, but not all, of the specified participants.
-    * 3a1. InternLink does not include that meeting in the filtered meeting list.
+* 3a. A meeting does not satisfy any of the specified prefix conditions.
+    * 3a1. InternLink excludes the meeting from the filtered meeting list.
 
       Use case resumes at step 4.
 
-* 5a. No meetings match the specified criteria.
-    * 5a1. InternLink displays an empty filtered meeting list.
+* 4a. No meetings in the displayed meeting list match the specified criteria.
+    * 4a1. InternLink displays an empty meeting list.
 
       Use case ends.
 
@@ -440,7 +446,7 @@ Extensions:
 3. InternLink adds the specified tag(s) to the selected contact(s).
 4. InternLink updates the contact list.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
@@ -448,6 +454,12 @@ Extensions:
     * 2a1. InternLink notifies the user of the invalid index error.
 
       Use case resumes at step 1.
+
+* 3a. One or more specified tags already exist on the selected contacts.
+    * 3a1. InternLink ignores the duplicate tags and adds only new tags, if any.
+    * 3a2. InternLink reports the assignment of all specified tags.
+
+      Use case resumes at step 4.
 
 **Use case: UC9 - Find contacts by tag**
 
@@ -458,17 +470,18 @@ Extensions:
 3. InternLink filters the contact list to show matching contacts.
 4. InternLink displays the matching contacts.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
 * 2a. None of the specified tags exist in the displayed contact list.
     * 2a1. InternLink notifies the user that no matching tags were found.
 
-      Use case ends.
+      Use case resumes at step 1.
 
-* 3a. Some specified tags are invalid.
-    * 3a1. InternLink ignores the invalid tags and proceeds with valid ones.
+* 2a. Some specified tags are invalid.
+    * 2a1. InternLink ignores the invalid tags and proceeds searching for valid ones.
+    * 2a2: Internlink reports all results match at least one of the given tags.
 
       Use case resumes at step 3.
 
@@ -481,7 +494,7 @@ Extensions:
 3. InternLink removes the specified tag(s) from the selected contact(s).
 4. InternLink updates the contact list.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
@@ -493,23 +506,24 @@ Extensions:
 * 3a. None of the specified tags exist on any of the selected contacts.
     * 3a1. InternLink notifies the user that the tags are not found.
 
-      Use case ends.
+      Use case resumes at step 1.
 
 * 3b. Some specified tags do not exist on the selected contacts.
-    * 3b1. InternLink ignores the invalid tags and removes only valid ones.
+    * 3b1. InternLink ignores tags that are not present on the selected contacts and removes only applicable tags, if any.
+    * 3b2. InternLink reports the attempted deletion of all specified tags.
 
-      Use case resumes at step 3.
+      Use case resumes at step 4.
 
 **Use case: UC11 - Star or unstar a contact**
 
 **MSS**
 
-1. User requests to star or unstar a contact by index.
-2. InternLink identifies the specified contact.
+1. User requests to star or unstar a contact by contact indexes.
+2. InternLink identifies the specified contacts.
 3. InternLink updates the contact’s starred status (starred or unstarred).
 4. InternLink updates the contact list.
 
-   Use case ends.
+Use case ends.
 
 **Extensions**
 
@@ -517,6 +531,17 @@ Extensions:
     * 2a1. InternLink notifies the user of the invalid index error.
 
       Use case resumes at step 1.
+    * 
+* 2a. One or more specified contacts are already starred / unstarred.
+    * 2a1. All specified contacts are already in the target state (starred / unstarred).
+        * InternLink notifies the user that all selected contacts are already starred / unstarred.
+
+          Use case resumes at step 1.
+
+    * 2a2. Only some specified contacts are already in the target state.
+        * InternLink ignores those contacts and updates only the valid ones.
+
+          Use case resumes at step 3.
 
 ### Non-Functional Requirements
 
@@ -529,19 +554,66 @@ Extensions:
 7. The application should automatically save changes after every successful command.
 8. The application should prevent data corruption even if the program closes unexpectedly.
 9. The application should try to recover all non-corrupted lines in the event of a data corruption.
-10. All contacts and interaction logs should be persistently stored between sessions.
 
 ### Glossary
 
 * **Mainstream OS**: Windows, Linux, Unix, MacOS.
-* **Contact**: A person stored in the addressbook, typically a recruiter, company representative, or professional connection whom the student met during networking or career events.
-* **Tag**: A label assigned to a contact to categorize or organize them. Examples: ```Google```, ```SWE```, ```CareerFair2026```, ```Referral```. A contact may contain multiple tags.
-* **Multi-tagging**: The ability to assign multiple tags to a single contact so that the contact can be categorized under multiple attributes such as company, role, or networking event.
-* **Interaction Log**: A timestamped record of communication or interaction between the student and a contact. Examples include: interview, email, phone call, referral, career fair conversation.
-* **Interaction Notes**: A single record inside the interaction log, containing: interaction type, timestamp, optional notes.
-* **Meeting**: An upcoming event / meeting with a contact.
+
+* **Contact**: A person stored in the contact list, representing an individual such as a friend, colleague, or acquaintance.
+
+* **Participant**: A contact associated with a meeting. Participant cards can be seen under a meeting, representing the individuals involved in that meeting.
+
+* **Tag**: A label assigned to a contact to categorize or organize them. Examples: `friends`, `cs`, `school`, `project`. A contact may have multiple tags.
+
+* **Meeting**: An event scheduled in the application, which may involve zero or more contacts. Each meeting contains details such as a description and a date.
+
+* **Contact List**: The collection of all contacts currently stored in the application.
+
+* **Displayed Contact List**: The current filtered view of contacts shown to the user (e.g., after using `find` or `findtag`).
+
+* **Meeting List**: The collection of all meetings stored in the application.
+
+* **Displayed Meeting List**: The current filtered view of meetings shown to the user (e.g., after using `findmeeting`).
+
+* **Index**: A number assigned to each item in a displayed list (contacts or meetings), used to reference that item in commands.
+
+* **Prefix**: A marker used in commands to indicate a specific field (e.g., `n/`, `p/`, `e/`, `t/`, `d/`, `dt/`).
 
 --------------------------------------------------------------------------------------------------------------------
+## Appendix: Effort
+
+### Overview
+
+This project required a moderate to high level of effort. Compared to AB3, which manages only a single entity type (Person), adding an additional entity type of Meetings
+required us to design and integrate a new set of features while ensuring compatibility with the existing system.
+
+### Extending the Architecture
+
+One major challenge was implementing support for multiple entity types within a structure originally designed for only one. This included:
+- Designing and implementing a new Meeting entity
+- Extending the model, logic, and storage components to support meetings
+- Creating a separate UI view for meetings and enabling seamless switching between Contacts and Meetings
+
+### Entity Relationships
+
+Another key challenge was creating references between entities, specifically linking contacts to meetings. Meetings can involve multiple contacts, which required us to:
+- Store and manage references to existing Person objects within Meeting objects, and ensure it remains consistent when contacts are edited or deleted
+- Adapt the storage layer so that these relationships can be saved and reconstructed accurately from JSON
+
+### Understanding and Adapting AB3
+
+A further difficulty was understanding and adapting the internal architecture of AB3. Much of the effort involved reverse-engineering how entities are handled across layers (Model, Logic, Storage), especially:
+- How data is parsed and validated
+- How commands interact with the model
+- How data is persisted in JSON format
+
+We had to replicate and adapt these mechanisms for the new Meeting entity, including modifying the JSON storage structure (`InternlinkData.json`) to support multiple entity types while maintaining data integrity.
+
+### Conclusion
+
+Overall, while AB3 provided a strong foundation, the effort required to extend it into a multi-entity system with additional UI functionality was considerable. As a team of four, we worked collaboratively to design, implement, and refine the application to the best of our abilities.
+
+---
 
 ## **Appendix: Instructions for manual testing**
 
@@ -558,7 +630,7 @@ testers are expected to do more *exploratory* testing.
 
    1. Download the jar file and copy into an empty folder
 
-   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts. The window size may not be optimum.
+   1. Double-click the jar file Expected: Shows the GUI with a set of sample contacts and meetings. The window size may not be optimum.
 
 1. Saving window preferences
 
@@ -567,29 +639,195 @@ testers are expected to do more *exploratory* testing.
    1. Re-launch the app by double-clicking the jar file.<br>
        Expected: The most recent window size and location is retained.
 
-1. _{ more test cases …​ }_
+---
 
-### Deleting a person
+### Getting started
 
-1. Deleting a person while all persons are being shown
+1. Launch the application as seen above.
 
-   1. Prerequisites: List all persons using the `list` command. Multiple persons in the list.
 
-   1. Test case: `delete 1`<br>
-      Expected: First contact is deleted from the list. Details of the deleted contact shown in the status message. Timestamp in the status bar is updated.
+2. Use the help command: `help`  
+   Expected: A help message is displayed that provides a link to the user guide.
 
-   1. Test case: `delete 0`<br>
-      Expected: No person is deleted. Error details shown in the status message. Status bar remains the same.
+---
 
-   1. Other incorrect delete commands to try: `delete`, `delete x`, `...` (where x is larger than the list size)<br>
-      Expected: Similar to previous.
+### Adding and managing contacts
 
-1. _{ more test cases …​ }_
+1. Add a new contact with minimal required fields: `add n/Alice Tan p/91234567`  
+   Expected: A new contact named Alice Tan is added with the phone number shown.
+
+
+2. Try adding a contact without a name: `add p/91234567`  
+   Expected: Error message indicating invalid command format.
+
+
+3. Add another contact with tags: `add n/Bob Lee e/bob@example.com t/friend t/cs`  
+   Expected: Contact is added with email and tags.
+
+
+4. Edit an existing contact: `edit 1 p/98765432 e/alice@new.com`  
+   Expected: Contact 1’s phone and email are updated.
+
+
+5. Try editing without specifying any fields: `edit 1`  
+   Expected: Error message indicating that at least one field must be provided.
+
+---
+
+### Working with tags and favourites
+
+1. Add tags to multiple contacts: `addtag 1, 2 / friends / cs`  
+   Expected: Tags are added to both contacts.
+
+
+2. Attempt to use an invalid index: `addtag 0 / friends`  
+   Expected: Error message indicating invalid index.
+
+
+3. Rename a tag: `edittag 1, 2 o/cs n/computer science`  
+   Expected: Tag is updated for the specified contacts.
+
+
+4. Try editing a tag without specifying the old tag: `edittag 1, 2 n/computer science`  
+   Expected: Error message due to missing old tag.
+
+
+5. Remove a tag: `deletetag 1 / friends`  
+   Expected: Tag is removed from contact 1.
+
+
+6. Try an incorrectly formatted delete tag command: `deletetag / friends 1`  
+   Expected: Error message indicating invalid format.
+
+
+7. Mark a contact as starred: `star 2`  
+   Expected: Contact 2 is marked as starred.
+
+
+8. Try starring with an invalid index: `star 0`  
+   Expected: Error message indicating invalid index.
+
+
+9. Remove starred marking: `unstar 2`  
+   Expected: Contact 2 is no longer marked as starred.
+
+---
+
+### Searching and filtering contacts
+
+1. List all contacts: `list`  
+   Expected: Full contact list is displayed.
+
+
+2. Search for contacts globally: `find Alice`  
+   Expected: Contacts matching "Alice" are shown.
+
+
+3. Try searching without a keyword: `find`  
+   Expected: Error message indicating missing search term.
+
+
+4. Search using specific fields: `find n/Alice p/9876`  
+   Expected: Contacts matching the name or phone are shown.
+
+
+5. Try mixing global and field search: `find Alice n/Bob`  
+   Expected: Error message due to invalid command format.
+
+
+6. Search by tags: `findtag / friends`  
+   Expected: Contacts with the tag are displayed.
+
+
+7. Try searching without specifying tags: `findtag`  
+   Expected: Error message indicating missing tags.
+
+---
+
+### Managing meetings
+
+1. Click the tab to switch from the Contacts view to the Meetings view.
+
+
+2. Create a meeting with contacts: `addmeeting 1, 2 d/Project meeting dt/2026-05-26`  
+   Expected: Meeting is added with the given details.
+
+
+3. Try using an invalid date format: `addmeeting d/Project meeting dt/26-05-2026`  
+   Expected: Error message indicating invalid date format.
+
+
+4. Edit the meeting: `editmeeting 1 d/Updated meeting dt/2026-06-01`  
+   Expected: Meeting details are updated.
+
+
+5. Try editing with an invalid date: `editmeeting 1 dt/01-06-2026`  
+   Expected: Error message indicating invalid date format.
+
+
+6. List all meetings: `listmeeting`  
+   Expected: All meetings are displayed.
+
+
+7. Search for meetings: `findmeeting d/project`  
+   Expected: Matching meetings are shown.
+
+
+8. Try searching with an invalid date: `findmeeting dt/01-06-2026`  
+   Expected: Error message indicating invalid date format.
+
+
+9. Delete a meeting: `deletemeeting 1`  
+   Expected: Meeting at index 1 is deleted.
+
+
+10. Try deleting with an invalid index: `deletemeeting 999`  
+    Expected: Error message indicating invalid index.
+
+---
+
+### Cleaning up
+
+1. Delete a contact: `delete 1`  
+   Expected: Contact at index 1 is removed.
+
+
+2. Try deleting with an invalid index: `delete 999`  
+   Expected: Error message indicating invalid index.
+
+
+3. Clear all data: `clear`  
+   Expected: All contacts and meetings are removed.
+
+
+4. Exit the application: `exit`  
+   Expected: Application closes successfully.
+
+---
 
 ### Saving data
 
-1. Dealing with missing/corrupted data files
+#### Missing file test
 
-   1. _{explain how to simulate a missing/corrupted file, and the expected behavior}_
+1. Close the application.
 
-1. _{ more test cases …​ }_
+
+2. Delete `data/InternlinkData.json`.
+
+
+3. Re-launch the application.
+
+Expected: The application starts with sample data and logs that the file is missing.
+
+#### Corrupted file test
+
+1. Close the application.
+
+
+2. Open `data/InternlinkData.json` and introduce invalid JSON (e.g. remove a closing bracket).
+
+
+3. Re-launch the application.
+
+Expected: The application detects the corrupted file, clears all data, and starts with an empty dataset,
+logging that the datafile cannot be read.
