@@ -52,7 +52,7 @@ public class AddTagCommandParserTest {
         assertParseFailure(parser, VALID_TAG_INPUT_ONE, MESSAGE_INVALID_FORMAT);
 
         // no tags specified
-        assertParseFailure(parser, "1", AddTagCommand.MESSAGE_NO_TAGS);
+        assertParseFailure(parser, "1", MESSAGE_INVALID_FORMAT);
     }
 
     @Test
