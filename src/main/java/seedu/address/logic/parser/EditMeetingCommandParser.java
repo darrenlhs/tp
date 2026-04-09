@@ -33,7 +33,6 @@ public class EditMeetingCommandParser implements Parser<EditMeetingCommand> {
                 args, PREFIX_MEETING_DESCRIPTION, PREFIX_MEETING_DATE,
                 PREFIX_ADD_CONTACT_TO_MEETING_INDEX, PREFIX_DELETE_CONTACT_FROM_MEETING_INDEX);
 
-        // 1. If entire input is empty
         if (args.trim().isEmpty()) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT,
                     EditMeetingCommand.MESSAGE_USAGE));

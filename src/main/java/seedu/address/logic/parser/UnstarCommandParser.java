@@ -22,13 +22,8 @@ public class UnstarCommandParser implements Parser<UnstarCommand> {
      * @throws ParseException If the user input does not conform the expected format.
      */
     public UnstarCommand parse(String args) throws ParseException {
-        try {
-            Set<Index> indices = ParserUtil.parseIndices(args, CONTACT_TYPE, UnstarCommand.MESSAGE_USAGE);
-            return new UnstarCommand(indices);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, UnstarCommand.MESSAGE_USAGE), pe);
-        }
+        Set<Index> indices = ParserUtil.parseIndices(args, CONTACT_TYPE, UnstarCommand.MESSAGE_USAGE);
+        return new UnstarCommand(indices);
     }
 
 }

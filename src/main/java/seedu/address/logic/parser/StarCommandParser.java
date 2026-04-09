@@ -22,13 +22,7 @@ public class StarCommandParser implements Parser<StarCommand> {
      * @throws ParseException If the user input does not conform the expected format.
      */
     public StarCommand parse(String args) throws ParseException {
-        try {
-            Set<Index> indices = ParserUtil.parseIndices(args, CONTACT_TYPE, StarCommand.MESSAGE_USAGE);
-            return new StarCommand(indices);
-        } catch (ParseException pe) {
-            throw new ParseException(
-                    String.format(MESSAGE_INVALID_COMMAND_FORMAT, StarCommand.MESSAGE_USAGE), pe);
-        }
+        Set<Index> indices = ParserUtil.parseIndices(args, CONTACT_TYPE, StarCommand.MESSAGE_USAGE);
+        return new StarCommand(indices);
     }
-
 }

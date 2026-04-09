@@ -28,9 +28,9 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
         requireNonNull(args);
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_SEPARATOR);
 
-        boolean areSeperatorsMissing = argMultimap.getPreamble().isEmpty();
+        boolean areSeparatorsMissing = argMultimap.getPreamble().isEmpty();
 
-        if (areSeperatorsMissing) {
+        if (areSeparatorsMissing) {
             throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, DeleteTagCommand.MESSAGE_USAGE));
         }
 
