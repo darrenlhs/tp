@@ -21,7 +21,7 @@ public class FindCommandParser implements Parser<FindCommand> {
      * Parses the given {@code String} of arguments in the context of the
      * FindCommand and returns a FindCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected
+     * @throws ParseException If the user input does not conform the expected
      *                        format.
      */
     public FindCommand parse(String args) throws ParseException {
@@ -49,12 +49,13 @@ public class FindCommandParser implements Parser<FindCommand> {
      * Prevents mixing global search and prefixed search.
      * Ensures that any prefix present is not followed only by blank values.
      *
-     * @param args          user input
-     * @param preamble      global keywords
-     * @param nameKeywords  name keywords
-     * @param phoneKeywords phone keywords
-     * @param emailKeywords email keywords
-     * @throws ParseException
+     * @param args          User input.
+     * @param preamble      Global keywords.
+     * @param nameKeywords  Name keywords.
+     * @param phoneKeywords Phone keywords.
+     * @param emailKeywords Email keywords.
+     * @throws ParseException If the input mixes global and prefixed search,
+     *                        or if a supplied prefixed field is blank.
      */
     private void validatePrefixedSearch(String args, String preamble,
             List<String> nameKeywords,
@@ -78,9 +79,9 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Validates that a supplied prefixed field contains at least one non-blank value.
      *
-     * @param hasPrefix true if have prefix, false if not
-     * @param keywords  keywords parsed from user input
-     * @throws ParseException if the prefix was supplied but its values are blank.
+     * @param hasPrefix True if have prefix, false if not.
+     * @param keywords  Keywords parsed from user input.
+     * @throws ParseException If the prefix was supplied but its values are blank.
      */
     private void validateFieldInput(boolean hasPrefix, List<String> keywords) throws ParseException {
         if (hasPrefix && containsOnlyBlankValues(keywords)) {
@@ -90,13 +91,13 @@ public class FindCommandParser implements Parser<FindCommand> {
     }
 
     /**
-     * Creates the predicate for the find command
+     * Creates the predicate for the find command.
      *
-     * @param preamble      global keywords
-     * @param nameKeywords  name keywords
-     * @param phoneKeywords phone keywords
-     * @param emailKeywords email keywords
-     * @return A PersonMatchesKeywordsPredicate
+     * @param preamble      Global keywords.
+     * @param nameKeywords  Name keywords.
+     * @param phoneKeywords Phone keywords.
+     * @param emailKeywords Email keywords.
+     * @return A PersonMatchesKeywordsPredicate.
      */
     private PersonMatchesKeywordsPredicate createPredicate(String preamble,
             List<String> nameKeywords,
@@ -116,8 +117,8 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Trims the input and collapses consecutive whitespace into a single space.
      *
-     * @param input user input for global search
-     * @return the normalized string
+     * @param input User input for global search.
+     * @return The normalized string.
      */
     private String normalizeWhitespace(String input) {
         return input.trim().replaceAll("\\s+", " ");
@@ -126,8 +127,8 @@ public class FindCommandParser implements Parser<FindCommand> {
     /**
      * Returns true if the list is empty, or if all values are blank after trimming.
      *
-     * @param values values in prefixed search
-     * @return true if no meaningful values, false otherwise
+     * @param values Values in prefixed search.
+     * @return True if no meaningful values, false otherwise.
      */
     private boolean containsOnlyBlankValues(List<String> values) {
         return values.isEmpty() || values.stream().allMatch(value -> value.trim().isEmpty());
