@@ -64,7 +64,6 @@ public class TypicalPersons {
             .withTags("friends")
             .build();
 
-    // Manually added - Person's details found in {@code CommandTestUtil}
     public static final Person AMY = new PersonBuilder()
             .withId(ID_5)
             .withName(VALID_NAME_AMY)
@@ -94,8 +93,6 @@ public class TypicalPersons {
             .withPhone(VALID_PHONE_JANE)
             .withEmail(null)
             .build();
-
-
 
     private TypicalPersons() {} // prevents instantiation
 

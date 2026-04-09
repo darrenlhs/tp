@@ -18,9 +18,9 @@ public class MeetingMatchesKeywordsPredicate implements Predicate<Meeting> {
     /**
      * Constructor for MeetingMatchesKeywordsPredicate class.
      *
-     * @param descriptionKeywords substring to match for Meeting descriptions.
-     * @param dateKeywords substring to match for Meeting dates.
-     * @param idsToMatch set to match for Meeting participant {@code PersonId}s.
+     * @param descriptionKeywords Substring to match for Meeting descriptions.
+     * @param dateKeywords Substring to match for Meeting dates.
+     * @param idsToMatch Set of {@code PersonId}s to match for Meeting participants.
      */
     public MeetingMatchesKeywordsPredicate(List<String> descriptionKeywords,
                                            List<String> dateKeywords,
@@ -44,10 +44,10 @@ public class MeetingMatchesKeywordsPredicate implements Predicate<Meeting> {
                 .stream()
                 .anyMatch(substring -> date.contains(substring.toLowerCase()));
 
-        boolean doesMeetingContainAllUuids = !idsToMatch.isEmpty()
+        boolean doesMeetingContainAllPersonIds = !idsToMatch.isEmpty()
                 && participantIDs.containsAll(idsToMatch);
 
-        return doAnyKeywordsMatchDescription || doAnyKeywordsMatchDate || doesMeetingContainAllUuids;
+        return doAnyKeywordsMatchDescription || doAnyKeywordsMatchDate || doesMeetingContainAllPersonIds;
     }
 
     @Override

@@ -25,11 +25,12 @@ public class AddMeetingCommand extends Command {
     public static final String COMMAND_WORD = "addmeeting";
 
     public static final String MESSAGE_USAGE = COMMAND_WORD + ": Adds a meeting "
-            + "to zero or more specified persons by their indices.\n"
-            + "Format: " + COMMAND_WORD + " [CONTACT_INDEX] (must be a positive integer) [,CONTACT_INDEX]... "
+            + "to zero or more specified persons by their indices in the displayed contact list.\n"
+            + "Format: " + COMMAND_WORD + " [CONTACT_INDEX] [,CONTACT_INDEX]... "
             + PREFIX_MEETING_DESCRIPTION + "DESCRIPTION "
             + PREFIX_MEETING_DATE + "DATE\n"
             + "Note: DATE must be in YYYY-MM-DD format\n"
+            + "Note: CONTACT_INDEX must be a positive integer\n"
             + "Example: " + COMMAND_WORD + " 1,2 "
             + PREFIX_MEETING_DESCRIPTION + "Project discussion "
             + PREFIX_MEETING_DATE + "2026-03-25";
@@ -37,7 +38,10 @@ public class AddMeetingCommand extends Command {
     public static final String MESSAGE_ADD_MEETING_SUCCESS = "Added meeting: %1$s";
     public static final String MESSAGE_INVALID_CONTACT_INDEX = "Invalid contact index provided.";
     public static final String MESSAGE_MEETING_ALREADY_EXISTS =
-            "A meeting with the same description and date already exists";
+            "A meeting with the same description (case-insensitive) and date already exists.\n"
+                    + "Note: For description, leading/trailing spaces are ignored, "
+                    + "but internal spacing differences are considered distinct. "
+                    + "(e.g \"Meet later\" and \"Meet   later\" are considered different.)";
 
     private final Set<Index> indices;
     private final Description description;
@@ -84,7 +88,9 @@ public class AddMeetingCommand extends Command {
         } catch (DuplicateMeetingException e) {
             throw new CommandException(MESSAGE_MEETING_ALREADY_EXISTS);
         }
-        return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS, meeting));
+
+        String passedDateNotification = date.getPassedDateNotification();
+        return new CommandResult(String.format(MESSAGE_ADD_MEETING_SUCCESS + passedDateNotification, meeting));
     }
 
     @Override

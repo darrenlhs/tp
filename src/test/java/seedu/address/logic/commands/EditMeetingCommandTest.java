@@ -37,8 +37,7 @@ public class EditMeetingCommandTest {
 
     @Test
     public void execute_allFieldsSpecifiedUnfilteredList_success() {
-        Index targetIndex = INDEX_FIRST_PERSON;
-        Meeting meetingToEdit = model.getFilteredMeetingList().get(targetIndex.getZeroBased());
+        Meeting meetingToEdit = model.getFilteredMeetingList().get(INDEX_FIRST_PERSON.getZeroBased());
 
         Description newDescription = COFFEE_MEETING.getDescription();
         MeetingDate newDate = STRATEGY_MEETING.getDate();

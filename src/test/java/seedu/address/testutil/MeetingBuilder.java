@@ -42,7 +42,7 @@ public class MeetingBuilder {
     }
 
     /**
-     * Sets the {@code description} of the {@code Meeting} that we are building.
+     * Sets the {@code Description} of the {@code Meeting} that we are building.
      */
     public MeetingBuilder withDescription(String description) {
         this.description = new Description(description);
@@ -50,7 +50,7 @@ public class MeetingBuilder {
     }
 
     /**
-     * Sets the {@code date} of the {@code Meeting} that we are building.
+     * Sets the {@code MeetingDate} of the {@code Meeting} that we are building.
      */
     public MeetingBuilder withDate(String date) {
         this.date = new MeetingDate(date);

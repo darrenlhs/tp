@@ -52,7 +52,7 @@ public class MeetingCard extends UiPart<Region> {
 
         date.setText(formatter.format(meeting.getDate().date));
 
-        // Clear any existing children first (safety)
+        // Clear any existing children first
         participants.getChildren().clear();
 
         participantSet.stream()

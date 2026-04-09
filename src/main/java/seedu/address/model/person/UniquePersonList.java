@@ -49,7 +49,7 @@ public class UniquePersonList implements Iterable<Person> {
     }
 
     /**
-     * Returns true if the list has a person with the same {@code PersonID} as {@code id}.
+     * Returns true if the list has a person with the same {@code PersonId} of {@code id}.
      */
     public boolean hasSameID(PersonId id) {
         requireNonNull(id);

@@ -23,7 +23,7 @@ public class FindMeetingCommandParser implements Parser<FindMeetingCommand> {
      * Parses the given {@code String} of arguments in the context of the FindMeetingCommand
      * and returns a FindMeetingCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format.
+     * @throws ParseException If the user input does not conform the expected format.
      */
     public FindMeetingCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -39,7 +39,7 @@ public class FindMeetingCommandParser implements Parser<FindMeetingCommand> {
         List<String> dateKeywords = argMultimap.getAllValues(PREFIX_MEETING_DATE)
                 .stream()
                 .filter(s -> !s.isEmpty())
-                .collect(Collectors.toList());;
+                .collect(Collectors.toList());
         List<String> personIndicesList = argMultimap.getAllValues(PREFIX_CONTACT_INDICES);
 
         Set<Index> personIndices = new HashSet<>();

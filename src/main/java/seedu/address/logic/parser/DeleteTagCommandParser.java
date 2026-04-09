@@ -20,7 +20,7 @@ public class DeleteTagCommandParser implements Parser<DeleteTagCommand> {
      * Parses the given {@code String} of arguments in the context of the DeleteTagCommand
      * and returns a DeleteTagCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format.
+     * @throws ParseException If the user input does not conform to the expected format.
      */
     public DeleteTagCommand parse(String args) throws ParseException {
         requireNonNull(args);

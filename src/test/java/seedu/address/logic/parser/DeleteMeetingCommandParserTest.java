@@ -14,10 +14,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.DeleteMeetingCommand;
 
-/**
- * Tests for DeleteMeetingCommandParser using white-box testing.
- * Only parses valid indices and invalid formats; detailed index parsing is tested in ParserUtilTest.
- */
 public class DeleteMeetingCommandParserTest {
 
     private final DeleteMeetingCommandParser parser = new DeleteMeetingCommandParser();

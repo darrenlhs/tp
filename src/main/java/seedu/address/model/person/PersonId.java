@@ -27,14 +27,14 @@ public class PersonId {
     /**
      * Wraps an existing string ID.
      *
-     * @param idString existing ID string.
-     * @throws IllegalArgumentException if idString is null, blank, or not a valid UUID.
+     * @param idString An existing ID string.
+     * @throws IllegalArgumentException If idString is null, blank, or not a valid UUID.
      */
     public PersonId(String idString) {
         if (idString == null || idString.isBlank()) {
             throw new IllegalArgumentException(PERSON_ID_CONSTRAINTS);
         }
-        this.uuid = UUID.fromString(idString);
+        this.uuid = UUID.fromString(idString.trim());
     }
 
     /** Returns the underlying UUID. */

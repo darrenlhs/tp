@@ -5,11 +5,10 @@ package seedu.address.logic.parser;
  */
 public class CliSyntax {
     /**
-     * Note regarding PREFIX_NAME and PREFIX_NEWTAG being the same:
+     * To future developers: Note that PREFIX_NAME and PREFIX_NEWTAG have the same prefix.
      * We are aware that the two could cause potential confusion. However, we have decided to keep both because:
      * 1) They are never used in the same commands (so no risk of conflicts/confusion).
-     * 2) NEWTAG is very intuitive (old vs new) and if we use another letter to substitute, it might be unintuitive and
-     * risk user confusion.
+     * 2) NEWTAG is intuitive (old vs new), so using another prefix might risk user confusion.
      **/
 
     /* Prefix definitions */
