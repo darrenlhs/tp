@@ -62,7 +62,8 @@ Hello fellow students, welcome to our Internlink User Guide!
 Welcome to Internlink! This guide will help you get started.
 
 ## What is Internlink?
-Internlink is a **contact management app** built with students in mind. If you are an ambitious student who has a wide network of relations, this is the perfect tool for you.
+Internlink is a **contact management app** built with students in mind.
+If you are an ambitious student seeking network opportunities in school, like internships, who frequently interact with people that have Singaporean phone numbers, this app is for you!
 
 Internlink helps you to:
 * Store and organize contact information and label them conveniently with tags
