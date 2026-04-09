@@ -98,14 +98,14 @@ The `CommandHistory` component:
 * Example usage:
   ```
   CommandHistory ch = new CommandHistory();
-  
+
   // Assume the user has entered these two commands.
   ch.add("first command");
   ch.add("second command");
-  
+
   // userDraft is the text in the CommandBox.
   String userDraft = "draft command";
-  
+
   userDraft = ch.prevCommand(userDraft); // userDraft becomes "second command".
   userDraft = ch.prevCommand(userDraft); // userDraft becomes "first command".
   userDraft = ch.nextCommand(userDraft); // userDraft becomes "second command".
@@ -186,7 +186,112 @@ Classes used by multiple components are in the `seedu.address.commons` package.
 
 This section describes some noteworthy details on how certain features are implemented.
 
-WIP: Fill in information here
+## Adding a person: `add`
+The `add` command is used to insert a new person into the contacts list. The name field (`n/NAME`) must always be provided, while at least one contact detail—either phone (`p/PHONE`) or email (`e/EMAIL`)—is required. Tags (`t/TAG`) are optional.
+
+Input processing is performed by `AddCommandParser`, which tokenizes the user input and ensures that the following conditions are met:
+
+- Name is present
+- At least one of phone or email is provided
+- Required prefixes (e.g. `n/`, `p/`, `e/`, `t/`) are valid
+- Preamble is empty
+- All field values are valid
+
+If any of these checks fail, a `ParseException` is thrown.
+
+Once the input is successfully parsed, a `Person` object is instantiated. As part of its construction, a `PersonId` is generated automatically, ensuring that each person has a unique identifier.
+
+When the command is executed, `AddCommand` invokes `Model#hasPerson(Person)` to determine if the person already exists in the contacts list. A duplicate is defined as a person with the same name, phone, and email as an existing entry.
+
+- If a duplicate is detected, a `CommandException` is raised
+- Otherwise, the person is added via `Model#addPerson(Person)` and a `CommandResult` is returned
+
+The following sequence diagram illustrates the flow of parsing and execution for the `add` command.
+
+![Sequence diagram of add](images/AddSequenceDiagram.png)
+
+
+## Editing a person: `edit`
+The `edit` command is used to edit an already existing preson in the contacts list. The user specifies the index of the person to edit, together with one or more fields to be updated.
+
+Any field of a person can be modified using `edit` -- `n/NAME`, `p/PHONE`, `e/EMAIL@EMAIL.COM`, `t/TAG`.
+
+Using edit with tags (`t/TAG`) will replace all existing tags with the new tags specified in the command. This means that all previous tags will be wiped unless they are listed out while using edit.
+
+The edit person feature is implemented using the following main components:
+* `EditCommand`
+* `EditCommandParser`
+* `EditPersonDescriptor`
+
+When the user enters an edit command, the input is first handled by `AddressBookParser`, which delegates parsing to `EditCommandParser`.
+
+`EditCommandParser` parses:
+* the target index of the person to be edited
+* the fields the user wants to modify
+
+The parsed values are stored in an `EditPersonDescriptor`, which acts as a container for the optional fields provided by the user. This is necessary because the user may choose to edit only some fields instead of all fields.
+
+After parsing, an `EditCommand` object is created with:
+
+* the target index
+* the descriptor containing the edited values
+
+During execution, `EditCommand` retrieves the person at the specified index from the currently displayed person list. It then creates a new edited `Person` object by combining:
+
+* the original person’s existing values
+* the new values from `EditPersonDescriptor` if they were specified
+
+Fields not provided by the user remain unchanged.
+
+Finally, the command asks the `Model` to replace the original person with the edited person. The updated person list is then reflected in the UI.
+
+
+The following sequence diagram illustrates the flow of parsing and execution for the `edit` command.
+![Sequence diagram of edit](images/EditCommandSequenceDiagram.png)
+
+
+## Finding a Person: `find`
+The find command allows the user to search for persons whose fields match given keywords. In the implementation, there are two types of find operations that reuse the same predicate `find`.
+
+1. Global find
+Searches across all supported fields of a person and returns persons where any field matches the given substring
+
+2. Field-specific filtered search
+Searches only within specified fields and returns persons whose value in that field matches the given substring in that specific field.
+
+This design allows the system to support both broad and targeted searching while keeping the matching logic reusable.
+
+Examples:
+
+* Global find: `find alex`
+* Field-specific find: `find n/alex`
+* Field-specific find: `find n/alex e/gmail`
+
+A global find checks whether the substring appears in any searchable field, while a field-specific find restricts the search to the specified field only. Field-specific find will find contacts all within the displayed contact list that matches ANY of the keywords of specified fields.
+For example, `find n/alex e/gmail` will find persons named 'alex' AND persons whose emails have a 'gmail' in it.
+
+The find feature is implemented mainly using the following components:
+
+* `FindCommand`
+* `FindCommandParser`
+* `PersonMatchesKeywordsPredicate`
+* `ModelManager`
+
+When the user enters a find command, `AddressBookParser` identifies the command and passes the input to `FindCommandParser`.
+
+`FindCommandParser` determines which type of search the user is performing:
+
+* If the user provides a plain keyword without a prefix, the parser interprets it as a global find.
+* If the user provides a prefixed argument such as n/, p/, e/, or another supported prefix, the parser interprets it as a field-specific filtered search.
+
+After parsing, the command creates a `PersonMatchesKeywordsPredicate`. Although both search modes use the same predicate class, the predicate is configured differently depending on the parsed input.
+
+This predicate is then passed into a `FindCommand`, which updates the model’s filtered person list.
+
+The following sequence diagram illustrates the flow of parsing and execution for the `find` command.
+![Sequence diagram of find - logic](images/FindCommandSequenceDiagramLogic.png)
+![Sequence diagram of find - model](images/FindCommandSequenceDiagramModel.png)
+
 --------------------------------------------------------------------------------------------------------------------
 
 ## **Documentation, logging, testing, configuration, dev-ops**
