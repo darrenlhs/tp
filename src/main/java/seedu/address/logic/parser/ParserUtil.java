@@ -1,6 +1,7 @@
 package seedu.address.logic.parser;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.Messages.MESSAGE_INVALID_COMMAND_FORMAT;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_COMMA;
 
 import java.util.Collection;
@@ -51,7 +52,7 @@ public class ParserUtil {
         String trimmedIndex = oneBasedIndex.trim();
 
         if (trimmedIndex.isEmpty()) {
-            throw new ParseException(commandFormat);
+            throw new ParseException(String.format(MESSAGE_INVALID_COMMAND_FORMAT, commandFormat));
         }
 
         if (!StringUtil.isNonZeroUnsignedInteger(trimmedIndex)) {

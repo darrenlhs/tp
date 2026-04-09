@@ -47,7 +47,8 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
         if (argMultimap.getPreamble().trim().equals("all")) {
             // global edit, do not add anything to targetIndices yet, EditTagCommand handles this
         } else {
-            targetIndices = parseIndices(argMultimap.getPreamble(), CONTACT_TYPE, EditTagCommand.MESSAGE_USAGE);
+            targetIndices = parseIndices(argMultimap.getPreamble(), CONTACT_TYPE,
+                    EditTagCommand.MESSAGE_USAGE);
         }
 
         return new EditTagCommand(targetIndices, oldTag, newTag);
