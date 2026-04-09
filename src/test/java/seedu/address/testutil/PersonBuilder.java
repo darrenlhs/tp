@@ -92,7 +92,6 @@ public class PersonBuilder {
 
     /**
      * Sets the {@code PersonId} of the {@code Person} that we are building.
-     * If {@code id} is null or empty, the Person will generate a new PersonId.
      */
     public PersonBuilder withId(String id) {
         this.id = new PersonId(id);
@@ -101,7 +100,7 @@ public class PersonBuilder {
 
     /**
      * Builds the {@code Person} object with all the set fields.
-     * If {@code id} is null or empty, the constructor that generates a new ID will be used.
+     * If {@code id} is null or empty, the constructor that generates a new {code PersonId} will be used.
      */
     public Person build() {
         if (id == null) {

@@ -29,7 +29,7 @@ import seedu.address.model.person.Person;
 import seedu.address.model.person.PersonId;
 
 /**
- * Edits the details of existing meetings in the meeting list.
+ * Edits the details of an existing meeting in the meeting list.
  */
 public class EditMeetingCommand extends Command {
 
@@ -38,16 +38,18 @@ public class EditMeetingCommand extends Command {
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Edits the details of the meeting identified by its index in the displayed meeting list.\n"
             + "Existing values will be overwritten by the input values.\n"
-            + "Participants can be added or removed using their indices in the contact list.\n"
-            + "E.g. " + PREFIX_ADD_CONTACT_TO_MEETING_INDEX + "2 adds the 2nd person to the meeting.\n"
-            + "Format: " + COMMAND_WORD + " MEETING_INDEX (must be a positive integer)"
+            + "Participants can be added or removed using their indices in the displayed contact list. "
+            + "E.g. " + PREFIX_ADD_CONTACT_TO_MEETING_INDEX
+            + "2 adds the 2nd person in the displayed contact list to the meeting.\n"
+            + "Format: " + COMMAND_WORD + " MEETING_INDEX "
             + "(" + PREFIX_MEETING_DESCRIPTION + "DESCRIPTION) "
             + "(" + PREFIX_MEETING_DATE + "DATE) "
             + "(" + PREFIX_ADD_CONTACT_TO_MEETING_INDEX
-            + "CONTACT_INDEX (must be a positive integer) [, CONTACT_INDEX]...) "
+            + "CONTACT_INDEX [, CONTACT_INDEX]...) "
             + "(" + PREFIX_DELETE_CONTACT_FROM_MEETING_INDEX
-            + "CONTACT_INDEX (must be a positive integer) [, CONTACT_INDEX]...)\n"
+            + "CONTACT_INDEX [, CONTACT_INDEX]...)\n"
             + "Note: Date must be in YYYY-MM-DD format.\n"
+            + "Note: MEETING_INDEX and CONTACT_INDEX must be a positive integer\n"
             + "Example: " + COMMAND_WORD + " 2 "
             + PREFIX_MEETING_DESCRIPTION + "Team Sync "
             + PREFIX_MEETING_DATE + "2026-04-01 "
@@ -65,7 +67,7 @@ public class EditMeetingCommand extends Command {
     /**
      * Creates an EditMeetingCommand to edit the specified {@code Meeting}.
      *
-     * @param meetingIndex The index of the meeting in the list to edit.
+     * @param meetingIndex The index of the meeting in the displayed meeting list to edit.
      * @param editMeetingDescriptor The details to edit the meeting with.
      */
     public EditMeetingCommand(Index meetingIndex, EditMeetingDescriptor editMeetingDescriptor) {
@@ -88,7 +90,6 @@ public class EditMeetingCommand extends Command {
             throw new CommandException(String.format(MESSAGE_INVALID_MEETING_INDEX, meetingIndex.getOneBased()));
         }
         Meeting meetingToEdit = lastShownMeetingList.get(meetingIndex.getZeroBased());
-
         Meeting editedMeeting = createEditedMeeting(meetingToEdit, editMeetingDescriptor);
 
         try {
@@ -97,8 +98,8 @@ public class EditMeetingCommand extends Command {
             throw new CommandException(MESSAGE_MEETING_ALREADY_EXISTS);
         }
 
-        return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS,
-                editedMeeting.toString()));
+        String passedDateNotification = editedMeeting.getDate().getPassedDateNotification();
+        return new CommandResult(String.format(MESSAGE_EDIT_MEETING_SUCCESS + passedDateNotification, editedMeeting));
     }
 
     /**
@@ -178,7 +179,7 @@ public class EditMeetingCommand extends Command {
         public EditMeetingDescriptor() {}
 
         /**
-         * Copies constructor.
+         * Copies {@code toCopy}'s information.
          */
         public EditMeetingDescriptor(EditMeetingDescriptor toCopy) {
             setDescription(toCopy.description);
@@ -203,7 +204,7 @@ public class EditMeetingCommand extends Command {
         /**
          * Converts the participant indices stored in this descriptor into the corresponding
          * participant IDs using the provided {@code model}. The resulting IDs are stored
-         * internally as {@code peopleToAddId} and {@code peopleToDeleteId}.
+         * internally as {@code idsToAdd} and {@code idsToDelete}.
          *
          * @param model The {@code Model} containing the list of persons to resolve indices from.
          * @throws CommandException Thrown if any index is out of bounds of the person list.

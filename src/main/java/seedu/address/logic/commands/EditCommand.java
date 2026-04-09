@@ -1,6 +1,7 @@
 package seedu.address.logic.commands;
 
 import static java.util.Objects.requireNonNull;
+import static seedu.address.logic.commands.AddCommand.MESSAGE_DUPLICATE_PERSON;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_EMAIL;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_NAME;
 import static seedu.address.logic.parser.CliSyntax.PREFIX_PHONE;
@@ -27,7 +28,7 @@ import seedu.address.model.person.Phone;
 import seedu.address.model.tag.Tag;
 
 /**
- * Edits the details of an existing person in the address book.
+ * Edits the details of an existing person in the contact list.
  */
 public class EditCommand extends Command {
 
@@ -42,6 +43,7 @@ public class EditCommand extends Command {
             + "(" + PREFIX_PHONE + "PHONE) "
             + "(" + PREFIX_EMAIL + "EMAIL) "
             + "(" + PREFIX_TAG + "TAG)...\n"
+            + "Note: INDEX must be a positive integer\n"
             + "Example: " + COMMAND_WORD + " 1 "
             + PREFIX_PHONE + "91234567 "
             + PREFIX_EMAIL + "johndoe@example.com "
@@ -49,8 +51,6 @@ public class EditCommand extends Command {
 
     public static final String MESSAGE_EDIT_PERSON_SUCCESS = "Edited Person: %1$s";
     public static final String MESSAGE_NOT_EDITED = "At least one field to edit must be provided.";
-    public static final String MESSAGE_DUPLICATE_PERSON = "This person already exists in the address book.";
-
     private final Index index;
     private final EditPersonDescriptor editPersonDescriptor;
 

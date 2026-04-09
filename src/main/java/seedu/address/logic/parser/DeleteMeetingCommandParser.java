@@ -16,9 +16,9 @@ public class DeleteMeetingCommandParser implements Parser<DeleteMeetingCommand> 
 
     /**
      * Parses the given {@code String} of arguments in the context of the DeleteMeetingCommand
-     * and returns an DeleteMeetingCommand object for execution.
+     * and returns a DeleteMeetingCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format.
+     * @throws ParseException If the user input does not conform to the expected format.
      */
     @Override
     public DeleteMeetingCommand parse(String args) throws ParseException {

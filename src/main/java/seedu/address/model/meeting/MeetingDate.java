@@ -21,7 +21,7 @@ public class MeetingDate implements Comparable<MeetingDate> {
     /**
      * Constructs a {@code Date}.
      *
-     * @param dateString A valid date string in yyyy-MM-dd format.
+     * @param dateString A date string to validate.
      */
     public MeetingDate(String dateString) {
         requireNonNull(dateString, MESSAGE_DATE_NON_NULL);
@@ -57,6 +57,17 @@ public class MeetingDate implements Comparable<MeetingDate> {
     @Override
     public int compareTo(MeetingDate o) {
         return this.date.compareTo(o.getDate());
+    }
+
+    /**
+     * Returns the string {@code (past date)} if {@code date} is before system date.
+     * Otherwise, returns an empty string.
+     */
+    public String getPassedDateNotification() {
+        if (this.date.isBefore(LocalDate.now())) {
+            return " (past date)";
+        }
+        return "";
     }
 
     @Override

@@ -1,8 +1,8 @@
 package seedu.address.storage;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DATE_20260325;
-import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DATE_20260401;
+import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DATE_20270325;
+import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DATE_20270401;
 import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DESCRIPTION_PROJECT;
 import static seedu.address.logic.commands.AddMeetingCommandTest.VALID_DESCRIPTION_TEAM;
 import static seedu.address.logic.commands.CommandTestUtil.VALID_EMAIL_AMY;
@@ -41,18 +41,11 @@ class JsonAdaptedPersonTest {
 
     // Checkstyle does not agree with reusing Lists, new ID lists remade here
     private static final Set<String> VALID_IDS = Set.of(VALID_ID_1, VALID_ID_2);
-    private static final Set<String> INVALID_IDS = Set.of("not-a-uuid");
 
     // Dummy meetings for testing
     public static final List<JsonAdaptedMeeting> VALID_MEETINGS = List.of(
-            new JsonAdaptedMeeting(VALID_DESCRIPTION_PROJECT, VALID_DATE_20260325.toString(), VALID_IDS),
-            new JsonAdaptedMeeting(VALID_DESCRIPTION_TEAM, VALID_DATE_20260401.toString(), VALID_IDS)
-    );
-
-    public static final List<JsonAdaptedMeeting> INVALID_MEETINGS = List.of(
-            new JsonAdaptedMeeting("", VALID_DATE_20260325.toString(), VALID_IDS),
-            new JsonAdaptedMeeting(VALID_DESCRIPTION_PROJECT, "", VALID_IDS),
-            new JsonAdaptedMeeting(VALID_DESCRIPTION_PROJECT, VALID_DATE_20260325.toString(), INVALID_IDS)
+            new JsonAdaptedMeeting(VALID_DESCRIPTION_PROJECT, VALID_DATE_20270325.toString(), VALID_IDS),
+            new JsonAdaptedMeeting(VALID_DESCRIPTION_TEAM, VALID_DATE_20270401.toString(), VALID_IDS)
     );
 
     // Valid cases

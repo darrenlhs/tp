@@ -22,7 +22,7 @@ public class EditTagCommandParser implements Parser<EditTagCommand> {
      * Parses the given {@code String} of arguments in the context of the EditTagCommand
      * and returns a EditTagCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format.
+     * @throws ParseException If the user input does not conform the expected format.
      */
     public EditTagCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap = ArgumentTokenizer.tokenize(args, PREFIX_OLDTAG, PREFIX_NEWTAG);

@@ -78,7 +78,6 @@ public class ParserUtil {
         return indexSet;
     }
 
-
     /**
      * Parses a {@code String name} into a {@code Name}.
      * Leading and trailing whitespaces will be trimmed.

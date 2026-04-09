@@ -26,7 +26,7 @@ public class AddCommandParser implements Parser<AddCommand> {
      * Parses the given {@code String} of arguments in the context of the AddCommand
      * and returns an AddCommand object for execution.
      *
-     * @throws ParseException if the user input does not conform the expected format.
+     * @throws ParseException If the user input does not conform to the expected format.
      */
     public AddCommand parse(String args) throws ParseException {
         ArgumentMultimap argMultimap =
@@ -42,17 +42,30 @@ public class AddCommandParser implements Parser<AddCommand> {
         }
 
         argMultimap.verifyNoDuplicatePrefixesFor(PREFIX_NAME, PREFIX_PHONE, PREFIX_EMAIL);
+
+        Person person = createPerson(argMultimap);
+
+        return new AddCommand(person);
+    }
+
+    /**
+     * Creates a {@code Person} from the given {@code ArgumentMultimap}.
+     *
+     * @throws ParseException If parsing fails for any of the fields.
+     */
+    private Person createPerson(ArgumentMultimap argMultimap) throws ParseException {
         Name name = ParserUtil.parseName(argMultimap.getValue(PREFIX_NAME).get());
+
         Phone phone = argMultimap.getValue(PREFIX_PHONE).isPresent()
                 ? ParserUtil.parsePhone(argMultimap.getValue(PREFIX_PHONE).get())
                 : null;
+
         Email email = argMultimap.getValue(PREFIX_EMAIL).isPresent()
                 ? ParserUtil.parseEmail(argMultimap.getValue(PREFIX_EMAIL).get())
                 : null;
+
         Set<Tag> tagList = ParserUtil.parseTags(argMultimap.getAllValues(PREFIX_TAG));
 
-        Person person = new Person(name, phone, email, tagList);
-
-        return new AddCommand(person);
+        return new Person(name, phone, email, tagList);
     }
 }

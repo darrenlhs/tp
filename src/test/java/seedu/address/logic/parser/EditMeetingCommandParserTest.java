@@ -21,7 +21,6 @@ import org.junit.jupiter.api.Test;
 
 import seedu.address.logic.commands.EditMeetingCommand;
 import seedu.address.logic.commands.EditMeetingCommand.EditMeetingDescriptor;
-import seedu.address.logic.parser.exceptions.ParseException;
 
 class EditMeetingCommandParserTest {
     private static final String MESSAGE_INVALID_FORMAT =
@@ -60,7 +59,7 @@ class EditMeetingCommandParserTest {
     }
 
     @Test
-    void parse_allFieldsSpecified_success() throws ParseException {
+    void parse_allFieldsSpecified_success() {
         String userInput = INDEX_SECOND_PERSON.getOneBased()
                 + " " + PREFIX_MEETING_DESCRIPTION + PROJECT_MEETING.getDescription()
                 + " " + PREFIX_MEETING_DATE + PROJECT_MEETING.getDate()
@@ -79,7 +78,7 @@ class EditMeetingCommandParserTest {
     }
 
     @Test
-    void parse_someFieldsSpecified_success() throws ParseException {
+    void parse_someFieldsSpecified_success() {
         // Only description and date
         String userInput = INPUT_INDEX_SINGLE
                 + " " + PREFIX_MEETING_DESCRIPTION + PROJECT_MEETING.getDescription()

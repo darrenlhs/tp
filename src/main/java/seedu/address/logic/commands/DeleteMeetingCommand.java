@@ -20,8 +20,9 @@ public class DeleteMeetingCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes meeting(s) specified by index in the displayed meeting list.\n"
-            + "Format: " + COMMAND_WORD + " MEETING_INDEX (must be a positive integer)"
+            + "Format: " + COMMAND_WORD + " MEETING_INDEX "
             + "[" + PREFIX_COMMA + "MEETING_INDEX]... \n"
+            + "Note: MEETING_INDEX must be a positive integer\n"
             + "Example: " + COMMAND_WORD + " 1,2";
 
     public static final String MESSAGE_DELETE_MEETING_SUCCESS =
@@ -33,9 +34,9 @@ public class DeleteMeetingCommand extends Command {
     private final Set<Index> meetingIndices;
 
     /**
-     * Creates an DeleteMeetingCommand to delete the specified {@code Meeting}s.
+     * Creates a DeleteMeetingCommand to delete the specified {@code Meeting}s.
      *
-     * @param meetingIndices The indices of the meetings to delete in the persons.
+     * @param meetingIndices The indices of the meetings to delete.
      */
     public DeleteMeetingCommand(Set<Index> meetingIndices) {
         requireNonNull(meetingIndices);

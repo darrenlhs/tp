@@ -1,71 +1,72 @@
-–-
-layout: page
-title: Internlink User Guide
 ---
-# Internlink User Guide
-Hello fellow students, welcome to our Internlink User Guide!
+layout: page
+title: User Guide
+---
+Hello fellow students, welcome to Internlink's User Guide!
+
 ### Table of Contents
 <!-- TOC -->
-* [Introduction](#introduction)
-* [What is Internlink?](#what-is-internlink)
-* [Who this guide is for](#who-this-guide-is-for)
-* [Using this Guide](#using-this-guide)
-* [Getting Started](#getting-started)
-- [#1 Getting the correct Java version](#1-getting-the-correct-java-version)
-    - [Checking your Java version](#checking-your-java-version)
-- [#2 Downloading Internlink](#2-downloading-internlink)
-- [#3 Running Internlink](#3-running-internlink)
-* [User Interface](#user-interface)
-* [Features](#features-)
-* [Guide to Command Format](#guide-to-command-format)
-* [Notes about Command Format](#notes-about-command-format)
-* [Features - General features](#features---general-features)
-    - [Viewing help (`help`)](#viewing-help--help)
-    - [Clearing all entries (`clear`)](#clearing-all-entries--clear)
-    - [Exiting the program (`exit`)](#exiting-the-program--exit)
-    - [Quickly editing previous commands using arrow keys](#quickly-editing-previous-commands-using-arrow-keys)
-* [Features - Managing contact information](#features---managing-contact-information)
-    - [Adding a contact (`add`)](#adding-a-contact--add)
-    - [Deleting a contact (`delete`)](#deleting-a-contact--delete)
-    - [Editing a contact (`edit`)](#editing-a-contact--edit)
+  * [Table of Contents](#table-of-contents)
+  * [Introduction](#introduction)
+  * [What is Internlink?](#what-is-internlink)
+    * [Who this guide is for](#who-this-guide-is-for)
+  * [Using this Guide](#using-this-guide)
+  * [Getting Started](#getting-started)
+    * [1. Getting the correct Java version](#1-getting-the-correct-java-version)
+      * [Checking your Java version](#checking-your-java-version)
+    * [2. Downloading Internlink](#2-downloading-internlink)
+    * [3. Running Internlink](#3-running-internlink)
+  * [User Interface](#user-interface)
+    * [Contacts View](#contacts-view)
+    * [Meetings Page](#meetings-page)
+  * [Features](#features)
+    * [Guide to Command Format](#guide-to-command-format)
+    * [Notes about Command Format](#notes-about-command-format)
+    * [General features](#general-features)
+      * [Viewing help : `help`](#viewing-help--help)
+      * [Clearing all entries : `clear`](#clearing-all-entries--clear)
+      * [Exiting the program : `exit`](#exiting-the-program--exit)
+      * [Accessing previous commands using arrow keys](#accessing-previous-commands-using-arrow-keys)
+    * [Managing contact information](#managing-contact-information)
+      * [Adding a contact : `add`](#adding-a-contact--add)
+      * [Deleting a contact : `delete`](#deleting-a-contact--delete)
+      * [Editing a contact : `edit`](#editing-a-contact--edit)
     * [Mass-tagging features](#mass-tagging-features)
-        - [Adding tags to one or more contacts (`addtag`)](#adding-tags-to-one-or-more-contacts--addtag)
-        - [Deleting tags from one or more contacts (`deletetag`)](#deleting-tags-from-one-or-more-contacts--deletetag)
-        - [Editing existing tags (`edittag`)](#editing-existing-tags--edittag)
-    * [⭐ Using stars (favourites)](#-using-stars-favourites)
-        - [Starring contacts (`star`)](#starring-contacts--star)
-        - [Unstarring contacts (`unstar`)](#unstarring-contacts--unstar)
-* [Features - Filtering the contact list](#features---filtering-the-contact-list)
-    - [Listing all contacts (`list`)](#listing-all-contacts--list)
-    * [Finding contact information](#finding-contact-information)
-        - [Locating contacts globally (global `find`)](#locating-contacts-globally-global-find)
-        - [Locating contacts by specific fields (field `find`)](#locating-contacts-by-specific-fields-field-find)
-        - [Finding contacts by tags (`findtag`)](#finding-contacts-by-tags--findtag)
-* [Features - Managing meeting information](#features---managing-meeting-information)
-    - [Adding a meeting (`addmeeting`)](#adding-a-meeting--addmeeting)
-    - [Deleting a meeting (`deletemeeting`)](#deleting-a-meeting--deletemeeting)
-    - [Editing a meeting (`editmeeting`)](#editing-a-meeting--editmeeting)
-* [Features - Filtering the meeting list](#features---filtering-the-meeting-list)
-    - [Listing all meetings (`listmeeting`)](#listing-all-meetings--listmeeting)
-    * [Finding meeting information](#finding-meeting-information)
-        - [Finding a meeting (`findmeeting`)](#finding-a-meeting--findmeeting)
-* [Features - Managing data](#features--managing-data)
-    - [Saving the data](#saving-the-data)
-    - [Editing the data file](#editing-the-data-file)
-* [FAQ](#faq)
-* [Known issues](#known-issues)
-* [Command summary](#command-summary)
-* [Glossary](#glossary-)
+      * [Adding tags to one or more contacts : `addtag`](#adding-tags-to-one-or-more-contacts--addtag)
+      * [Deleting tags from one or more contacts : `deletetag`](#deleting-tags-from-one-or-more-contacts--deletetag)
+      * [Editing existing tags : `edittag`](#editing-existing-tags--edittag)
+    * [Using stars (favourites)](#using-stars-favourites)
+      * [Starring contacts : `star`](#starring-contacts--star)
+      * [Unstarring contacts : `unstar`](#unstarring-contacts--unstar)
+    * [Filtering the contact list](#filtering-the-contact-list)
+      * [Listing all contacts : `list`](#listing-all-contacts--list)
+      * [Finding contact information](#finding-contact-information)
+      * [Locating contacts globally: global `find`](#locating-contacts-globally-global-find)
+      * [Locating contacts by specific fields: field `find`](#locating-contacts-by-specific-fields-field-find)
+      * [Finding contacts by tags : `findtag`](#finding-contacts-by-tags--findtag)
+    * [Managing meeting information](#managing-meeting-information)
+      * [Adding a meeting : `addmeeting`](#adding-a-meeting--addmeeting)
+      * [Deleting a meeting : `deletemeeting`](#deleting-a-meeting--deletemeeting)
+      * [Editing a meeting : `editmeeting`](#editing-a-meeting--editmeeting)
+    * [Filtering the meeting list](#filtering-the-meeting-list)
+      * [Listing all meetings : `listmeeting`](#listing-all-meetings--listmeeting)
+      * [Finding a meeting : `findmeeting`](#finding-a-meeting--findmeeting)
+    * [Managing data](#managing-data)
+      * [Saving the data](#saving-the-data)
+      * [Editing the data file](#editing-the-data-file)
+  * [FAQ](#faq)
+  * [Known issues](#known-issues)
+  * [Command summary](#command-summary)
+  * [Glossary](#glossary)
 <!-- TOC -->
----
 
-<div style="page-break-after: always;"></div>
 ------------------------------------------------------------------------------
 ## Introduction
 Welcome to Internlink! This guide will help you get started.
 
 ## What is Internlink?
-Internlink is a **contact management app** built with students in mind. If you are an ambitious student who has a wide network of relations, this is the perfect tool for you.
+Internlink is a **contact management app** built with students in mind.
+If you are an ambitious student seeking network opportunities in school, like internships, who frequently interact with people that have Singaporean phone numbers, this app is for you!
 
 Internlink helps you to:
 * Store and organize contact information and label them conveniently with tags
@@ -75,12 +76,8 @@ Internlink helps you to:
 
 With Internlink, you can manage your network of personal and business relations in school with ease, and focus on striving to reach the top.
 
-[Back to Table of Contents](#table-of-contents)
-
 ### Who this guide is for
 This guide is written for students who have at least some experience with using a **Command Line Interface (CLI)** and are seeking networking opportunities during their time in school. Our goal is to get you quickly set up with the necessary requirements so you can breeze through the hassle and start using Internlink as soon as possible.
-
-[Back to Table of Contents](#table-of-contents)
 
 --------------------------------------------------------------------------------------------------------------------
 ## Using this Guide
@@ -104,6 +101,7 @@ This guide is written for students who have at least some experience with using 
 **For Advanced users**
 
 * You can jump to the [Command Summary](#command-summary) for a quick summary of all the commands and their formats.
+</div>
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -143,7 +141,7 @@ Download the latest `Internlink.jar` file from [here](https://github.com/AY2526S
 5. An application window should appear in a few seconds similar to the one below. Note how the app already contains some sample data.
    ![Ui](images/Ui.png)
 
-Congratulations! You are now ready to use Internlink. Refer to the [Features](#features-) below for details of each command.
+Congratulations! You are now ready to use Internlink. Refer to the [Features](#features) below for details of each command.
 
 
 Alternatively, to get started, you can try out some of the suggested commands here.
@@ -160,7 +158,6 @@ Alternatively, to get started, you can try out some of the suggested commands he
 
 * `clear` : Deletes all contacts.
 
-
 * `exit` : Exits the app.
 
 [Back to Table of Contents](#table-of-contents)
@@ -169,13 +166,12 @@ Alternatively, to get started, you can try out some of the suggested commands he
 --------------------------------------------------------------------------------------------------------------------
 
 ## User Interface
-
 > ⚠️ **Caution:** Reducing the window size may affect the display of information.
 
-### 📇 Contacts View
+### Contacts View
 ![Contacts Page](images/contacts_annotated.png)
 
-| Component               | Description                                         |
+| Component              | Description                                         |
 |------------------------|-----------------------------------------------------|
 | Command Box            | Used to enter commands                              |
 | Command Result Display | Shows feedback or results after executing a command |
@@ -185,7 +181,7 @@ Alternatively, to get started, you can try out some of the suggested commands he
 ### Meetings Page
 ![Meetings Page](images/meeting_annotated.png)
 
-| Component               | Description                                            |
+| Component              | Description                                            |
 |------------------------|--------------------------------------------------------|
 | Command Box            | Used to input meeting-related commands                 |
 | Command Result Display | Displays confirmation or error messages                |
@@ -246,7 +242,7 @@ For example, `add n/George Best` is a valid command formed using these three com
 
 [Back to Table of Contents](#table-of-contents)
 
-## Features - General features
+## General features
 
 ### Viewing help : `help`
 
@@ -286,11 +282,11 @@ exit
 
 **Description:** You can use this command to exit Internlink.
 
-> 💡 **Tip:** Worried about losing your data? Don’t worry — all changes are automatically saved after every edit.
+> ❗ **Note:** Worried about losing your data? Don’t worry — all changes are automatically saved after every edit.
 
 [Back to Table of Contents](#table-of-contents)
 
-### Quickly editing previous commands using arrow keys
+### Accessing previous commands using arrow keys
 
 When typing your command, you can use **up** and **down** arrows to shift through previous commands that you have entered.
 
@@ -298,11 +294,11 @@ Usage:
 * **Up** arrow: Previous command
 * **Down** arrow: Next command
 
-> 💡 **Tip:** Use the arrow buttons to quickly edit or reenter previous commands!
+> 💡 **Tip:** Need to make some updates to your contact list? Use the arrow keys to reuse previous commands and save time!
 
 [Back to Table of Contents](#table-of-contents)
 
-## Features - Managing contact information
+## Managing contact information
 
 > ❗ **Note:** Internlink does not allow duplicate contacts. A contact is considered a duplicate only if the *name, phone number, and email* all match an existing entry.
 > If you try to create a duplicate contact, the following error message will be shown in the command result box:
@@ -326,13 +322,13 @@ An added contact is automatically be sorted into your list by alphabetical order
 
 > 💡 **Tip:** In a rush? Just provide a *name* and *one other contact detail* (phone number/email) to add the contact. You can fill in the rest later with the [`edit` command](#editing-a-contact--edit)
 
-> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about command format](#notes-about-command-format) section for a detailed explanation.
+> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
 **Examples:**
 - `add n/John Doe e/johndoe@example.com` adds a new contact with name `John Doe` and email `johndoe@example.com`.
 - `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com t/friend t/criminal` adds a new contact with name `Betsy Crowe`, phone number `12345678`, email `betsycrowe@example.com` and tags `friend` and `criminal`.
 
-> 💡 **Tip:** Added a key contact and want to quickly spot them in your list? Use the [`star` command](#starring-a-contact--star) to mark them as favourites and bring them to the top.
+> 💡 **Tip:** Added a key contact and want to quickly spot them in your list? Use the [`star` command](#starring-contacts--star) to mark them as favourites and bring them to the top.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -370,7 +366,7 @@ edit INDEX (n/NAME) (p/PHONE) (e/EMAIL) (t/TAG)…
 
 > 💡 **Tip:** Need to remove all tags from a contact at once? Use `t/` without specifying any tags to do so.
 
-> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about command format](#notes-about-command-format) section for a detailed explanation.
+> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
 **Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` edits the phone number and email of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
@@ -378,7 +374,7 @@ edit INDEX (n/NAME) (p/PHONE) (e/EMAIL) (t/TAG)…
 
 [Back to Table of Contents](#table-of-contents)
 
-### Mass-tagging features
+## Mass-tagging features
 > 💡 **Tip:** Recently joined a group with people who are already in your contact list? Perhaps consider using these next few commands to make updating your contacts easier.
 
 Internlink introduces 3 new tag-related functions that all allow operation on one or more contacts at once.
@@ -398,6 +394,8 @@ addtag INDEX [,INDEX]... / TAG [/ TAG]...
 * `addtag 5 / classmates` adds the `classmates` tag to contact index 5.
 * `addtag 1, 2, 3 / friends / cs` adds the `friends` and `cs` tags to contact indices 1, 2 and 3.
 
+> ❗ **Note:** If a `TAG` already exist for a contact, that `TAG` will not be duplicated.
+
 [Back to Table of Contents](#table-of-contents)
 
 ### Deleting tags from one or more contacts : `deletetag`
@@ -407,11 +405,11 @@ addtag INDEX [,INDEX]... / TAG [/ TAG]...
 deletetag INDEX [,INDEX]...  / TAG [/ TAG]...
 ```
 
-**Description:** You can use this command to delete the specified `TAG`s from the contacts at the specified `INDEX` numbers in the displayed contact list.  It supports multi-index and multi-tag input, letting you delete multiple tags from multiple people in a single command.
+**Description:** You can use this command to delete the specified `TAG`s from the contacts at the specified `INDEX` numbers in the **displayed contact list**.  It supports multi-index and multi-tag input, letting you delete multiple tags from multiple people in a single command.
 
 ![deletetag message](images/deletetagcommand.png)
 
-* At least one of the `TAG`s must be already tagged on one of the specified contacts, otherwise the command will fail. Invalid tags will be ignored.
+> ❗ **Note:** At least one of the `TAG`s must be already tagged on one of the specified contacts, otherwise the command will fail. Invalid tags will be ignored.
 
 **Examples:**
 * `deletetag 5 / classmates` deletes the `classmates` tag from contact index 5.
@@ -422,18 +420,26 @@ deletetag INDEX [,INDEX]...  / TAG [/ TAG]...
 ### Editing existing tags : `edittag`
 
 **Format:**
+
+**Edit tags (selected contacts):**
 ```
-edittag (INDICES OR 'all') o/ OLDTAG n/ NEWTAG
+edittag INDEX, [INDEX]... o/ OLDTAG n/ NEWTAG
 ```
 
-**Description:** You can use this command to edit the specified existing/old tag for the specified contacts at the specified `INDEX` numbers in the displayed contact list to the given new tag, or all contacts in the displayed list in the case of `all`.
+**Edit tag (all contacts):**
+```
+edittag all o/ OLDTAG n/ NEWTAG
+```
+
+**Description:** You can use this command to edit the specified existing/old tag for the specified contacts at the specified `INDEX` numbers in the **displayed contact list** to the given new tag, or for all contacts in the displayed list in the case of `all`.
+
+>💡 **Tip:** Made a typo in a tag? Use `all` in this command to rename it for every contact it's added to.
 
 ![edittag message indices](images/edittagcommandindices.png)
 ![edittag message global](images/edittagcommandglobal.png)
 
-* Using the `all` keyword instead of specific indices will do a global edit (in the displayed contact list) of the given `OLDTAG`, while inputting specific indices only edits them for the given contacts.
-* As long as one of the specified contacts has the given `OLDTAG`, the command will be recognized as valid.
-* `edittag` operates on the displayed contact list, not the entire contact list.
+> ❗ **Note:** As long as one of the specified contacts has the given `OLDTAG`, the command will be recognized as valid.
+Contacts without the `OLDTAG` will be ignored.
 
 **Examples:**
 * `edittag 1, 2, 3 o/ cs n/ computer science` edits the tag `cs` for contacts 1, 2 and 3, and changes it to `computer science`.
@@ -442,12 +448,12 @@ edittag (INDICES OR 'all') o/ OLDTAG n/ NEWTAG
 [Back to Table of Contents](#table-of-contents)
 
 
-### ⭐ Using stars (favourites)
+## Using stars (favourites)
 
 You can mark important contacts as favourites to easily identify and have them always appear at the top of your contact list.
 This is especially useful for keeping track of frequently contacted people or high-priority connections.
 
-> 💡 **Tip:** The examples given for `star` and `unstar` use the [`find`](#locating-contacts-globally-global-find) command as well. Click on "find" in the previous sentence to find out what it does!
+> 💡 **Tip:** In the examples, `star` and `unstar` are used together with the [`find` command](#locating-contacts-globally-global-find) to make looking for specific contacts to star easier.
 
 > 💡 **Tip:** The `STAR` (case-sensitive) label used in `star` and `unstar` is actually a tag with the name `STAR`. As such, contacts can also be starred/unstarred using [tagging features](#mass-tagging-features) such as `addtag` and `deletetag`!
 
@@ -485,7 +491,7 @@ unstar INDEX [, INDEX]...
 
 [Back to Table of Contents](#table-of-contents)
 
-## Features - Filtering the contact list
+## Filtering the contact list
 
 ### Listing all contacts : `list`
 
@@ -542,7 +548,7 @@ find (n/NAME)... (p/PHONE)... (e/EMAIL)...
 ![result of `find p/1`](images/findcommandfield.png)
 
 * To search for multiple keywords in the same field, you must enter the prefix before each keyword. This is because field find treats the entire input after the prefix as a single search keyword, similar to global find.
-  e.g If you want to search for either `alex` or `billy` in the name field, you must do `find n/ alex n/ billy`. Doing `find n/ alex billy` will search for `alex billy` as a combined keyword in the name field, similar to how global find operates with spaces.
+  e.g. If you want to search for either `alex` or `billy` in the name field, you must do `find n/ alex n/ billy`. Doing `find n/ alex billy` will search for `alex billy` as a combined keyword in the name field, similar to how global find operates with spaces.
 
 **Example:**
 * `find n/ david p/ 9927 e/ charlotte` filters all contacts whose name contains `david` OR whose phone number contains `9927` OR whose email contains `charlotte`.
@@ -570,7 +576,7 @@ findtag / TAG [/ TAG]...
 
 [Back to Table of Contents](#table-of-contents)
 
-## Features - Managing meeting information
+## Managing meeting information
 > ❗ **Note:** Internlink does not allow duplicate meetings. A meeting is considered a duplicate only if the *description and date* both match an existing entry.
 > If you try to create a duplicate meeting, the following error message will be shown in the command result box:
 > `This meeting already exists in the address book`.
@@ -598,7 +604,7 @@ addmeeting [CONTACT_INDEX] [, CONTACT_INDEX]... d/DESCRIPTION dt/DATE
 * `addmeeting d/ Casual Icebreaker dt/ 2026-05-26` schedules a meeting with description `Casual icebreaker` and date `2026-03-26`, with no people.
 
 > 💡 **Tip:** Not sure who is attending the meeting yet? 
-> You can create the meeting in advance without adding any participants and update it later with the [`editmeeting` command](editmeeting).
+> You can create the meeting in advance without adding any participants and update it later with the [`editmeeting` command](#editing-a-meeting--editmeeting).
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -639,7 +645,7 @@ editmeeting MEETING_INDEX (d/DESCRIPTION) (dt/DATE) (add/CONTACT_INDEX [, CONTAC
 > - If a participant is **already in the meeting** and their INDEX appears in both `add/` and `del/`, they will be **removed**.
 > - If a participant is **not in the meeting** and their INDEX appears in both `add/` and `del/`, that person will **not be added** to the meeting.
 
-> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about command format](#notes-about-command-format) section for a detailed explanation.
+> 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
 **Examples:**
 * `editmeeting 2 dt/2026-05-01 d/Project meeting` edits the meeting at index `2` in the displayed meeting list, changing the description to `Project meeting` and date to `2026-05-01`.
@@ -649,11 +655,11 @@ editmeeting MEETING_INDEX (d/DESCRIPTION) (dt/DATE) (add/CONTACT_INDEX [, CONTAC
     - Adds the contact at index `5` in the **displayed contact list**
     - Removes the contact at index `1` in the **displayed contact list**
 
-> 💡 **Tip:** Need to add multiple participants with similar traits? Use the [`find` command](##locating-contacts-globally-global-find) to filter the contact list—this groups them together and updates their indices, making it easier to reference and add them.
+> 💡 **Tip:** Need to add multiple participants with similar traits? Use the [`find` command](#locating-contacts-globally-global-find) to filter the contact list—this groups them together and updates their indices, making it easier to reference and add them.
 > 
 [Back to Table of Contents](#table-of-contents)
 
-## Features - Filtering the meeting list
+## Filtering the meeting list
 
 ### Listing all meetings : `listmeeting`
 
@@ -669,8 +675,6 @@ listmeeting
 > 💡 **Tip:** Similar to `list`, this command is essential to clearing all current filters and obtain the full meeting list.
 
 [Back to Table of Contents](#table-of-contents)
-
-### Finding meeting information
 
 ### Finding a meeting : `findmeeting`
 
@@ -699,14 +703,11 @@ findmeeting (d/DESCRIPTION) (dt/DATE) (i/CONTACT_INDEX [, CONTACT_INDEX]...)
   - contain all of contacts `1`, `2` and `3` from the displayed contact list.
 
 > 💡 **Tip:** Need to restore the full meeting list after using `findmeeting`?
-Use the [`listmeeting` command](listing-all-meetings-listmeeting) to clear all filters and display all meetings again.
+Use the [`listmeeting` command](#listing-all-meetings--listmeeting) to clear all filters and display all meetings again.
 
 [Back to Table of Contents](#table-of-contents)
 
-</div>
-
-### Features – Managing data
-
+## Managing data
 ### Saving the data
 Internlink’s data automatically saves after any command that changes the data. There is no need to save manually.
 
@@ -755,7 +756,8 @@ the data of your previous Internlink home folder (the location of `Internlink.js
 | **Field Find**      | `find (n/NAME) (p/PHONE) (e/EMAIL)...`<br> e.g. `find n/ david p/ 9927 e/ charlotte`                                                                                                                           |
 | **Add tags**        | `addtag INDEX [, INDEX...] / TAG [/ TAG]`<br> e.g. `addtag 1, 2 / friends / cs`                                                                                                                                |
 | **Delete tags**     | `deletetag INDEX [, INDEX...] / TAG [/ TAG]`<br> e.g. `deletetag 1, 2 / friends / cs`                                                                                                                          |
-| **Edit tags**       | `edittag (INDICES OR 'all') o/ OLDTAG n/ NEWTAG`<br> e.g. `edittag 1, 2, 3 o/ cs n/ computer science`                                                                                                          |
+| **Edit tag**        | `edittag INDEX[,INDEX]... o/ OLDTAG n/ NEWTAG`<br>e.g. `edittag 1,2,3 o/ cs n/ computer science`                                                                                                               |
+| **Edit tag (global)**| `edittag all o/ OLDTAG n/ NEWTAG`<br>e.g. `edittag all o/ cs n/ computer science`                                                                                                                              |
 | **Find tags**       | `findtag / TAG [/ TAG]...`<br> e.g. `findtag / schoolB / schoolC`                                                                                                                                              |
 | **Star**            | `star INDEX [, INDEX]...`<br> e.g. `star 2`                                                                                                                                                                    |
 | **Unstar**          | `unstar INDEX [, INDEX]...`<br> e.g. `unstar 2`                                                                                                                                                                |
@@ -773,23 +775,23 @@ the data of your previous Internlink home folder (the location of `Internlink.js
 
 The terms are displayed in alphabetical order for ease of searching.
 
-| **Term**                        | **Explanation**                                                                                                                                    |
-|---------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| Alphanumeric                    | Consists of numbers and/or alphabets only.                                                                                                         |
-| CLI (Command-Line Interface)    | A text-based interface where you type commands to interact with the app.                                                                           |
-| Command                         | An instruction entered by the user (e.g., `add`, `edit`, `delete`).                                                                                |
-| Contact/Person                  | An entry in the contact list, which can contain several fields: name, phone number, email and tags.                                                |
-| Displayed contact list          | The current state of the contact list, whether full or filtered by commands such as `find` or `findtag`.                                           |
-|  Displayed meeting list         | The current state of the meeting list, whether full or filtered by `findmeeting`.                                                                  |
-| Entire contact list             | The full, unfiltered contact list.                                                                                                                 |
-| Entire meeting list             | The full, unfiltered meeting list.                                                                                                                 |
-| Field                           | A specific piece of information in a contact’s/meeting's information (e.g. name, phone number, meeting description).                               |
-| GUI (Graphical User Interface)  | The visual interface that shows panels, buttons, and text boxes.                                                                                   |
-| Index                           | The number showing a contact’s/meeting's position in the displayed contact/meeting list. Used in commands like `edit`, `delete` and `editmeeting`. |
-| Integer                         | A whole number (no decimals). In Internlink, indexes must be positive integers such as 1, 2, 3, etc.                                               |
-| Meeting                         | An entry in the meeting list, which can contain several fields: description, date and contact indices of involved contacts.                         |
-| Prefix                          | A short label before a field to identify it in a command (e.g., `n/` for name, `p/` for phone).                                                    |
-| Tag                             | A label attached to a contact, used for categorising or leaving brief notes about them (e.g. `friends`, `classmates`, `computing`). |
+| **Term**                       | **Explanation**                                                                                                                                    |
+|--------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| Alphanumeric                   | Consists of numbers and/or alphabets only.                                                                                                         |
+| CLI (Command-Line Interface)   | A text-based interface where you type commands to interact with the app.                                                                           |
+| Command                        | An instruction entered by the user (e.g., `add`, `edit`, `delete`).                                                                                |
+| Contact/Person                 | An entry in the contact list, which can contain several fields: name, phone number, email and tags.                                                |
+| Displayed contact list         | The current state of the contact list, whether full or filtered by commands such as `find` or `findtag`.                                           |
+| Displayed meeting list         | The current state of the meeting list, whether full or filtered by `findmeeting`.                                                                  |
+| Entire contact list            | The full, unfiltered contact list.                                                                                                                 |
+| Entire meeting list            | The full, unfiltered meeting list.                                                                                                                 |
+| Field                          | A specific piece of information in a contact’s/meeting's information (e.g. name, phone number, meeting description).                               |
+| GUI (Graphical User Interface) | The visual interface that shows panels, buttons, and text boxes.                                                                                   |
+| Index                          | The number showing a contact’s/meeting's position in the displayed contact/meeting list. Used in commands like `edit`, `delete` and `editmeeting`. |
+| Integer                        | A whole number (no decimals). In Internlink, indexes must be positive integers such as 1, 2, 3, etc.                                               |
+| Meeting                        | An entry in the meeting list, which can contain several fields: description, date and contact indices of involved contacts.                        |
+| Prefix                         | A short label before a field to identify it in a command (e.g., `n/` for name, `p/` for phone).                                                    |
+| Tag                            | A label attached to a contact, used for categorising or leaving brief notes about them (e.g. `friends`, `classmates`, `computing`).                |
 
 
 [Back to Table of Contents](#table-of-contents)

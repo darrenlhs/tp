@@ -12,10 +12,11 @@ import seedu.address.model.tag.Tag;
  */
 public class TagUtil {
     /**
-     * Returns a new person with the tags changed to be {@code tags}
-     * @param personToEdit The old person to be referenced
-     * @param tags The tags to replace
-     * @return A new person similar to {@code personToEdit} with only their tags replaced
+     * Returns a new person with the tags changed to be {@code tags}.
+     *
+     * @param personToEdit The old person to be referenced.
+     * @param tags The replacement tags.
+     * @return A new person similar to {@code personToEdit} with only their tags replaced.
      */
     public static Person amendTagsOfPerson(Person personToEdit, Collection<Tag> tags) {
         Set<Tag> updatedTags = new HashSet<>(personToEdit.getTags());

@@ -71,20 +71,7 @@ class JsonAdaptedPerson {
      * @throws IllegalValueException if there were any data constraints violated in the adapted person.
      */
     public Person toModelType() throws IllegalValueException {
-        // Convert tags
-        final List<Tag> personTags = new ArrayList<>();
-        for (JsonAdaptedTag tag : tags) {
-            personTags.add(tag.toModelType());
-        }
-
-        // Validate name
-        if (name == null) {
-            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
-        }
-        if (!Name.isValidName(name)) {
-            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
-        }
-        final Name modelName = new Name(name);
+        final Name modelName = toModelName();
 
         // Validate phone/email
         if (phone == null && email == null) {
@@ -92,24 +79,10 @@ class JsonAdaptedPerson {
                     Phone.class.getSimpleName() + " or " + Email.class.getSimpleName()));
         }
 
-        Phone modelPhone = null;
-        Email modelEmail = null;
+        Phone modelPhone = toModelPhone();
+        Email modelEmail = toModelEmail();
 
-        if (phone != null) {
-            if (!Phone.isValidPhone(phone)) {
-                throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
-            }
-            modelPhone = new Phone(phone);
-        }
-
-        if (email != null) {
-            if (!Email.isValidEmail(email)) {
-                throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
-            }
-            modelEmail = new Email(email);
-        }
-
-        final Set<Tag> modelTags = new HashSet<>(personTags);
+        final Set<Tag> modelTags = toModelTags();
 
         // If IllegalArgumentException returned, call constructor that generates new ID
         final PersonId modelId;
@@ -119,5 +92,67 @@ class JsonAdaptedPerson {
             return new Person(modelName, modelPhone, modelEmail, modelTags);
         }
         return new Person(modelId, modelName, modelPhone, modelEmail, modelTags);
+    }
+
+    /**
+     * Converts the stored name string into a {@code Name} object.
+     *
+     * @return The model {@code Name}.
+     * @throws IllegalValueException If the {@code name} is {@code null} or invalid.
+     */
+    private Name toModelName() throws IllegalValueException {
+        if (name == null) {
+            throw new IllegalValueException(String.format(MISSING_FIELD_MESSAGE_FORMAT, Name.class.getSimpleName()));
+        }
+        if (!Name.isValidName(name)) {
+            throw new IllegalValueException(Name.MESSAGE_CONSTRAINTS);
+        }
+        return new Name(name.trim());
+    }
+
+    /**
+     * Converts the stored phone string into a {@code Phone} object, if present.
+     *
+     * @return The model {@code Phone}, or {@code null} if phone is {@code null}.
+     * @throws IllegalValueException If phone is invalid.
+     */
+    private Phone toModelPhone() throws IllegalValueException {
+        if (phone != null) {
+            if (!Phone.isValidPhone(phone)) {
+                throw new IllegalValueException(Phone.MESSAGE_CONSTRAINTS);
+            }
+            return new Phone(phone.trim());
+        }
+        return null;
+    }
+
+    /**
+     * Converts the stored email string into an {@code Email} object, if present.
+     *
+     * @return The model {@code Email}, or {@code null} if email is {@code null}.
+     * @throws IllegalValueException If email is invalid.
+     */
+    private Email toModelEmail() throws IllegalValueException {
+        if (email != null) {
+            if (!Email.isValidEmail(email)) {
+                throw new IllegalValueException(Email.MESSAGE_CONSTRAINTS);
+            }
+            return new Email(email.trim());
+        }
+        return null;
+    }
+
+    /**
+     * Converts the stored tag representations into a {@code Set<Tag>}.
+     *
+     * @return A set of model {@code Tag} objects.
+     * @throws IllegalValueException If any tag is invalid.
+     */
+    private Set<Tag> toModelTags() throws IllegalValueException {
+        final HashSet<Tag> personTags = new HashSet<>();
+        for (JsonAdaptedTag tag : tags) {
+            personTags.add(tag.toModelType());
+        }
+        return personTags;
     }
 }

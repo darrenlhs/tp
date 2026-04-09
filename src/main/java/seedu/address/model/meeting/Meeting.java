@@ -11,7 +11,7 @@ import java.util.Set;
 import seedu.address.model.person.PersonId;
 
 /**
- * Represents a Meeting associated with a person in the address book.
+ * Represents a Meeting associated with zero or more persons.
  */
 public class Meeting {
     public static final String MESSAGE_INVALID_PARTICIPANT_IDS =
@@ -63,7 +63,7 @@ public class Meeting {
      * Two meetings are the same if their descriptions and date are equal.
      */
     public boolean isSameMeeting(Meeting otherMeeting) {
-        assert otherMeeting != null : "otherMeeting should not be null";;
+        assert otherMeeting != null : "otherMeeting should not be null";
         return description.equals(otherMeeting.description)
                 && date.equals(otherMeeting.date);
     }
@@ -91,7 +91,7 @@ public class Meeting {
         }
 
         Meeting otherMeeting = (Meeting) other;
-        assert otherMeeting != null : "otherMeeting should not be null";;
+        assert otherMeeting != null : "otherMeeting should not be null";
 
         return description.equals(otherMeeting.description)
                 && date.equals(otherMeeting.date)

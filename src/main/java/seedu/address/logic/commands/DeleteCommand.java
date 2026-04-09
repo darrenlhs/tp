@@ -16,7 +16,7 @@ import seedu.address.model.Model;
 import seedu.address.model.person.Person;
 
 /**
- * Deletes people identified using their indices from the current displayed contact list.
+ * Deletes people identified using their indices from the displayed contact list.
  */
 public class DeleteCommand extends Command {
 
@@ -24,7 +24,8 @@ public class DeleteCommand extends Command {
 
     public static final String MESSAGE_USAGE = COMMAND_WORD
             + ": Deletes person(s) identified by their index number in the displayed contact list.\n"
-            + "Format: " + COMMAND_WORD + " INDEX (must be a positive integer) [, INDEX]...\n"
+            + "Format: " + COMMAND_WORD + " INDEX [, INDEX]...\n"
+            + "Note: INDEX must be a positive integer\n"
             + "Example: " + COMMAND_WORD + " 1, 2";
 
     public static final String MESSAGE_DELETE_PERSON_SUCCESS = "Deleted Person(s): %1$s";
@@ -32,9 +33,9 @@ public class DeleteCommand extends Command {
     private final Set<Index> targetIndices;
 
     /**
-     * Creates an DeleteCommand to delete the specified {@code Person}s.
+     * Creates a DeleteCommand to delete the specified {@code Person}s.
      *
-     * @param targetIndices Indexes of persons to add the meeting to.
+     * @param targetIndices Indexes of persons to delete.
      */
     public DeleteCommand(Set<Index> targetIndices) {
         requireNonNull(targetIndices);

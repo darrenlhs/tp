@@ -16,6 +16,7 @@ import static seedu.address.testutil.TypicalPersons.getTypicalAddressBook;
 
 import java.util.Set;
 
+import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 import seedu.address.commons.core.index.Index;
@@ -27,12 +28,11 @@ import seedu.address.model.UserPrefs;
 import seedu.address.model.person.PersonId;
 
 public class EditMeetingDescriptorTest {
-
+    private static EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
     private Model model = new ModelManager(getTypicalAddressBook(), new UserPrefs());
 
-    @Test
-    public void equals() {
-        EditMeetingDescriptor descriptor = new EditMeetingDescriptor();
+    @BeforeAll
+    public static void setUp() {
         descriptor.setDescription(COFFEE_MEETING.getDescription());
         descriptor.setDate(COFFEE_MEETING.getDate());
         descriptor.setParticipantsID(Set.of(new PersonId(ID_1), new PersonId(ID_3)));
@@ -40,7 +40,10 @@ public class EditMeetingDescriptorTest {
         descriptor.setPersonIndicesToDelete(Set.of(INDEX_FIRST_PERSON));
         descriptor.setIdsToAdd(Set.of(new PersonId(ID_2)));
         descriptor.setIdsToDelete(Set.of(new PersonId(ID_1)));
+    }
 
+    @Test
+    public void equals() {
         // same values -> returns true
         EditMeetingDescriptor copy = new EditMeetingDescriptor(descriptor);
         assertTrue(descriptor.equals(copy));
