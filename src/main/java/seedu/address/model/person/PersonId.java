@@ -34,7 +34,7 @@ public class PersonId {
         if (idString == null || idString.isBlank()) {
             throw new IllegalArgumentException(PERSON_ID_CONSTRAINTS);
         }
-        this.uuid = UUID.fromString(idString);
+        this.uuid = UUID.fromString(idString.trim());
     }
 
     /** Returns the underlying UUID. */
