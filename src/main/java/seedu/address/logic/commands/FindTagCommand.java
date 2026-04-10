@@ -69,8 +69,8 @@ public class FindTagCommand extends Command {
 
         Predicate<Person> hasAnyTag =
                 person -> tags.stream()
-                        .anyMatch(tag -> person.getTags().stream().
-                                anyMatch(personTag -> personTag.tagName.equalsIgnoreCase(tag.tagName)));
+                        .anyMatch(tag -> person.getTags().stream()
+                                .anyMatch(personTag -> personTag.tagName.equalsIgnoreCase(tag.tagName)));
 
         boolean doesAnyTagMatch = model.getFilteredPersonList()
                 .stream()
