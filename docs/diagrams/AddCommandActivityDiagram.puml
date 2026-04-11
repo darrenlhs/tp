@@ -1,0 +1,33 @@
+@startuml
+!include style.puml
+
+title Activity Diagram for Add Command
+
+start
+
+:Enter `add` command with parameters;
+:Parse command using AddressBookParser;
+:Delegate parsing to AddCommandParser;
+:AddCommandParser parses the input;
+
+if (Parsed input is valid?) then (yes)
+  :Create Person object;
+  :Generate unique PersonId;
+  :Create AddCommand;
+
+  :Execute AddCommand;
+  :Check for duplicate with Model.hasPerson(person);
+
+  if (Duplicate is found?) then (yes)
+    :Throw CommandException;
+  else (no)
+    :Add person to model;
+    :Return CommandResult;
+  endif
+
+else (no)
+  :Throw ParseException;
+endif
+
+stop
+@enduml
