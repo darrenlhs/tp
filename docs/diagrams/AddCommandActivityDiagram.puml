@@ -10,7 +10,7 @@ start
 :Delegate parsing to AddCommandParser;
 :AddCommandParser parses the input;
 
-if (Parsed input is valid?) then (yes)
+if () then ([Parsed input is valid])
   :Create Person object;
   :Generate unique PersonId;
   :Create AddCommand;
@@ -18,16 +18,16 @@ if (Parsed input is valid?) then (yes)
   :Execute AddCommand;
   :Check for duplicate with Model.hasPerson(person);
 
-  if (Duplicate is found?) then (yes)
+  if () then ([Duplicate is found])
     :Throw CommandException;
-  else (no)
+  else (else)
     :Add person to model;
     :Return CommandResult;
   endif
 
-else (no)
+else (else)
   :Throw ParseException;
 endif
-
+:Display result on the app UI;
 stop
 @enduml
