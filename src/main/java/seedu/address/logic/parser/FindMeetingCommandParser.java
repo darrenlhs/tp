@@ -72,8 +72,8 @@ public class FindMeetingCommandParser implements Parser<FindMeetingCommand> {
 
         for (String indicesGroup : personIndicesList) {
             if (!indicesGroup.isEmpty()) {
-                Set<Index> parsedGroup = ParserUtil.parseIndices(
-                        indicesGroup, CONTACT_TYPE, FindMeetingCommand.MESSAGE_USAGE);
+                Set<Index> parsedGroup = ParserUtil.parseIndices(indicesGroup, CONTACT_TYPE,
+                        String.format(MESSAGE_INVALID_COMMAND_FORMAT, FindMeetingCommand.MESSAGE_USAGE));
                 personIndexGroups.add(parsedGroup);
             }
         }
