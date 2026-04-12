@@ -34,8 +34,10 @@ public class FindMeetingCommand extends Command {
                     + "(" + PREFIX_CONTACT_INDICES + "CONTACT_INDEX "
                     + "[,CONTACT_INDEX]...)...\n"
                     + "Note: CONTACT_INDEX must be a positive integer\n"
-                    + "Note: Multiple indices in a single i/ (e.g. i/1,2,3) are treated as AND (must match all).\n"
-                    + "Note: Multiple i/ prefixes are treated as OR (match any one group).\n"
+                    + "Note: Indices within a single i/ (e.g. i/1,2,3) are treated as AND — "
+                    + "the meeting must include all specified contacts\n"
+                    + "Multiple i/ prefixes (e.g. i/1 i/2,3) are treated as OR — "
+                    + "the meeting matches if it satisfies any one of the i/ prefixes\n"
                     + "Example: " + COMMAND_WORD + " "
                     + PREFIX_MEETING_DESCRIPTION + "meeting "
                     + PREFIX_MEETING_DATE + "2026 "
@@ -46,7 +48,7 @@ public class FindMeetingCommand extends Command {
             + ": Finds meetings in the displayed meeting list by matching the given inputs "
             + "against the specified fields. A meeting is included if any specified field matches.\n"
             + "Description and date fields are matched using case-insensitive substrings, "
-            + "while meetings containing the specified contact indices are filtered.\n"
+            + "and indices are matched by if the meetings contains the specified contact indices as participants.\n"
             + MESSAGE_FORMAT;
 
     public static final String MESSAGE_NO_PARAMS_FOUND =
