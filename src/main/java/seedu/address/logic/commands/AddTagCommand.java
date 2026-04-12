@@ -39,7 +39,8 @@ public class AddTagCommand extends Command {
 
     public static final String MESSAGE_ADD_TAG_SUCCESS = "Added the following tags: %1$s.";
     public static final String MESSAGE_NO_TAGS = "At least one tag must be provided.";
-    public static final String MESSAGE_NO_NEW_TAGS_TO_ADD = "Error: All of the specified tags already exists for all of the specified persons.";
+    public static final String MESSAGE_NO_NEW_TAGS_TO_ADD =
+            "Error: All of the specified tags already exists for all of the specified persons.";
 
     private final Set<Index> targetIndices;
     private final Set<Tag> tags;
