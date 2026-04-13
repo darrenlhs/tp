@@ -630,8 +630,6 @@ Output: <br>
 
 [Back to Table of Contents](#table-of-contents)
 
-<div style="page-break-after: always;"></div>
-
 ### Locating contacts by specific fields: field `find`
 
 **Format:**
@@ -645,6 +643,8 @@ Try `find p/1` <br>
 Output: <br>
 ![result of `find p/1`](images/findcommandfield.png)
 
+<div style="page-break-after: always;"></div>
+
 * To search for multiple keywords in the same field, you must enter the prefix before each keyword. This is because field find treats the entire input after the prefix as a single search keyword, similar to global find.
   e.g. If you want to search for either `alex` or `billy` in the name field, you must do `find n/ alex n/ billy`. Doing `find n/ alex billy` will search for `alex billy` as a combined keyword in the name field, similar to how global find operates with spaces.
 
@@ -652,8 +652,6 @@ Output: <br>
 * `find n/ david p/ 9927 e/ charlotte` filters all contacts whose name contains `david` OR whose phone number contains `9927` OR whose email contains `charlotte`.
 
 [Back to Table of Contents](#table-of-contents)
-
-<div style="page-break-after: always;"></div>
 
 ### Finding contacts by tags : `findtag`
 
