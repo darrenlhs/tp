@@ -405,32 +405,6 @@ The following sequence diagram illustrates the flow of parsing and execution for
 
 --------------------------------------------------------------------------------------------------------------------
 
-## **Appendix: Requirements**
-
-### Product scope
-
-**Target user profile**:
-
-* has a need to manage a significant number of contacts
-* frequently arranges meetings with people they know
-* need to log interactions with contacts
-* prefer desktop apps over other types
-* can type fast
-* prefers typing to mouse interactions
-* is reasonably comfortable using CLI apps
-
-**Value proposition**:
-* **Productivity:** Enable users to easily manage their numerous relations in a fast, distraction-free CLI.
-* **Organization:** Neatly organizes information like contacts, meetings, and interaction notes all in one place, with efficient filtering and retrieval.
-* **Simplicity:** A lightweight app that avoids slow, feature-heavy GUIs. Runs directly in the terminal with minimal setup.
-* **Privacy:** Fully local application. No risk of data leakage or delays from network issues.
-
-**Not in our scope**:
-* Internlink does not send emails or messages to the contacts.
-* Internlink cannot automatically sync with LinkedIn or other platforms.
-* Internlink cannot manage internship applications.
-
-
 ### User stories
 
 Priorities: High (must have) - `* * *`, Medium (nice to have) - `* *`, Low (unlikely to have) - `*`
@@ -550,10 +524,12 @@ Use case ends.
 
       Use case resumes at step 1.
 
+
 * 3a. The updated contact would duplicate an existing contact (same name, and same email or phone).
     * 3a1. InternLink notifies the user of the duplicate person error.
 
       Use case resumes at step 1.
+
 
 * 4a. The edited contact does not match the current filters in place from `find` commands for the displayed contact list.
     * 4a1. The contact disappears from the displayed contact list.
@@ -603,6 +579,7 @@ Use case ends.
     * 5a1. The meeting disappears from the displayed meeting list.
 
       Use case resumes at step 6.
+
 
 * 6a. The edited meeting has a date that is before the device's time.
     * 6a1. Internlink reports the successful editing of contact / meeting, and notes the date has passed.
@@ -699,6 +676,7 @@ Use case ends.
 
       Use case resumes at step 4.
 
+
 * 3b. All specified tags (case-insensitive) already exist on the selected contacts.
     * 3b1. InternLink notifies the user that all specified tags already exist on all contacts.
 
@@ -792,16 +770,7 @@ Use case ends.
 
       Use case resumes at step 3.
 
-
-### Extensions:
-
-* **2b.** All contacts already in state.
-    * **2b1.** Internlink notifies user.  
-      <br>Use case resumes at step 1.
-
-* **2c.** Some contacts already in state.
-    * **2c1.** Internlink updates valid ones only.  
-      <br>Use case resumes at step 3.
+    
 ### Non-Functional Requirements
 
 1. Should work on any _mainstream OS_ as long as it has Java `17` or above installed.
@@ -839,6 +808,31 @@ Use case ends.
 * **Prefix**: A marker used in commands to indicate a specific field (e.g., `n/`, `p/`, `e/`, `t/`, `d/`, `dt/`).
 
 --------------------------------------------------------------------------------------------------------------------
+## **Appendix: Requirements**
+
+### Product scope
+
+**Target user profile**:
+
+* has a need to manage a significant number of contacts
+* frequently arranges meetings with people they know
+* need to log interactions with contacts
+* prefer desktop apps over other types
+* can type fast
+* prefers typing to mouse interactions
+* is reasonably comfortable using CLI apps
+
+**Value proposition**:
+* **Productivity:** Enable users to easily manage their numerous relations in a fast, distraction-free CLI.
+* **Organization:** Neatly organizes information like contacts, meetings, and interaction notes all in one place, with efficient filtering and retrieval.
+* **Simplicity:** A lightweight app that avoids slow, feature-heavy GUIs. Runs directly in the terminal with minimal setup.
+* **Privacy:** Fully local application. No risk of data leakage or delays from network issues.
+
+**Not in our scope**:
+* Internlink does not send emails or messages to the contacts.
+* Internlink cannot automatically sync with LinkedIn or other platforms.
+* Internlink cannot manage internship applications.
+
 ## Appendix: Effort
 
 ### Overview
@@ -868,11 +862,108 @@ A further difficulty was understanding and adapting the internal architecture of
 
 We had to replicate and adapt these mechanisms for the new Meeting entity, including modifying the JSON storage structure (`InternlinkData.json`) to support multiple entity types while maintaining data integrity.
 
+
 ### Conclusion
 
 Overall, while AB3 provided a strong foundation, the effort required to extend it into a multi-entity system with additional UI functionality was considerable. As a team of five, we worked collaboratively to design, implement, and refine the application to the best of our abilities.
 
 ---
+
+## Appendix: Planned Enhancements
+
+**Team size: 5**
+
+1. **Allow a user to remove a phone number or email**  
+   Currently, the application does not support removing an existing phone number or email address from a contact once it has been added.
+
+   For instance, if a contact is stored with the phone number `91234567` and the email address `johndoe@gmail.com`, there is currently no way to clear either field. Since the application only requires that at least one contact detail be present, this is a limitation of the current edit command.
+
+   We propose enhancing the edit command to allow users to remove an optional phone number or email address, provided that the edited contact still retains at least one valid contact detail.
+
+
+2. **Relax phone number validation to accept common formats**  
+   The current phone number validation is overly restrictive, as it only accepts exactly 8-digit numbers and rejects common formats such as `1234 5678`, `+65 1234 5678`, or `12345678 (HP)`.
+
+   Although these inputs are valid in real-world usage and do not affect the core functionality of the application, they are currently disallowed, which reduces usability and makes data entry less intuitive.
+
+   We plan to make the parser more flexible by accepting phone numbers containing alphanumeric characters with lengths ranging from 3 to 16 characters.
+
+
+3. **Warn users when phone number is not exactly 8 digits**  
+   Currently, the application enforces exactly 8-digit phone numbers but does not provide flexibility for valid variations. Even with relaxed validation, users may unintentionally input incorrect numbers without being aware.
+
+   We plan to introduce a warning when the provided phone number does not contain exactly 8 digits. For example:  
+   `Phone number is not exactly 8 digits. Please verify that it is correct.`
+
+   This ensures flexibility in input while still guiding users towards expected formats.
+
+
+4. **Make `edittag` command throw an error when the old and new tags are identical**  
+   The current implementation of the `edittag` command does not treat replacing a tag with the same value as an invalid operation. As a result, if the old and new tags are identical (case-sensitive), the command may proceed without making any actual change, which can be misleading to users.
+
+   We plan to introduce validation logic that detects this no-change case and returns the error message:  
+   `The new tag cannot be the same as the existing tag.`
+
+
+5. **Make text displayed on the UI wrap properly for long text**  
+   The current UI does not handle exceptionally long text such as names gracefully. When a contact name exceeds the available display width, it may be truncated with an ellipsis (`...`) instead of wrapping across multiple lines.
+
+   This reduces readability and may prevent users from viewing the full contact name directly from the GUI.
+
+   We propose refining the UI layout so that long text wraps properly within the available space while preserving alignment and visual consistency.
+
+
+6. **Improve feedback for success messages across all `find` commands**  
+   The current success message (e.g., “xxx persons/meetings listed!”) for `find`-related commands (e.g., `find`, `findtag`, `findmeeting`) does not indicate what filters are being applied on the list.
+
+   As a result, users may misinterpret the output, especially if they are unaware that consecutive filtering operations have been applied.
+
+   We plan to enhance the feedback across all `find` commands to explicitly indicate the active filters. For example:  
+   `Note: You are currently working on a filtered list. Active filters: <filter1>, <filter2>.`
+
+   As all predicates for filtering both meetings and contacts can be obtained from `ModelManager`, a shared method can be implemented to retrieve all current predicates and include them in the output message.
+
+
+7. **Make invalid contact/meeting index error messages more specific**  
+   Currently, when one or more indices are invalid, a generic error message is shown:  
+   `“Invalid contact/meeting index provided”.`
+
+   When multiple indices are provided, this does not indicate which specific index caused the failure, requiring users to manually identify the issue.
+
+   We propose enhancing the error message to explicitly identify the invalid index or indices and indicate the valid index range within the displayed list. For example:  
+   `Index 5 is out of bounds for the displayed contact list. Valid indices are 1 to 3.`
+
+   This will be implemented as a shared validation method across both contact and meeting commands as the index parsing is shared between commands.
+
+
+8. **Specify which prefixes are missing in error messages for missing required prefixes**  
+   The current implementation returns a generic format-related error message when a required prefix is omitted, which does not clearly indicate which specific input is missing.
+
+   As a result, users may have to infer the cause of the error from the command format.
+
+   We plan to introduce more targeted error reporting so that missing required prefixes are explicitly identified. For example:  
+   `Name field is missing. Please use n/ to input a name.`
+
+   This will be implemented centrally through the `ArgumentMultimap` class to ensure consistent handling across all commands.
+
+
+9. **Improve responsiveness of contacts view layout**  
+   The current contacts view does not make efficient use of horizontal screen space on larger window sizes. In fullscreen mode, a significant portion of the right side remains unused.
+
+   We plan to enhance the layout so that when sufficient horizontal space is available, the meetings view is displayed alongside the contacts list instead of requiring users to switch tabs. This removes the need to press the tab button to swap views and allows both to be viewed simultaneously.
+
+
+10. **Allow prefix patterns after a space within input values across all commands**  
+    Currently, prefix patterns such as `n/` can appear at the start of an input value (e.g., `n/n/me` is accepted as the name `n/me`), but cannot appear later in the same value after a space. This is because any prefix-like pattern after a space is interpreted as the start of a new field.
+
+    This restricts valid inputs such as `n/n/me n/me`, where the intended name is `n/me n/me`, but the second `n/` is parsed as a new prefix.
+
+    We plan to enhance the parser to support escaped prefix patterns within input values. For example: `n/n/me \n/me`
+
+    The parser will treat escaped prefixes as literal text while continuing to recognise regular prefixes.
+
+    This will be implemented centrally within the parsing logic (e.g., `ArgumentMultimap`) to ensure consistent behaviour across all commands.
+--- 
 
 ## **Appendix: Instructions for manual testing**
 
