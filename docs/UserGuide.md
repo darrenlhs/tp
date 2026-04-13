@@ -337,6 +337,8 @@ Output: <br>
 
 > 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
+> ❗ **Note:** Due to the way our `add` command works, multiple of each prefix (`n/`, `p/`, `e/`) are not allowed, except for `/t`. As such, inputs that try to include forward slashes (`/`) in the `NAME` field that are preceded with a space, then `p` or `n`, will not be successful (e.g. `add n/Nancy n/an p/87654321` will fail).
+
 **Examples:**
 - `add n/John Doe e/johndoe@example.com` adds a new contact with name `John Doe` and email `johndoe@example.com`.
 - `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com t/friend t/criminal` adds a new contact with name `Betsy Crowe`, phone number `12345678`, email `betsycrowe@example.com` and tags `friend` and `criminal`.
@@ -650,6 +652,8 @@ Output: <br>
 
 > 💡 **Tip:** If you can’t find a contact, use the [`find` command](#locating-contacts-globally-global-find) to filter the list. This will update the indices based on the results.
 
+> ❗ **Note:** Due to the way our `addmeet` command works, multiple of each prefix (`d/`, `dt/`) are not allowed. As such, inputs that try to include forward slashes (`/`) in the `DESCRIPTION` field that are preceded with a space and `d` will not be successful (e.g. `addmeet d/Meeting d/inner dt/2026-05-05` will fail).
+
 **Examples:**
 * `addmeet 1,2 d/Casual Icebreaker dt/2026-03-26` schedules a meeting with description `Casual icebreaker` and date `2026-03-26`, with the first 2 contacts in the displayed contact list.
 * `addmeet d/Casual Icebreaker dt/2026-03-26` schedules a meeting with description `Casual icebreaker` and date `2026-03-26`, with no people.
@@ -746,7 +750,7 @@ Output: <br>
 > ❗ **Note:** Meetings including **all specified contact indices within a single `i/`** will be matched.
  
 > ❗ **Note:** If the meeting list is currently filtered by contact indices, editing a contact such that their contact index changes (e.g. renaming them changes their alphabetical position) will not affect the filtered results — the same meetings will remain displayed. However, if a contact is *deleted*, meetings filtered based on that contact will be removed from the displayed meeting list, if any.
-> 
+
 * Meetings are shown if they match **DESCRIPTION**, **DATE**, or  include **all specified indices within a single `i/`**.
 * Search parameters are case-insensitive.
 * The contact indices refer to indices from the **displayed contact list**.
