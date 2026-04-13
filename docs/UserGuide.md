@@ -19,7 +19,7 @@ Hello fellow students, welcome to Internlink's User Guide!
 - [Using this Guide](#using-this-guide)
 - [Getting Started](#getting-started)
   - [1. Getting the correct Java version](#1-getting-the-correct-java-version)
-  - [**Checking your Java version:**](#checking-your-java-version)
+    - [Checking your Java version](#checking-your-java-version)
   - [2. Downloading Internlink](#2-downloading-internlink)
   - [3. Running Internlink](#3-running-internlink)
 - [User Interface](#user-interface)
