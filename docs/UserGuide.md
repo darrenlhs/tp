@@ -1,3 +1,7 @@
+* Our User Guide format was inspired by previous projects
+  ([LambdaLab UG](https://github.com/AY2526S1-CS2103T-T09-3/tp/blob/master/docs/UserGuide.md),
+  [HealthNote UG](https://github.com/AY2526S1-CS2103T-F11-1/tp/blob/master/docs/UserGuide.md)),
+  although our application and concept are entirely different.
 ---
 layout: page
 title: User Guide
@@ -99,7 +103,7 @@ This guide is written for students who have at least some experience with using 
 
 **For Advanced users**
 
-* You can jump to the [Command Summary](#command-summary) for a quick summary of all the commands and their formats.
+* You can jump to the [Command Summary](#command-summary) for a quick summary of all the commands and their formats, and the [Glossary](#glossary) for the meanings of specific terms, as well as important information on them.
 </div>
 
 [Back to Table of Contents](#table-of-contents)
@@ -310,7 +314,8 @@ Usage:
 > ❗ **Note:** If a command requires an INDEX, but is given one that does not correspond to an existing contact’s index in the list, the following error message will be shown in the command result box:
 > `The person index provided is invalid`.
 
-> 💡 **Tip:** A comprehensive description of the specific limitations and requirements of the `NAME`, `PHONE` and `EMAIL` parameters are described in the [glossary](#glossary). 
+> 💡 **Tip:** A comprehensive description of the specific limitations and requirements of the `NAME`, `PHONE` and `EMAIL` parameters (as well as the `TAG` parameter, which will appear later on) are described in the [glossary](#glossary). 
+
 ### Adding a contact : `add`
 
 **Format:**
@@ -380,6 +385,8 @@ Output: <br>
 
 > 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
+>  ❗ **Note:** If the contact list is currently filtered, editing a contact's details such that they no longer meet the filter criteria will immediately remove them from the displayed contact list. 
+
 **Examples:**
 *  `edit 1 p/91234567 e/johndoe@example.com` edits the phone number and email of the 1st contact to be `91234567` and `johndoe@example.com` respectively.
 *  `edit 2 n/Betsy Crower t/` edits the name of the 2nd contact to be `Betsy Crower` and clears all existing tags.
@@ -408,7 +415,7 @@ Output: <br>
 * `addtag 5 /classmates` adds the `classmates` tag to contact index 5.
 * `addtag 1,2,3 /friends /cs` adds the `friends` and `cs` tags to contact indices 1, 2 and 3.
 
-> ❗ **Note:** If a `TAG` already exist for a contact, that `TAG` will not be duplicated.
+> ❗ **Note:** Tag matching is case-insensitive. If a contact already has a tag identical to the one being added (regardless of capitalization), the addition will fail. e.g. adding `FRIENDS` to a contact that already has `friends` will fail.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -459,8 +466,11 @@ Try `edittag all o/friends n/classmates` <br>
 Output: <br>
 ![edittag message global](images/edittagcommandglobal.png)
 
-> ❗ **Note:** As long as one of the specified contacts has the given `OLDTAG`, the command will be recognized as valid.
-Contacts without the `OLDTAG` will be ignored.
+> ❗ **Note:** As long as one of the specified contacts has the given `OLD_TAG`, the command will be recognized as valid.
+Contacts without the `OLD_TAG` will be ignored.
+ 
+> ❗ **Note:** `OLD_TAG` matching is case-insensitive, but `NEW_TAG` is stored with the exact capitalization given.<br><br>
+For example, `edittag 1 o/cs n/Computer Science` will rename a contact's `CS` tag (or `cs`, `Cs`, etc.) to `Computer Science` exactly.
 
 **Examples:**
 * `edittag 1,2,3 o/cs n/computer science` edits the tag `cs` for contacts 1, 2 and 3, and changes it to `computer science`.
@@ -683,10 +693,7 @@ Output: <br>
 
 > ❗ **Note:** DATE must be in the `YYYY-MM-DD` format (e.g. `2024-03-15`).
 
-> ⚠️ **Warning:** No warning is shown when adding a participant who is already in the meeting.
-> - Additions are processed before deletions.
-> - If a participant is **already in the meeting** and their INDEX appears in both `add/` and `del/`, they will be **removed**.
-> - If a participant is **not in the meeting** and their INDEX appears in both `add/` and `del/`, that person will **not be added** to the meeting.
+> ❗ **Note:** The same contact index cannot be in both the `add/` and `del/` groups within the same input (e.g. `editmeet 1 d/meeting add/1 del/1` is an invalid command and will fire an error).
 
 > 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
@@ -735,7 +742,9 @@ Output: <br>
 > ❗ **Note:** Date should be in YYYY-MM-DD format (e.g. `2024-03-15`) but the search keyword need not be a complete date (i.e. something like YYYY-MM is still valid). This is because dates for meetings are stored in the YYYY-MM-DD format, so keep that in mind if inputting the search keyword for it.
 
 > ❗ **Note:** Meetings including **all specified contact indices within a single `i/`** will be matched.
-
+ 
+> ❗ **Note:** If the meeting list is currently filtered by contact indices, editing a contact such that their contact index changes (e.g. renaming them changes their alphabetical position) will not affect the filtered results — the same meetings will remain displayed (running another `findmeet` command will refresh the filters accordingly, though). However, if a contact is *deleted*, meetings filtered based on that contact will be removed from the displayed meeting list, if any.
+> 
 * Meetings are shown if they match **DESCRIPTION**, **DATE**, or  include **all specified indices within a single `i/`**.
 * Search parameters are case-insensitive.
 * The contact indices refer to indices from the **displayed contact list**.
@@ -752,7 +761,9 @@ Output: <br>
 > 💡 **Tip:** Need to restore the full meeting list after using `findmeet`?
 Use the [`listmeet` command](#listing-all-meetings--listmeet) to clear all filters and display all meetings again.
  
-> 💡 **Tip:** <br>Want to find meetings where a specific person is present? Use `findmeet i/1`. <br><br>Want to find meetings where a specific group of people are all present together? Use `findmeet i/1,2,3`. <br><br>Want to find meetings involving *either* of two different groups? Use `findmeet i/1,2 i/3,4`.
+> 💡 **Tip:** <br>Want to find meetings where a specific person is present? Use `findmeet i/1`. <br><br>
+> Want to find meetings where a specific group of people are all present together? Use `findmeet i/1,2,3`. <br><br>
+> Want to find meetings involving *either* of two different groups? Use `findmeet i/1,2 i/3,4`.
 
 [Back to Table of Contents](#table-of-contents)
 
@@ -763,7 +774,8 @@ Internlink’s data automatically saves after any command that changes the data.
 ### Editing the data file
 Internlink’s data is saved automatically as a JSON file. This datafile can be found inside the folder `data`, in the same folder as the app `[JAR file location]/data/InternlinkData.json`. Advanced users are welcome to update data directly by editing that data file.
 
-> ⚠️ **Caution:** If your changes to the data file makes the entire datafile invalid, Internlink will discard all data and start with an empty data file at the next run. Hence, it is recommended to make a backup of the file before editing it.<br>
+> ⚠️ **Caution:** If your changes break the structure of the data file (e.g. removing brackets like `{` or `}`), Internlink will discard all data and start with an empty data file on the next run. It is recommended to make a backup before editing.<br><br>
+> If you only modify the data values without breaking the file structure, the app will preserve all valid and updated data.
 
 > 💡**Tip:** Worried that editing the datafile might create duplicate or invalid contact or meetings and clear the datafile? No worries! The app will automatically log these outliers and skip them for you, protecting the rest of your information.
 
