@@ -5,6 +5,8 @@ title: User Guide
 
 Hello fellow students, welcome to Internlink's User Guide!
 
+--------------------------------------------------------------------------------------------------------------------
+
 ### Table of Contents
 <!-- TOC -->
 - [Introduction](#introduction)
@@ -64,6 +66,8 @@ Hello fellow students, welcome to Internlink's User Guide!
 ## Introduction
 Welcome to Internlink! This guide will help you get started.
 
+--------------------------------------------------------------------------------------------------------------------
+
 ## What is Internlink?
 Internlink is a **contact management app** built with students in mind.
 If you are an ambitious student seeking network opportunities in school, like internships, who frequently interact with people that have Singaporean phone numbers, this app is for you!
@@ -80,6 +84,11 @@ With Internlink, you can manage your network of personal and business relations 
 This guide is written for students who have at least some experience with using a **Command Line Interface (CLI)** and are seeking networking opportunities during their time in school. Our goal is to get you quickly set up with the necessary requirements so you can breeze through the hassle and start using Internlink as soon as possible.
 
 --------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Using this Guide
 
 <div markdown="block" class="alert alert-info">
@@ -105,7 +114,11 @@ This guide is written for students who have at least some experience with using 
 
 [Back to Table of Contents](#table-of-contents)
 
-—---------------------------------------------------------------------------------------------------------------------
+--------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Getting Started
 ### 1. Getting the correct Java version
@@ -138,6 +151,9 @@ Download the latest `Internlink.jar` file from [here](https://github.com/AY2526S
 3. Navigate to the folder that you created (using `cd FILE_PATH`).
 > 💡 **Tip:** If you have difficulty navigating in the terminal, type “cd ”, then drag the folder into the terminal window. Pressing Enter will automatically navigate to that folder (this works on most systems)!
 4. Type `java -jar Internlink.jar` in the terminal and press Enter.
+
+<div style="page-break-after: always;"></div>
+
 5. An application window should appear in a few seconds similar to the one below. Note how the app already contains some sample data.
    ![Default UI](images/defaultuidisplay.png)
 
@@ -177,6 +193,8 @@ Alternatively, to get started, you can try out some of the suggested commands he
 | Contact List           | Displays contacts with indices for easy reference   |
 | Tab Button             | Switches to the Meetings Page                       |
 
+<div style="page-break-after: always;"></div>
+
 ### Meetings Page
 ![Meetings Page](images/meeting_annotated.png)
 
@@ -195,6 +213,12 @@ Don’t worry — the command box is not cleared when switching between pages, s
  can switch as many times as needed while entering your command.
 >
 [Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Features
 
@@ -244,6 +268,8 @@ For example, `find n/George Best` is a valid command formed using these three co
 
 [Back to Table of Contents](#table-of-contents)
 
+<div style="page-break-after: always;"></div>
+
 ## General features
 
 ### Viewing help : `help`
@@ -258,6 +284,8 @@ help
 ![help message](images/helpcommand.png)
 
 [Back to Table of Contents](#table-of-contents)
+
+<div style="page-break-after: always;"></div>
 
 ### Clearing all entries : `clear`
 
@@ -274,6 +302,8 @@ clear
 > ⚠️ **Warning:** This action is irreversible. All entries will be permanently deleted, and there is no way to undo this command.
 
 [Back to Table of Contents](#table-of-contents)
+
+<div style="page-break-after: always;"></div>
 
 ### Exiting the program : `exit`
 
@@ -300,6 +330,8 @@ Usage:
 
 [Back to Table of Contents](#table-of-contents)
 
+<div style="page-break-after: always;"></div>
+
 ## Managing contact information
 
 > ❗ **Note:** Internlink does not allow duplicate contacts. A contact is considered a duplicate only if the *name and (phone number OR email)* match an existing entry.<br><br> 
@@ -312,6 +344,8 @@ Usage:
 > `The person index provided is invalid`.
 
 > 💡 **Tip:** A comprehensive description of the specific limitations and requirements of the `NAME`, `PHONE` and `EMAIL` parameters (as well as the `TAG` parameter, which will appear later on) are described in the [glossary](#glossary). 
+
+<div style="page-break-after: always;"></div>
 
 ### Adding a contact : `add`
 
@@ -366,6 +400,8 @@ Output: <br>
 
 [Back to Table of Contents](#table-of-contents)
 
+<div style="page-break-after: always;"></div>
+
 ### Editing a contact : `edit`
 
 **Format:**
@@ -394,6 +430,8 @@ Output: <br>
 
 [Back to Table of Contents](#table-of-contents)
 
+<div style="page-break-after: always;"></div>
+
 ## Mass-tagging features
 > 💡 **Tip:** Recently joined a group with people who are already in your contact list? Perhaps consider using these next few commands to make updating your contacts easier.
 
@@ -420,6 +458,8 @@ Output: <br>
 
 [Back to Table of Contents](#table-of-contents)
 
+<div style="page-break-after: always;"></div>
+
 ### Deleting tags from one or more contacts : `deletetag`
 
 **Format:**
@@ -440,6 +480,8 @@ Output: <br>
 * `deletetag 1,2,3 /friends /cs` deletes the `friends` and `cs` tags from contact indices 1, 2 and 3.
 
 [Back to Table of Contents](#table-of-contents)
+
+<div style="page-break-after: always;"></div>
 
 ### Editing existing tags : `edittag`
 
@@ -463,6 +505,8 @@ Try `edittag 1 o/cs n/computer science` <br>
 Output: <br>
 ![edittag message indices](images/edittagcommandindices.png)
 
+<div style="page-break-after: always;"></div>
+
 Try `edittag all o/friends n/classmates` <br>
 Output: <br>
 ![edittag message global](images/edittagcommandglobal.png)
@@ -479,6 +523,7 @@ For example, `edittag 1 o/cs n/Computer Science` will rename a contact's `CS` ta
 
 [Back to Table of Contents](#table-of-contents)
 
+<div style="page-break-after: always;"></div>
 
 ## Using stars (favourites)
 
@@ -502,6 +547,8 @@ Try `star 2` <br>
 Output: <br>
 ![star message](images/starcommand.png)
 
+<div style="page-break-after: always;"></div>
+
 **Examples:**
 * `list` followed by `star 2` stars the 2nd contact in the whole contact list (as `list` resets the list to the full one).
 * `find Betsy` followed by `star 1` stars the 1st contact in the displayed contact list after the `find` command.
@@ -521,11 +568,15 @@ Try `unstar 1` <br>
 Output: <br>
 ![unstar message](images/unstarcommand.png)
 
+<div style="page-break-after: always;"></div>
+
 **Examples:**
 * `list` followed by `unstar 2` unstars the 2nd contact in the whole contact list.
 * `find Betsy` followed by `unstar 1` unstars the 1st contact in the displayed contact list after the `find` command.
 
 [Back to Table of Contents](#table-of-contents)
+
+<div style="page-break-after: always;"></div>
 
 ## Showing and finding contacts
 
@@ -543,6 +594,8 @@ list
 > 💡 **Tip:** This command is a convenient (and the only) way to clear all current filters (from `find` and `findtag`) and obtain the full contact list quickly.
 
 [Back to Table of Contents](#table-of-contents)
+
+<div style="page-break-after: always;"></div>
 
 ### Finding contact information
 
@@ -590,6 +643,8 @@ Try `find p/1` <br>
 Output: <br>
 ![result of `find p/1`](images/findcommandfield.png)
 
+<div style="page-break-after: always;"></div>
+
 * To search for multiple keywords in the same field, you must enter the prefix before each keyword. This is because field find treats the entire input after the prefix as a single search keyword, similar to global find.
   e.g. If you want to search for either `alex` or `billy` in the name field, you must do `find n/ alex n/ billy`. Doing `find n/ alex billy` will search for `alex billy` as a combined keyword in the name field, similar to how global find operates with spaces.
 
@@ -623,6 +678,8 @@ Output: <br>
 * `findtag /schoolB /schoolC` filters all contacts that contain at least one of the `schoolB` or `schoolC` tags, or any other relevant tags that contain `schoolB` or `schoolC`.
 
 [Back to Table of Contents](#table-of-contents)
+
+<div style="page-break-after: always;"></div>
 
 ## Managing meeting information
 > ❗ **Note:** Internlink does not allow duplicate meetings. A meeting is considered a duplicate only if the *description and date* both match an existing entry.
@@ -702,6 +759,8 @@ Output: <br>
 
 > 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
+<div style="page-break-after: always;"></div>
+
 **Examples:**
 * `editmeet 2 dt/2026-05-01 d/Project meeting` edits the meeting at index `2` in the displayed meeting list, changing the description to `Project meeting` and date to `2026-05-01`.
 * `editmeet 1 d/Casual icebreaker add/5 del/1`
@@ -713,6 +772,8 @@ Output: <br>
 > 💡 **Tip:** Need to add multiple participants with similar traits? Use the [`find` command](#locating-contacts-globally-global-find) to filter the contact list — this groups them together and updates their indices, making it easier to reference and add them.
 >
 [Back to Table of Contents](#table-of-contents)
+
+<div style="page-break-after: always;"></div>
 
 ## Showing and finding meetings
 
@@ -731,6 +792,8 @@ listmeet
 
 [Back to Table of Contents](#table-of-contents)
 
+<div style="page-break-after: always;"></div>
+
 ### Finding a meeting : `findmeet`
 
 **Format:**
@@ -748,6 +811,8 @@ Output: <br>
 
 > ❗ **Note:** Meetings including **all specified contact indices within a single `i/`** will be matched.
  
+ <div style="page-break-after: always;"></div>
+
 > ❗ **Note:** If the meeting list is currently filtered by contact indices, editing a contact such that their contact index changes (e.g. renaming them changes their alphabetical position) will not affect the filtered results — the same meetings will remain displayed. However, if a contact is *deleted*, meetings filtered based on that contact will be removed from the displayed meeting list, if any.
 
 * Meetings are shown if they match **DESCRIPTION**, **DATE**, or  include **all specified indices within a single `i/`**.
@@ -772,6 +837,10 @@ Use the [`listmeet` command](#listing-all-meetings--listmeet) to clear all filte
 
 [Back to Table of Contents](#table-of-contents)
 
+<div style="page-break-after: always;"></div>
+
+--------------------------------------------------------------------------------------------------------------------
+
 ## Managing data
 ### Saving the data
 Internlink’s data automatically saves after any command that changes the data. There is no need to save manually.
@@ -785,6 +854,10 @@ Internlink’s data is saved automatically as a JSON file. This datafile can be 
 > 💡**Tip:** Worried that editing the datafile might create duplicate or invalid contact or meetings and clear the datafile? No worries! The app will automatically log these outliers and skip them for you, protecting the rest of your information.
 
 [Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -804,9 +877,12 @@ the data of your previous Internlink home folder (the location of `InternlinkDat
 1. **When using multiple screens**, if you move the application to a secondary screen, and later switch to using only the primary screen, the GUI will open off-screen. The remedy is to delete the `preferences.json` file created by the application before running the application again.
 2. **If you minimize the Help Window** and then run the `help` command (or use the `Help` menu, or the keyboard shortcut `F1`) again, the original Help Window will remain minimized, and no new Help Window will appear. The remedy is to manually restore the minimized Help Window.
 3. Currently, certain error messages (such as the error message `add` displays for using the wrong email format) might require scrolling the command result box horizontally or vertically, which might negatively affect ease of reading. One way to fix this is to enlarge the app window as much as possible so the text can display cleanly across each output line.
-4. Editing a person's information does not update their information in the `Meetings` tab unless you click on the meeting card with the edited person individually.
 
 [Back to Table of Contents](#table-of-contents)
+
+--------------------------------------------------------------------------------------------------------------------
+
+<div style="page-break-after: always;"></div>
 
 --------------------------------------------------------------------------------------------------------------------
 
@@ -837,6 +913,10 @@ the data of your previous Internlink home folder (the location of `InternlinkDat
 | **Exit**               | `exit`                                                                                                                                                                                              |
 
 [Back to Table of Contents](#table-of-contents)
+
+<div style="page-break-after: always;"></div>
+
+--------------------------------------------------------------------------------------------------------------------
 
 ## Glossary
 
