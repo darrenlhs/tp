@@ -8,6 +8,7 @@
 layout: page
 title: User Guide
 ---
+
 Hello fellow students, welcome to Internlink's User Guide!
 
 ### Table of Contents
@@ -18,7 +19,7 @@ Hello fellow students, welcome to Internlink's User Guide!
 - [Using this Guide](#using-this-guide)
 - [Getting Started](#getting-started)
   - [1. Getting the correct Java version](#1-getting-the-correct-java-version)
-  - [**Checking your Java version:**](#checking-your-java-version)
+    - [Checking your Java version](#checking-your-java-version)
   - [2. Downloading Internlink](#2-downloading-internlink)
   - [3. Running Internlink](#3-running-internlink)
 - [User Interface](#user-interface)
@@ -337,6 +338,10 @@ Output: <br>
 
 > 💡 **Tip:** Confused about the difference between `( )` and `[ ]` in the command? Refer to the [Notes about Command Format](#notes-about-command-format) section for a detailed explanation.
 
+> ❗ **Note:** Due to the way the `add` command reads your input, any `NAME` or `TAG` cannot have words that start with the prefixes (`n/`, `p/`, `e/`, `t/`) (e.g. `add n/ p/atrick p/87654321` fails).
+ 
+> 💡 **Tip:** If you really want to make the first word of a contact's `NAME` or `TAG`s start with a prefix, do not leave a space between the actual prefix and the start of the name (e.g. `add n/p/atrick p/87654321` succeeds).
+
 **Examples:**
 - `add n/John Doe e/johndoe@example.com` adds a new contact with name `John Doe` and email `johndoe@example.com`.
 - `add n/Betsy Crowe p/12345678 e/betsycrowe@example.com t/friend t/criminal` adds a new contact with name `Betsy Crowe`, phone number `12345678`, email `betsycrowe@example.com` and tags `friend` and `criminal`.
@@ -650,6 +655,10 @@ Output: <br>
 
 > 💡 **Tip:** If you can’t find a contact, use the [`find` command](#locating-contacts-globally-global-find) to filter the list. This will update the indices based on the results.
 
+> ❗ **Note:** Due to the way the `addmeet` command reads your input, any `DESCRIPTION` cannot have words that start with the prefixes (`d/`, `dt/`) (e.g. `addmeet d/ d/inner meeting dt/2026-05-05` fails).
+
+> 💡 **Tip:** If you really want to make the first word of a meeting's `DESCRIPTION` start with a prefix, do not leave a space between the actual prefix and the start of the description (e.g. `addmeet d/d/inner meeting dt/2026-05-05` succeeds).
+
 **Examples:**
 * `addmeet 1,2 d/Casual Icebreaker dt/2026-03-26` schedules a meeting with description `Casual icebreaker` and date `2026-03-26`, with the first 2 contacts in the displayed contact list.
 * `addmeet d/Casual Icebreaker dt/2026-03-26` schedules a meeting with description `Casual icebreaker` and date `2026-03-26`, with no people.
@@ -746,7 +755,7 @@ Output: <br>
 > ❗ **Note:** Meetings including **all specified contact indices within a single `i/`** will be matched.
  
 > ❗ **Note:** If the meeting list is currently filtered by contact indices, editing a contact such that their contact index changes (e.g. renaming them changes their alphabetical position) will not affect the filtered results — the same meetings will remain displayed. However, if a contact is *deleted*, meetings filtered based on that contact will be removed from the displayed meeting list, if any.
-> 
+
 * Meetings are shown if they match **DESCRIPTION**, **DATE**, or  include **all specified indices within a single `i/`**.
 * Search parameters are case-insensitive.
 * The contact indices refer to indices from the **displayed contact list**.
