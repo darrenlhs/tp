@@ -1,3 +1,4 @@
+//@@author darrenlhs and Raylong268
 * Our User Guide format was inspired by previous projects
   ([LambdaLab UG](https://github.com/AY2526S1-CS2103T-T09-3/tp/blob/master/docs/UserGuide.md),
   [HealthNote UG](https://github.com/AY2526S1-CS2103T-F11-1/tp/blob/master/docs/UserGuide.md)),
