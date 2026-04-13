@@ -957,7 +957,6 @@ Overall, while AB3 provided a strong foundation, the effort required to extend i
    We plan to enhance the layout so that when sufficient horizontal space is available, the meetings view is displayed alongside the contacts list instead of requiring users to switch tabs. This removes the need to press the tab button to swap views and allows both to be viewed simultaneously.
 
 
-
 10. **Allow prefix patterns after a space within input values across all commands**  
     Currently, prefix patterns such as `n/` can appear at the start of an input value (e.g., `n/n/me` is accepted as the name `n/me`), but cannot appear later in the same value after a space. This is because any prefix-like pattern after a space is interpreted as the start of a new field.
 
