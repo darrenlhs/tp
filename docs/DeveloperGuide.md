@@ -1010,7 +1010,7 @@ Overall, while AB3 provided a strong foundation, the effort required to extend i
 9. **Improve responsiveness of contacts view layout**  
    The current contacts view does not make efficient use of horizontal screen space on larger window sizes. In fullscreen mode, a significant portion of the right side remains unused.
 
-   We plan to enhance the layout so that when sufficient horizontal space is available, the meetings view is displayed alongside the contacts list instead of requiring users to switch tabs. This removes the need to press the tab button to swap views and allows both to be viewed simultaneously.
+   We plan to enhance the layout so that when sufficient horizontal space is available, the meetings view is displayed alongside the contacts list instead of requiring users to switch tabs. This removes the need to click the "Go to Meetings" or "Go to Contacts" buttons to swap views and allows both to be viewed simultaneously.
 
 
 10. **Allow prefix patterns after a space within input values across all commands**  
