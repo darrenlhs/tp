@@ -959,7 +959,7 @@ Overall, while AB3 provided a strong foundation, the effort required to extend i
 
    All accepted formats will be internally normalized and stored as `YY-MM-DD`.
 
-   This enhancement will be implemented using regex-based validation and parsing logic within the `Date` class.
+   This enhancement will be implemented using regex-based validation and parsing logic within the `MeetingDate` class.
 
 <div style="page-break-after: always;"></div>
 
